@@ -46,16 +46,17 @@ const project = () => {
 
   return (
     <Layout>
-      <section className="section-hero-title aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
+      <section className="section-hero-title  aspect-[16/16] sm:aspect-[16/12]  md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
-          <Image
+          {/* <Image
             src="/"
             className="max-w-[600px]"
             placeholder="empty"
             loading="lazy"
             width={1000}
             height={500}
-          ></Image>
+          ></Image> */}
+          <h1 className="text-6xl text-white">建築經典</h1>
         </div>
         <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30"></div>
         <Image
@@ -124,7 +125,7 @@ const project = () => {
       </section>
       <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
         <Link href="/project-yiyuan" className="group block">
-          <div className="project-item flex relative group overflow-hidden flex-col">
+          <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
             <div className="img aspect-[4/3] relative overflow-hidden">
               {/* 灰色遮罩 */}
               <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -151,13 +152,13 @@ const project = () => {
             </div>
 
             {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center mt-2">
+            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
-              <p>Lorem ipsum dolor sit.</p>
+              <p>13期·人車分道·極奢墅</p>
             </div>
           </div>
         </Link>
-        <div className="project-item flex relative group overflow-hidden flex-col">
+        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
           <div className="img aspect-[4/3] relative overflow-hidden">
             {/* 灰色遮罩 */}
             <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -184,12 +185,12 @@ const project = () => {
           </div>
 
           {/* 文字區塊 */}
-          <div className="txt flex flex-col justify-center items-center mt-2">
-            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
-            <p>Lorem ipsum dolor sit.</p>
+          <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">一青隱</h2>
+            <p>一境·青海·閒隱</p>
           </div>
         </div>
-        <div className="project-item flex relative group overflow-hidden flex-col">
+        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
           <div className="img aspect-[4/3] relative overflow-hidden">
             {/* 灰色遮罩 */}
             <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -206,7 +207,7 @@ const project = () => {
 
             {/* 圖片本體 */}
             <Image
-              src="/images/project/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
+              src="/images/project/誠境6/S__31400252.jpg"
               alt="宜園大院"
               fill
               className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -216,15 +217,15 @@ const project = () => {
           </div>
 
           {/* 文字區塊 */}
-          <div className="txt flex flex-col justify-center items-center mt-2">
-            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
-            <p>Lorem ipsum dolor sit.</p>
+          <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">誠境6</h2>
+            <p>景觀別墅·庭院·大露台</p>
           </div>
         </div>
       </section>
-      <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full mt-20">
+      <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
         <Link href="/project-yiyuan" className="group block">
-          <div className="project-item flex relative group overflow-hidden flex-col">
+          <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
             <div className="img aspect-[4/3] relative overflow-hidden">
               {/* 灰色遮罩 */}
               <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -241,7 +242,7 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/S__31399939.jpg"
+                src="/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -251,13 +252,13 @@ const project = () => {
             </div>
 
             {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center mt-2">
-              <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+              <h2 className="text-2xl font-bold text-[#20382c]">誠境5</h2>
               <p>Lorem ipsum dolor sit.</p>
             </div>
           </div>
         </Link>
-        <div className="project-item flex relative group overflow-hidden flex-col">
+        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
           <div className="img aspect-[4/3] relative overflow-hidden">
             {/* 灰色遮罩 */}
             <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -274,7 +275,7 @@ const project = () => {
 
             {/* 圖片本體 */}
             <Image
-              src="/images/project/S__31399941.jpg"
+              src="/images/project/誠境2/DSC_2058.jpg"
               alt="宜園大院"
               fill
               className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -284,12 +285,12 @@ const project = () => {
           </div>
 
           {/* 文字區塊 */}
-          <div className="txt flex flex-col justify-center items-center mt-2">
-            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+          <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">誠境2</h2>
             <p>Lorem ipsum dolor sit.</p>
           </div>
         </div>
-        <div className="project-item flex relative group overflow-hidden flex-col">
+        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
           <div className="img aspect-[4/3] relative overflow-hidden">
             {/* 灰色遮罩 */}
             <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -306,7 +307,7 @@ const project = () => {
 
             {/* 圖片本體 */}
             <Image
-              src="/images/project/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
+              src="/images/project/誠境1/宜園誠境實景照片03-1041020.jpg"
               alt="宜園大院"
               fill
               className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -316,8 +317,8 @@ const project = () => {
           </div>
 
           {/* 文字區塊 */}
-          <div className="txt flex flex-col justify-center items-center mt-2">
-            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+          <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">宜園誠境</h2>
             <p>Lorem ipsum dolor sit.</p>
           </div>
         </div>

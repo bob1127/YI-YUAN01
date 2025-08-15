@@ -51,60 +51,76 @@ export default function About() {
             />
           </div>
         </section>
+        <section className="py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* 文字在左（手機在上） */}
+              <div className="order-2 lg:order-1 lg:pl-6 xl:pl-16">
+                <div className="mt-2 lg:mt-0 2xl:p-12 lg:p-6 p-0">
+                  <h2 className="text-[#201815] text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                    宜居
+                  </h2>
+                  <p className="mt-4 leading-relaxed text-sm sm:text-base text-[#20201f]">
+                    宜家園邸，打造溫馨舒適的理想家園。宜園建設精心規劃，
+                    融合自然綠意與現代設計，營造安心宜居的生活環境。
+                    便利交通、完善機能，讓您盡享家的溫暖與美好。
+                  </p>
+                </div>
+              </div>
 
-        <section className=" flex py-20">
-          <div className="col w-full  lg:w-1/2 flex flex-col justify-center   md:pl-[10%] xl:pl-[150px]">
-            <div className=" mt-8 2xl:p-20">
-              <h1 className="text-[#201815] text-[2.2rem]">宜居</h1>
-              <p className="leading-relaxed font-normal text-[.95rem] text-[#20201f]">
-                宜家園邸，打造溫馨舒適的理想家園。宜園建設精心規劃，<br></br>
-                融合自然綠意與現代設計，營造安心宜居的生活環境。<br></br>
-                便利交通、完善機能，讓您盡享家的溫暖與美好。
-              </p>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/2">
-            {" "}
-            {/* 移除 h-full，避免高度被硬撐 */}
-            <div className="relative w-full aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/JPOM9734.jpg"
-                alt=""
-                fill
-                className="object-cover "
-                placeholder="empty"
-                loading="lazy"
-              />
+              {/* 圖片在右（手機在下） */}
+              <div className="order-1 lg:order-2">
+                <div className="relative w-full aspect-[4/3] md:aspect-[3/2] lg:aspect-[4/3] overflow-hidden rounded-none">
+                  <Image
+                    src="/images/JPOM9734.jpg"
+                    alt="宜家園邸 實景"
+                    fill
+                    className="object-cover object-center"
+                    placeholder="empty"
+                    loading="lazy"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className=" flex py-20">
-          <div className="w-full lg:w-1/2">
-            {" "}
-            {/* 移除 h-full，避免高度被硬撐 */}
-            <div className="relative w-full aspect-[4/3] overflow-hidden">
-              <Image
-                src="/images/JPOM9734.jpg"
-                alt=""
-                fill
-                className="object-cover "
-                placeholder="empty"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div className="col w-full  lg:w-1/2 flex flex-col justify-center   md:pl-[10%] xl:pl-[150px]">
-            <div className=" mt-8 2xl:p-20">
-              <h1 className="text-[#201815] text-[2.2rem]">宜居</h1>
-              <p className="leading-relaxed font-normal text-[.95rem] text-[#20201f]">
-                宜家園邸，打造溫馨舒適的理想家園。宜園建設精心規劃，<br></br>
-                融合自然綠意與現代設計，營造安心宜居的生活環境。<br></br>
-                便利交通、完善機能，讓您盡享家的溫暖與美好。
-              </p>
+        <section className="py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              {/* 圖片在左（手機在上） */}
+              <div className="order-1 lg:order-1">
+                <div className="relative w-full aspect-[4/3] md:aspect-[3/2] lg:aspect-[4/3] overflow-hidden rounded-none">
+                  <Image
+                    src="/images/JPOM9734.jpg"
+                    alt="宜家園邸 實景"
+                    fill
+                    className="object-cover object-center"
+                    placeholder="empty"
+                    loading="lazy"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </div>
+
+              {/* 文字在右（手機在下） */}
+              <div className="order-2 lg:order-2 lg:pl-6 xl:pl-16">
+                <div className="mt-2 lg:mt-0 2xl:p-12 lg:p-6 p-0">
+                  <h2 className="text-[#201815] text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                    宜居
+                  </h2>
+                  <p className="mt-4 leading-relaxed text-sm sm:text-base text-[#20201f]">
+                    宜家園邸，打造溫馨舒適的理想家園。宜園建設精心規劃，
+                    融合自然綠意與現代設計，營造安心宜居的生活環境。
+                    便利交通、完善機能，讓您盡享家的溫暖與美好。
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
+
         <Marquee>
           <div className="flex bg-white flex-row py-10 justify-center items-center">
             <div className="h-[1px] bg-black w-[50vw]"></div>
