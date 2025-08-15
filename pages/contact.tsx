@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
+import Layout from "./Layout";
 
 import { Form, Input, Button } from "@heroui/react";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import React from "react";
 import Link from "next/link";
 export default function About() {
   return (
-    <ReactLenis root>
+    <Layout>
       <section className="py-[10vh] px-4   md:px-12 lg:px-20 w-full xl:!w-[80%] 2xl:w-full max-w-[1920px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start min-h-[600px]">
           {/* 左側：表單（垂直置中） */}
@@ -28,7 +29,13 @@ export default function About() {
                   console.log(data);
                 }}
               >
-                <Input isRequired label="姓名" name="username" type="text" />
+                <Input
+                  isRequired
+                  className=""
+                  label="姓名"
+                  name="username"
+                  type="text"
+                />
                 <Input isRequired label="聯絡電話" name="phone" type="tel" />
                 <Input label="Email" name="email" type="email" />
                 <div className="flex flex-col gap-3">
@@ -144,6 +151,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </ReactLenis>
+    </Layout>
   );
 }

@@ -3,13 +3,14 @@
 // import React from "react";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
+import Layout from "./Layout";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 import ProjectSlider from "../components/SwiperCarousel/BuildProject";
 
 export default function About() {
   return (
-    <ReactLenis root>
+    <Layout>
       <section className="section-hero-title w-full relative h-[60vh] sm:h-[70vh] lg:h-[80vh]">
         {/* Hero 背景圖（用 <img>） */}
         <div className="absolute inset-0 w-full h-full">
@@ -38,6 +39,6 @@ export default function About() {
       </section>
 
       <ProjectSlider />
-    </ReactLenis>
+    </Layout>
   );
 }

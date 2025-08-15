@@ -58,17 +58,7 @@ const ParallaxImage = ({ src, alt }) => {
     targetTranslateY.current = relativeScroll * 0.2;
   });
 
-  return (
-    <img
-      ref={imageRef}
-      src={src}
-      alt={alt}
-      style={{
-        willChange: "transform",
-        transform: "translateY(0) scale(1.25)",
-      }}
-    />
-  );
+  return <img ref={imageRef} src={src} alt={alt} className="   md:h-auto" />;
 };
 
 export default ParallaxImage;
