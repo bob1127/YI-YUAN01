@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.yiyuan-arch.com.tw
+
+# Sitemaps
+Sitemap: https://www.yiyuan-arch.com.tw/sitemap.xml

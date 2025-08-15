@@ -1,0 +1,329 @@
+"use client";
+import { useRef } from "react";
+import Layout from "./Layout";
+import Image from "next/image";
+import Link from "next/link";
+import gsap from "gsap";
+import { BsSearch } from "react-icons/bs";
+import { motion } from "framer-motion";
+const project = () => {
+  const handleScroll = () => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    const target = document.querySelector("#next-section");
+    const targetY = target
+      ? window.scrollY + (target.getBoundingClientRect().top || 0)
+      : window.scrollY + window.innerHeight * 0.9;
+
+    if (prefersReduced) {
+      window.scrollTo({ top: targetY, behavior: "auto" });
+      return;
+    }
+
+    const startY = window.scrollY;
+    const distance = Math.max(0, targetY - startY);
+
+    const DURATION_MS = 1400; // 總時長，可調：1200~1800 都很順
+    const start = performance.now();
+
+    // 極慢→很快（指數型加速）
+    const easeInExpo = (t) => (t === 0 ? 0 : Math.pow(2, 10 * (t - 1)));
+    // 若想再更猛：把 10 改成 12~14
+
+    const step = (now) => {
+      const elapsed = now - start;
+      const t = Math.min(1, elapsed / DURATION_MS);
+      const eased = easeInExpo(t);
+      window.scrollTo(0, startY + distance * eased);
+
+      if (t < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  return (
+    <Layout>
+      <section className="section-hero-title aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
+        <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
+          <Image
+            src="/"
+            className="max-w-[600px]"
+            placeholder="empty"
+            loading="lazy"
+            width={1000}
+            height={500}
+          ></Image>
+        </div>
+        <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30"></div>
+        <Image
+          src="/images/project/DSC_2058.jpg"
+          alt="banner"
+          fill
+          placeholder="empty"
+          className="object-cover"
+          loading="lazy"
+        />
+
+        {/* Scroll Down 動作入口（整塊可點） */}
+        <motion.button
+          type="button"
+          onClick={handleScroll}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.94 }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center z-30 cursor-pointer select-none"
+          aria-label="Scroll down"
+        >
+          {/* 豎線底軌 */}
+          <div className="w-px h-16 bg-white/40 overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-px h-full bg-white animate-scroll-line" />
+          </div>
+
+          {/* 箭頭 */}
+          <svg
+            className="w-6 h-6 text-white mt-2"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+
+          {/* 文字 */}
+          <motion.span
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-white text-sm mt-1"
+          >
+            Down
+          </motion.span>
+        </motion.button>
+
+        {/* 自訂 keyframes（豎線跑動） */}
+        <style jsx global>{`
+          @keyframes scroll-line {
+            0% {
+              transform: translateY(-100%);
+            }
+            100% {
+              transform: translateY(100%);
+            }
+          }
+          .animate-scroll-line {
+            animation: scroll-line 2.8s linear infinite; /* 放慢線條速度 */
+          }
+        `}</style>
+      </section>
+      <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
+        <Link href="/project-yiyuan" className="group block">
+          <div className="project-item flex relative group overflow-hidden flex-col">
+            <div className="img aspect-[4/3] relative overflow-hidden">
+              {/* 灰色遮罩 */}
+              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+              {/* icon + More 文字 */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+                {/* 放大鏡 icon */}
+                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+                {/* More 文字 */}
+                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                  More
+                </span>
+              </div>
+
+              {/* 圖片本體 */}
+              <Image
+                src="/images/project/S__31399939.jpg"
+                alt="宜園大院"
+                fill
+                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                placeholder="empty"
+                loading="lazy"
+              />
+            </div>
+
+            {/* 文字區塊 */}
+            <div className="txt flex flex-col justify-center items-center mt-2">
+              <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+              <p>Lorem ipsum dolor sit.</p>
+            </div>
+          </div>
+        </Link>
+        <div className="project-item flex relative group overflow-hidden flex-col">
+          <div className="img aspect-[4/3] relative overflow-hidden">
+            {/* 灰色遮罩 */}
+            <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+            {/* icon + More 文字 */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+              {/* 放大鏡 icon */}
+              <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+              {/* More 文字 */}
+              <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                More
+              </span>
+            </div>
+
+            {/* 圖片本體 */}
+            <Image
+              src="/images/project/S__31399941.jpg"
+              alt="宜園大院"
+              fill
+              className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+              placeholder="empty"
+              loading="lazy"
+            />
+          </div>
+
+          {/* 文字區塊 */}
+          <div className="txt flex flex-col justify-center items-center mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+            <p>Lorem ipsum dolor sit.</p>
+          </div>
+        </div>
+        <div className="project-item flex relative group overflow-hidden flex-col">
+          <div className="img aspect-[4/3] relative overflow-hidden">
+            {/* 灰色遮罩 */}
+            <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+            {/* icon + More 文字 */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+              {/* 放大鏡 icon */}
+              <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+              {/* More 文字 */}
+              <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                More
+              </span>
+            </div>
+
+            {/* 圖片本體 */}
+            <Image
+              src="/images/project/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
+              alt="宜園大院"
+              fill
+              className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+              placeholder="empty"
+              loading="lazy"
+            />
+          </div>
+
+          {/* 文字區塊 */}
+          <div className="txt flex flex-col justify-center items-center mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+            <p>Lorem ipsum dolor sit.</p>
+          </div>
+        </div>
+      </section>
+      <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full mt-20">
+        <Link href="/project-yiyuan" className="group block">
+          <div className="project-item flex relative group overflow-hidden flex-col">
+            <div className="img aspect-[4/3] relative overflow-hidden">
+              {/* 灰色遮罩 */}
+              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+              {/* icon + More 文字 */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+                {/* 放大鏡 icon */}
+                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+                {/* More 文字 */}
+                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                  More
+                </span>
+              </div>
+
+              {/* 圖片本體 */}
+              <Image
+                src="/images/project/S__31399939.jpg"
+                alt="宜園大院"
+                fill
+                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                placeholder="empty"
+                loading="lazy"
+              />
+            </div>
+
+            {/* 文字區塊 */}
+            <div className="txt flex flex-col justify-center items-center mt-2">
+              <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+              <p>Lorem ipsum dolor sit.</p>
+            </div>
+          </div>
+        </Link>
+        <div className="project-item flex relative group overflow-hidden flex-col">
+          <div className="img aspect-[4/3] relative overflow-hidden">
+            {/* 灰色遮罩 */}
+            <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+            {/* icon + More 文字 */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+              {/* 放大鏡 icon */}
+              <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+              {/* More 文字 */}
+              <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                More
+              </span>
+            </div>
+
+            {/* 圖片本體 */}
+            <Image
+              src="/images/project/S__31399941.jpg"
+              alt="宜園大院"
+              fill
+              className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+              placeholder="empty"
+              loading="lazy"
+            />
+          </div>
+
+          {/* 文字區塊 */}
+          <div className="txt flex flex-col justify-center items-center mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+            <p>Lorem ipsum dolor sit.</p>
+          </div>
+        </div>
+        <div className="project-item flex relative group overflow-hidden flex-col">
+          <div className="img aspect-[4/3] relative overflow-hidden">
+            {/* 灰色遮罩 */}
+            <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+            {/* icon + More 文字 */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+              {/* 放大鏡 icon */}
+              <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+              {/* More 文字 */}
+              <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                More
+              </span>
+            </div>
+
+            {/* 圖片本體 */}
+            <Image
+              src="/images/project/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
+              alt="宜園大院"
+              fill
+              className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+              placeholder="empty"
+              loading="lazy"
+            />
+          </div>
+
+          {/* 文字區塊 */}
+          <div className="txt flex flex-col justify-center items-center mt-2">
+            <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+            <p>Lorem ipsum dolor sit.</p>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default project;
