@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
-import "./about.css";
 
 import React, { useState } from "react";
 import Image from "next/image";
