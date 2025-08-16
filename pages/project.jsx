@@ -124,8 +124,49 @@ const project = () => {
         `}</style>
       </section>
       <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
-        <Link href="/project-yiyuan" className="group block">
-          <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
+        <Link href="/project/project-yiyuan" className="group block">
+          <div className="project-item  flex relative group overflow-hidden flex-col">
+            <div className="img aspect-[4/3] relative overflow-hidden">
+              {/* 灰色遮罩 */}
+              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+
+              {/* icon + More 文字 */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                  More
+                </span>
+              </div>
+
+              {/* 圖片本體 */}
+              <Image
+                src="/images/project/S__31399939.jpg"
+                alt="宜園大院"
+                fill
+                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                placeholder="empty"
+                loading="lazy"
+              />
+
+              {/* 半圓標籤：預設隱藏，hover 出現 */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-30">
+                <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-semibold tracking-wide">
+                    熱銷中
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* 文字區塊 */}
+            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+              <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
+              <p className="text-[#000000]">13期·人車分道·極奢墅</p>
+            </div>
+          </div>
+        </Link>
+        <Link href="/project/project-yiching" className="group block">
+          <div className="project-item  flex relative group overflow-hidden flex-col">
             <div className="img aspect-[4/3] relative overflow-hidden">
               {/* 灰色遮罩 */}
               <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -142,90 +183,74 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/S__31399939.jpg"
+                src="/images/project/S__31399941.jpg"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
                 placeholder="empty"
                 loading="lazy"
               />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-30">
+                <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-semibold tracking-wide">
+                    熱銷中
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-2xl font-bold text-[#20382c]">宜園大院</h2>
-              <p>13期·人車分道·極奢墅</p>
+              <h2 className="text-2xl font-bold text-[#20382c]">一青隱</h2>
+              <p>一境·青海·閒隱</p>
             </div>
           </div>
         </Link>
-        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
-          <div className="img aspect-[4/3] relative overflow-hidden">
-            {/* 灰色遮罩 */}
-            <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
+        <Link href="/project/project-chengjing06" className="group block">
+          <div className="project-item  flex relative group overflow-hidden flex-col">
+            <div className="img aspect-[4/3] relative overflow-hidden">
+              {/* 灰色遮罩 */}
+              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
 
-            {/* icon + More 文字 */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-              {/* 放大鏡 icon */}
-              <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-              {/* More 文字 */}
-              <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                More
-              </span>
+              {/* icon + More 文字 */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+                {/* 放大鏡 icon */}
+                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+                {/* More 文字 */}
+                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+                  More
+                </span>
+              </div>
+
+              {/* 圖片本體 */}
+              <Image
+                src="/images/project/誠境6/S__31400252.jpg"
+                alt="宜園大院"
+                fill
+                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+                placeholder="empty"
+                loading="lazy"
+              />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-30">
+                <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-semibold tracking-wide">
+                    熱銷中
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* 圖片本體 */}
-            <Image
-              src="/images/project/S__31399941.jpg"
-              alt="宜園大院"
-              fill
-              className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-              placeholder="empty"
-              loading="lazy"
-            />
-          </div>
-
-          {/* 文字區塊 */}
-          <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-            <h2 className="text-2xl font-bold text-[#20382c]">一青隱</h2>
-            <p>一境·青海·閒隱</p>
-          </div>
-        </div>
-        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
-          <div className="img aspect-[4/3] relative overflow-hidden">
-            {/* 灰色遮罩 */}
-            <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-            {/* icon + More 文字 */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-              {/* 放大鏡 icon */}
-              <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-              {/* More 文字 */}
-              <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                More
-              </span>
+            {/* 文字區塊 */}
+            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
+              <h2 className="text-2xl font-bold text-[#20382c]">誠境6</h2>
+              <p>景觀別墅·庭院·大露台</p>
             </div>
-
-            {/* 圖片本體 */}
-            <Image
-              src="/images/project/誠境6/S__31400252.jpg"
-              alt="宜園大院"
-              fill
-              className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-              placeholder="empty"
-              loading="lazy"
-            />
           </div>
-
-          {/* 文字區塊 */}
-          <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-            <h2 className="text-2xl font-bold text-[#20382c]">誠境6</h2>
-            <p>景觀別墅·庭院·大露台</p>
-          </div>
-        </div>
+        </Link>
       </section>
       <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
-        <Link href="/project-yiyuan" className="group block">
-          <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
+        <Link href="/project/project-chengjing05" className="group block">
+          <div className="project-item  flex relative group overflow-hidden flex-col">
             <div className="img aspect-[4/3] relative overflow-hidden">
               {/* 灰色遮罩 */}
               <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -249,6 +274,13 @@ const project = () => {
                 placeholder="empty"
                 loading="lazy"
               />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-30">
+                <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-semibold tracking-wide">
+                    熱銷中
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* 文字區塊 */}
@@ -258,7 +290,7 @@ const project = () => {
             </div>
           </div>
         </Link>
-        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
+        <div className="project-item  flex relative group overflow-hidden flex-col">
           <div className="img aspect-[4/3] relative overflow-hidden">
             {/* 灰色遮罩 */}
             <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -282,6 +314,13 @@ const project = () => {
               placeholder="empty"
               loading="lazy"
             />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-30">
+              <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
+                <span className="text-white font-semibold tracking-wide">
+                  熱銷中
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* 文字區塊 */}
@@ -290,7 +329,7 @@ const project = () => {
             <p>Lorem ipsum dolor sit.</p>
           </div>
         </div>
-        <div className="project-item mt-[35px] flex relative group overflow-hidden flex-col">
+        <div className="project-item  flex relative group overflow-hidden flex-col">
           <div className="img aspect-[4/3] relative overflow-hidden">
             {/* 灰色遮罩 */}
             <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
@@ -314,6 +353,13 @@ const project = () => {
               placeholder="empty"
               loading="lazy"
             />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-30">
+              <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
+                <span className="text-white font-semibold tracking-wide">
+                  熱銷中
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* 文字區塊 */}

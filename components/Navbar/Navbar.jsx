@@ -62,7 +62,7 @@ const MenuBar = ({ closeMenu }) => {
         <div className="w-full mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/home" onClick={closeAll} aria-label="首頁">
+            <Link href="/" onClick={closeAll} aria-label="首頁">
               <Image
                 src="/images/宜園建設LOGO-1.png"
                 alt="logo"
@@ -80,7 +80,7 @@ const MenuBar = ({ closeMenu }) => {
               <Link
                 href={href}
                 key={href}
-                className="px-3 py-1 mx-2 text-sm font-medium text-black hover:opacity-80 transition"
+                className="px-3 py-1 mx-2 text-sm border-y-1 border-gray-600 font-medium text-black hover:opacity-80 transition"
                 onClick={closeAll}
               >
                 {label}
@@ -151,7 +151,7 @@ const MenuBar = ({ closeMenu }) => {
           {/* 頂部：Logo + 關閉 */}
           <div className="h-16 flex items-center justify-between px-4 border-b border-black/10">
             <Link
-              href="/home"
+              href="/"
               onClick={closeAll}
               className="flex items-center"
               aria-label="首頁"

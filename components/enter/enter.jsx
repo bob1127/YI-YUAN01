@@ -13,6 +13,9 @@ export default function Index() {
   const [showIntro, setShowIntro] = useState(true); // 控制 Intro 是否顯示（散去）
   const [hideAll, setHideAll] = useState(false); // Enter 後整個元件卸載
 
+  // 背景影片就緒（可播放）後才淡入，避免白屏
+  const [videoReady, setVideoReady] = useState(false);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleLoad = () => {
@@ -34,7 +37,6 @@ export default function Index() {
   if (dimension.width === 0 || hideAll) return null;
 
   // ===== 動畫定義 =====
-  // Intro（Logo 畫線＋散去）的出場動畫
   const introExit = {
     opacity: 0,
     scale: 1.05,
@@ -43,7 +45,6 @@ export default function Index() {
   };
 
   // ===== 事件 =====
-  // 點擊 Enter：整個元件直接 hidden（卸載）
   const handleEnter = () => {
     setHideAll(true);
   };
@@ -54,27 +55,42 @@ export default function Index() {
       <motion.div
         className="fixed inset-0 z-[999999]"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }} // 直接顯示，不等 Intro
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* 滿版背景圖 */}
+        {/* 滿版影片背景（高效能、自動播放） */}
         <div className="absolute inset-0">
-          <Image
-            src="/images/宜園誠境實景照片.jpg"
-            alt="landing background"
-            fill
-            sizes="100vw"
-            priority
-            placeholder="empty"
-            className="object-cover"
-          />
+          <motion.video
+            // 重要：行動裝置自動播放需要 muted + playsInline
+            autoPlay
+            muted
+            playsInline
+            loop
+            preload="metadata"
+            // 先用海報圖避免白屏，請放一張極小的 jpg（你原本的背景圖即可）
+            poster="/images/宜園誠境實景照片.jpg"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: videoReady ? 1 : 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            onCanPlay={() => setVideoReady(true)}
+          >
+            <source
+              src="/videos/3161307-hd_1920_1080_24fps.mp4"
+              type="video/mp4"
+            />
+            {/* 若之後有 WebM，可以加一行以獲得更佳壓縮率：
+            <source src="/videos/3161307-hd_1920_1080_24fps.webm" type="video/webm" />
+            */}
+          </motion.video>
         </div>
 
         {/* 置中標題與 Enter 按鈕 */}
         <div className="relative z-10 h-full w-full flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }} // 背景一進來就把文案淡入
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1 }}
             className="text-center px-6"
           >
@@ -120,7 +136,7 @@ export default function Index() {
             key="intro"
             exit={introExit}
             className={styles.introduction}
-            style={{ position: "absolute", inset: 0, zIndex: 1000000 }} // 確保 Intro 蓋在背景之上
+            style={{ position: "absolute", inset: 0, zIndex: 1000000 }}
           >
             <div className={styles.lottieContainer}>
               <div className="flex flex-col justify-center items-center h-full">
