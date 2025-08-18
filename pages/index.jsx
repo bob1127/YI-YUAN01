@@ -214,7 +214,7 @@ export default function Home() {
                 <div className="animate-image-wrapper relative w-full lg:w-[90%] mx-auto pl-0 lg:pl-20 aspect-[3/2.6] overflow-hidden">
                   <div className="image-container relative w-full h-full">
                     <Link href="/hot-sale">
-                      <Image
+                      <img
                         src="/images/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.JPG"
                         alt="About Image 2"
                         fill

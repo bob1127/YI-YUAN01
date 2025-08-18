@@ -268,7 +268,7 @@ export default function About() {
               <div className="order-2 lg:order-1 lg:pl-6 xl:pl-16">
                 <div className="mt-2 lg:mt-0 2xl:p-12 lg:p-6 p-0">
                   <div className="flex  items-center">
-                    <Image
+                    <img
                       src="/images/about/text06.png "
                       alt="text"
                       className="max-w-[450px] w-[110px] sm:w-[140px]"
@@ -276,7 +276,7 @@ export default function About() {
                       loading="lazy"
                       width={450}
                       height={450}
-                    ></Image>
+                    ></img>
                     <div className="flex ml-3 flex-col">
                       <h2 className="text-[#201815] text-2xl sm:text-3xl lg:text-4xl font-extrabold">
                         宜居
@@ -324,7 +324,7 @@ export default function About() {
               <div className=" w-full lg:w-1/2">
                 <div className="flex flex-col items-center">
                   <div className="flex  items-center">
-                    <Image
+                    <img
                       src="/images/about/text-white.png "
                       alt="text"
                       className="max-w-[450px] w-[110px] sm:w-[140px]"
@@ -332,7 +332,7 @@ export default function About() {
                       loading="lazy"
                       width={450}
                       height={450}
-                    ></Image>
+                    ></img>
                     <div className="flex ml-3 flex-col">
                       <h2 className="text-[#ffffff] text-2xl sm:text-3xl lg:text-4xl font-extrabold">
                         宜融
