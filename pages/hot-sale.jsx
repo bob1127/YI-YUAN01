@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Layout from "./Layout";
 import ProjectSlider from "../components/SwiperCarousel/BuildProject";
-
+import Head from "next/head";
 /** 可重用的 Hero 視差元件 */
 function HeroParallax({
   src,
@@ -83,18 +83,32 @@ function HeroParallax({
 export default function About() {
   return (
     <Layout>
+      <Head>
+        <title>新案鑒賞PROJECT 超越設想的新思量 | 宜園建設</title>
+      </Head>
       {/* Hero 視差 */}
-      <HeroParallax src="/images/09.jpg" speed={0.09} heightClass="h-[100vh]">
-        <div className="absolute z-20 right-[15%] bottom-[40%]">
-          <div className="flex items-center">
-            <div className="icon mr-4 w-[90px] h-[90px] bg-white rounded-full flex justify-center items-center">
+      <HeroParallax
+        src="/images/hero01.jpg"
+        speed={0.09}
+        heightClass="h-[100vh]"
+      >
+        {/* ✅ 自適應的文字區塊（僅替換這一段） */}
+        <div className="absolute z-20 inset-x-6 sm:inset-x-auto sm:right-[8%] md:right-[12%] lg:right-[15%] bottom-[50%] sm:bottom-[30%] md:bottom-[38%]">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4">
+            {/* 圓形標章：尺寸/字級皆隨斷點調整 */}
+            <div className="icon w-14 text-white h-14 sm:w-16 sm:h-16 p-3 md:w-20 text-center md:h-20 bg-[#4e2b18] rounded-full flex justify-center items-center shadow-md text-[10px] sm:text-xs md:text-sm font-medium tracking-wider">
               HOT-SALE
             </div>
-            <div className="txt flex flex-col">
-              <h1 className="text-white text-[40px] font-extralight tracking-widest">
+
+            {/* 文案：行長限制 + clamp 字級 + 置中到靠左切換 */}
+            <div
+              className="txt max-w-[min(88vw,720px)] text-center sm:text-left"
+              style={{ textWrap: "balance" }} // 支援的瀏覽器會更均衡換行
+            >
+              <h1 className="text-white font-extralight leading-tight tracking-[0.18em] drop-shadow-md text-[clamp(24px,6vw,56px)]">
                 超越設想的心思量
               </h1>
-              <h2 className="text-white font-extralight tracking-widest text-[35px]">
+              <h2 className="text-white font-extralight leading-tight tracking-[0.22em] drop-shadow text-[clamp(18px,5vw,40px)]">
                 Project
               </h2>
             </div>

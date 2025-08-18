@@ -16,8 +16,8 @@ const Project = () => {
   const hero = {
     image: "/images/project/DSC_2058.jpg",
     title: "宜園一青隱",
-    subtitle: "台中・西屯・四期重劃區 | 6F · 20戶 · 預售華廈",
-    tagline: "1房 14–16 坪、2房 21–28 坪｜歷史價約 52.88–59.32 萬/坪",
+    subtitle: "",
+    tagline: "",
   };
 
   const gallery = [
@@ -75,16 +75,6 @@ const Project = () => {
     };
     requestAnimationFrame(step);
   };
-
-  // ========= 建案亮點（圖片＋卡片）所用文字 =========
-  const highlightCards = [
-    { title: "2027 上半年完工", desc: "預計交屋時程" },
-    { title: "住二分區", desc: "土地使用分區" },
-    { title: "公設比 37.9%", desc: "合理公設配置" },
-    { title: "RC 鋼筋混凝土", desc: "耐震結構安全" },
-    { title: "一樓平面車位", desc: "方便停車動線" },
-    { title: "基地 106 坪", desc: "精華區域規模" },
-  ];
 
   // ========= Lightbox（幻燈片） =========
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -202,7 +192,7 @@ const Project = () => {
 
       {/* ============ 建案亮點（圖片 + 卡片） ============ */}
       <section className="py-10 sm:py-16 bg-gray-50">
-        <div className="w-[90%] max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        <div className="w-[90%] max-w-[1200px] mx-auto grid grid-cols-1 items-center">
           {/* 左側圖片 */}
           <div className="overflow-hidden rounded-2xl shadow-lg">
             <img
@@ -213,19 +203,6 @@ const Project = () => {
           </div>
 
           {/* 右側卡片列表 */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {highlightCards.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
-              >
-                <h3 className="text-lg font-semibold text-emerald-800 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -415,7 +392,7 @@ const Project = () => {
 
       {/* ============ 地段與周邊 ============ */}
       <section className="py-10 sm:py-14 bg-emerald-50/40">
-        <div className="w-[92%] max-w-[1200px] mx-auto">
+        <div className="w-[92%] max-w-[1400px] mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
             地段與周邊
           </h2>
@@ -423,7 +400,7 @@ const Project = () => {
             座落台中市西屯區甘州五街，位於四期重劃區。生活圈完善，近主要幹道與商圈，社區規模小而靜謐，適合重視生活機能與隱私的族群。
           </p>
 
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="mt-6 grid grid-cols-1 gap-6">
             {/* 地圖（可換成真實 Google Maps） */}
             <div className="rounded-2xl overflow-hidden border">
               <iframe
@@ -433,20 +410,6 @@ const Project = () => {
                 loading="lazy"
               />
             </div>
-
-            {/* 周邊摘要 */}
-            <ul className="grid grid-cols-2 gap-3 text-sm">
-              <li className="rounded-xl bg-white p-4 border">
-                四期重劃區生活圈
-              </li>
-              <li className="rounded-xl bg-white p-4 border">
-                近商圈／主要幹道
-              </li>
-              <li className="rounded-xl bg-white p-4 border">靜巷純住宅</li>
-              <li className="rounded-xl bg-white p-4 border">
-                小規模門牌，住戶單純
-              </li>
-            </ul>
           </div>
         </div>
       </section>

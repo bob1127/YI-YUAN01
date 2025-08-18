@@ -22,7 +22,7 @@ const MenuBar = ({ closeMenu }) => {
     closeMenu?.();
   };
 
-  // 更穩的捲動鎖定（相容 iOS）：用 position:fixed + 記錄/還原 scrollY
+  // 更穩的捲動鎖定（相容 iOS）
   useEffect(() => {
     if (!open) return;
 
@@ -51,7 +51,6 @@ const MenuBar = ({ closeMenu }) => {
       body.style.top = prev.top;
       body.style.width = prev.width;
       body.style.overflow = prev.overflow;
-      // 還原滾動位置
       window.scrollTo(0, scrollY);
     };
   }, [open]);
@@ -59,10 +58,16 @@ const MenuBar = ({ closeMenu }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] bg-white/90 backdrop-blur border-b border-black/10">
       <div className="h-16 md:h-20 flex items-center">
-        <div className="w-full mx-auto px-4 flex items-center justify-between">
-          {/* Logo */}
+        {/* 這層容器：加大左右 padding，並限制最大寬度，讓左右內容整體往內縮 */}
+        <div className="w-full  mx-auto px-6 sm:px-8 lg:px-10 flex items-center justify-between">
+          {/* Logo（自然跟著容器內縮） */}
           <div className="flex items-center">
-            <Link href="/" onClick={closeAll} aria-label="首頁">
+            <Link
+              href="/"
+              onClick={closeAll}
+              aria-label="首頁"
+              className="block"
+            >
               <Image
                 src="/images/宜園建設LOGO-1.png"
                 alt="logo"
@@ -88,13 +93,13 @@ const MenuBar = ({ closeMenu }) => {
             ))}
           </nav>
 
-          {/* 桌機右側：Facebook */}
-          <div className="hidden lg:flex items-center">
+          {/* 桌機右側：Facebook（自然跟著容器內縮） */}
+          <div className="hidden lg:flex items-center pr-1">
             <Link
               target="_blank"
               href="https://www.facebook.com/profile.php?id=100063749781596"
               aria-label="Facebook"
-              className="hover:opacity-80 transition"
+              className="hover:opacity-80 transition inline-flex"
             >
               <Image
                 src="/images/facebook-icon.png"
@@ -127,7 +132,7 @@ const MenuBar = ({ closeMenu }) => {
         </div>
       </div>
 
-      {/* 手機選單：滿版白底覆蓋（超高 z-index，避免被其他 fixed 層蓋住） */}
+      {/* 手機選單：滿版白底覆蓋 */}
       <div
         id="mobile-menu"
         aria-hidden={!open}
@@ -141,15 +146,14 @@ const MenuBar = ({ closeMenu }) => {
           className={`absolute inset-0 bg-white flex flex-col will-change-transform transition-transform duration-300 ease-out ${
             open ? "translate-y-0" : "translate-y-[100%]"
           }`}
-          // 兼容 iOS Safari 動態網址列高度
           style={{
             height: "100dvh",
             paddingTop: "env(safe-area-inset-top)",
             paddingBottom: "env(safe-area-inset-bottom)",
           }}
         >
-          {/* 頂部：Logo + 關閉 */}
-          <div className="h-16 flex items-center justify-between px-4 border-b border-black/10">
+          {/* 頂部：Logo + 關閉（這裡也把左右 padding 往內縮一點） */}
+          <div className="h-16 flex items-center justify-between px-6 sm:px-8 border-b border-black/10">
             <Link
               href="/"
               onClick={closeAll}
@@ -187,7 +191,7 @@ const MenuBar = ({ closeMenu }) => {
             </button>
           </div>
 
-          {/* 內容：可滾動的連結清單 */}
+          {/* 內容：可滾動的連結清單（原本就有 px-6，留著即可） */}
           <nav className="flex-1 overflow-y-auto py-2">
             {navItems.map(({ label, href }, idx) => (
               <Link

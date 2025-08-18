@@ -14,14 +14,19 @@ import { motion, AnimatePresence } from "framer-motion";
 const Project = () => {
   // 👉 Hero 與圖庫資料（可替換成你站內圖）
   const hero = {
-    image: "/images/project/DSC_2058.jpg", // TODO: 換成誠境6相關圖片
+    image: "/images/project/誠境6/JPOM9756.tif", // TODO: 換成誠境6相關圖片
     title: "誠境6",
-    subtitle: "台中・沙鹿｜連棟透天｜總戶數 9 戶",
-    tagline: "建坪 52–84 坪・地坪 28–58 坪｜屋齡約 3 年",
+    subtitle: "",
+    tagline: "",
   };
 
   // 可放社區外觀或街景；目前先放一張示意
-  const gallery = ["/images/project/S__31399941.jpg"];
+  const gallery = [
+    "/images/project/誠境6/JPOM9756.tif",
+    "/images/project/誠境6/JPOM9749-2.jpg",
+    ,
+    "/images/project/誠境6/JPOM9752-2.jpg",
+  ];
 
   const faqs = [
     {
@@ -76,16 +81,6 @@ const Project = () => {
     };
     requestAnimationFrame(step);
   };
-
-  // ========= 建案亮點（圖片＋卡片）所用文字 =========
-  const highlightCards = [
-    { title: "連棟透天", desc: "產品定位" },
-    { title: "總戶數 9 戶", desc: "小規模門牌" },
-    { title: "總樓高 4 層", desc: "垂直動線簡潔" },
-    { title: "屋齡約 3 年", desc: "成屋狀態" },
-    { title: "住三分區", desc: "土地使用分區" },
-    { title: "RC 鋼筋混凝土", desc: "耐震結構" },
-  ];
 
   // ========= Lightbox（幻燈片） =========
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -203,29 +198,16 @@ const Project = () => {
 
       {/* ============ 建案亮點（圖片 + 卡片） ============ */}
       <section className="py-10 sm:py-16 bg-gray-50">
-        <div className="w-[90%] max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        <div className="w-[90%] max-w-[1200px] mx-auto grid grid-cols-1 items-center">
           {/* 左側圖片 */}
           <div className="overflow-hidden rounded-2xl shadow-lg">
-            <img
-              src="/images/project/S__31399941.jpg" // TODO: 換成誠境6圖片
+            <Image
+              width={1920}
+              height={700}
+              src="/images/project/誠境6/JPOM9749-2.jpg" // TODO: 換成誠境6圖片
               alt="建案亮點"
               className="w-full h-full object-cover"
             />
-          </div>
-
-          {/* 右側卡片列表 */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {highlightCards.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
-              >
-                <h3 className="text-lg font-semibold text-emerald-800 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -419,7 +401,7 @@ const Project = () => {
 
       {/* ============ 地段與周邊 ============ */}
       <section className="py-10 sm:py-14 bg-emerald-50/40">
-        <div className="w-[92%] max-w-[1200px] mx-auto">
+        <div className="w-[92%] max-w-[1400px] mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
             地段與周邊
           </h2>
@@ -428,7 +410,7 @@ const Project = () => {
             號，連棟透天產品、戶數精巧，學區完整，日常採買與主要幹道機能成熟，適合講究生活品質與私密性的族群。
           </p>
 
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="mt-6 grid grid-cols-1 gap-6">
             {/* 地圖（Google Maps） */}
             <div className="rounded-2xl overflow-hidden border">
               <iframe
@@ -438,16 +420,6 @@ const Project = () => {
                 loading="lazy"
               />
             </div>
-
-            {/* 周邊摘要 */}
-            <ul className="grid grid-cols-2 gap-3 text-sm">
-              <li className="rounded-xl bg-white p-4 border">連棟透天門牌</li>
-              <li className="rounded-xl bg-white p-4 border">學區完整</li>
-              <li className="rounded-xl bg-white p-4 border">小規模社區</li>
-              <li className="rounded-xl bg-white p-4 border">
-                交通幹道機能便利
-              </li>
-            </ul>
           </div>
         </div>
       </section>

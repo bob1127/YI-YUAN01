@@ -14,15 +14,19 @@ import { motion, AnimatePresence } from "framer-motion";
 const Project = () => {
   // 👉 Hero 與圖庫資料（可替換成你站內圖）
   const hero = {
-    image: "/images/project/DSC_2058.jpg", // TODO: 換成誠境5相關圖片
+    image:
+      "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg", // TODO: 換成誠境5相關圖片
     title: "誠境5",
-    subtitle: "台中・烏日｜6 戶・4 層｜成屋（屋齡約 5 年）",
-    tagline:
-      "建坪 57–77 坪・地坪 31–65 坪｜平均成交總價 約 1,756 萬/戶（7 筆）",
+    subtitle: "",
+    tagline: "",
   };
 
   // 可放社區外觀或街景；目前先放一張示意
-  const gallery = ["/images/project/S__31399941.jpg"];
+  const gallery = [
+    "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片10-1090219-S.tif",
+    "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片08-1090219.jpg",
+    "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg",
+  ];
 
   const faqs = [
     {
@@ -77,16 +81,6 @@ const Project = () => {
     };
     requestAnimationFrame(step);
   };
-
-  // ========= 建案亮點（圖片＋卡片）所用文字 =========
-  const highlightCards = [
-    { title: "6 戶小規模", desc: "門牌單純" },
-    { title: "總樓高 4 層", desc: "垂直動線簡潔" },
-    { title: "屋齡約 5 年", desc: "成屋狀態" },
-    { title: "鄉村區乙種", desc: "土地使用分區" },
-    { title: "基地 262 坪", desc: "社區規模" },
-    { title: "RC 鋼筋混凝土", desc: "耐震結構" },
-  ];
 
   // ========= Lightbox（幻燈片） =========
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -204,29 +198,18 @@ const Project = () => {
 
       {/* ============ 建案亮點（圖片 + 卡片） ============ */}
       <section className="py-10 sm:py-16 bg-gray-50">
-        <div className="w-[90%] max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        <div className="w-[90%] max-w-[1200px] mx-auto grid grid-cols-1 items-center">
           {/* 左側圖片 */}
           <div className="overflow-hidden rounded-2xl shadow-lg">
-            <img
-              src="/images/project/S__31399941.jpg" // TODO: 換成誠境5圖片
+            <Image
+              width={1920}
+              height={700}
+              placeholder="empty"
+              loading="lazy"
+              src="/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片08-1090219.jpg" // TODO: 換成誠境5圖片
               alt="建案亮點"
               className="w-full h-full object-cover"
             />
-          </div>
-
-          {/* 右側卡片列表 */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {highlightCards.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
-              >
-                <h3 className="text-lg font-semibold text-emerald-800 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -424,7 +407,7 @@ const Project = () => {
 
       {/* ============ 地段與周邊 ============ */}
       <section className="py-10 sm:py-14 bg-emerald-50/40">
-        <div className="w-[92%] max-w-[1200px] mx-auto">
+        <div className="w-[92%] max-w-[1400px] mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
             地段與周邊
           </h2>
@@ -434,7 +417,7 @@ const Project = () => {
             近主要幹道；學區涵蓋五光國小與光德國中（雙語）。
           </p>
 
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="mt-6 grid grid-cols-1 ">
             {/* 地圖（Google Maps） */}
             <div className="rounded-2xl overflow-hidden border">
               <iframe
@@ -444,14 +427,6 @@ const Project = () => {
                 loading="lazy"
               />
             </div>
-
-            {/* 周邊摘要 */}
-            <ul className="grid grid-cols-2 gap-3 text-sm">
-              <li className="rounded-xl bg-white p-4 border">6 戶小規模</li>
-              <li className="rounded-xl bg-white p-4 border">學區完整</li>
-              <li className="rounded-xl bg-white p-4 border">基地 262 坪</li>
-              <li className="rounded-xl bg-white p-4 border">RC 結構</li>
-            </ul>
           </div>
         </div>
       </section>

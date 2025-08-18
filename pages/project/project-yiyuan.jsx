@@ -14,14 +14,17 @@ import { motion, AnimatePresence } from "framer-motion";
 const Project = () => {
   // 👉 Hero 與圖庫資料（可替換成你站內圖）
   const hero = {
-    image: "/images/project/DSC_2058.jpg", // TODO: 換成實際社區代表圖
+    image: "/images/project/S__31399939.jpg", // TODO: 換成實際社區代表圖
     title: "宜園大院", // TODO: 未提供，先留空或填入你的案名
-    subtitle: "台中・南屯（大墩南一街）｜連棟透天｜總戶數 15 戶",
-    tagline: "建坪 102–134 坪｜地下室停車｜RC 結構",
+    subtitle: "",
+    tagline: "",
   };
 
   // 可放社區外觀或街景；目前先放一張示意
-  const gallery = ["/images/project/S__31399941.jpg"];
+  const gallery = [
+    "/images/S__28844100.png",
+    "/images/project/S__31399939.jpg",
+  ];
 
   const faqs = [
     {
@@ -78,16 +81,6 @@ const Project = () => {
   };
 
   // ========= 建案亮點（圖片＋卡片）所用文字 =========
-  const highlightCards = [
-    { title: "連棟透天", desc: "產品定位" },
-    { title: "總戶數 15 戶", desc: "小規模門牌" },
-    { title: "總樓高 4 層", desc: "垂直動線簡潔" },
-    { title: "住一分區", desc: "土地使用分區" },
-    { title: "基地 534 坪", desc: "基地面積" },
-    { title: "RC 鋼筋混凝土", desc: "結構型式" },
-    { title: "建坪 102–134 坪", desc: "室內尺度" },
-    { title: "地下室停車", desc: "停車類別" },
-  ];
 
   // ========= Lightbox（幻燈片） =========
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -205,30 +198,17 @@ const Project = () => {
 
       {/* ============ 建案亮點（圖片 + 卡片） ============ */}
       <section className="py-10 sm:py-16 bg-gray-50">
-        <div className="w-[90%] max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        <div className="w-[100%] max-w-[1200px] mx-auto grid grid-cols-1 gap-10 items-center">
           {/* 左側圖片 */}
-          <div className="overflow-hidden rounded-2xl shadow-lg">
+          <div className="overflow-hidden  shadow-lg">
             <img
-              src="/images/project/S__31399941.jpg" // TODO: 換成實際照片
+              src="/images/project/S__31399939.jpg" // TODO: 換成實際照片
               alt="建案亮點"
               className="w-full h-full object-cover"
             />
           </div>
 
           {/* 右側卡片列表 */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {highlightCards.map((item, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
-              >
-                <h3 className="text-lg font-semibold text-emerald-800 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -312,7 +292,9 @@ const Project = () => {
             <div>
               <div className="text-sm text-gray-500">團隊資訊</div>
               <div className="text-base font-medium text-[#20382c]">
-                建設：宜園建設｜建築設計：劉偉彥建築師事務所｜企劃銷售：晟揮廣告國際有限公司
+                建設：宜園建設｜<br></br>
+                建築設計：劉偉彥建築師事務所｜<br></br>
+                企劃銷售：晟揮廣告國際有限公司
               </div>
             </div>
           </div>
@@ -426,7 +408,7 @@ const Project = () => {
 
       {/* ============ 地段與周邊 ============ */}
       <section className="py-10 sm:py-14 bg-emerald-50/40">
-        <div className="w-[92%] max-w-[1200px] mx-auto">
+        <div className="w-full max-w-[1400px] mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
             地段與周邊
           </h2>
@@ -434,7 +416,7 @@ const Project = () => {
             座落台中市南屯區大墩南一街，連棟透天產品、戶數精巧，地下室停車，生活圈成熟、交通機能便捷。
           </p>
 
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="mt-6 grid grid-cols-1">
             {/* 地圖（Google Maps） */}
             <div className="rounded-2xl overflow-hidden border">
               <iframe
@@ -444,16 +426,6 @@ const Project = () => {
                 loading="lazy"
               />
             </div>
-
-            {/* 周邊摘要（未提供其餘資訊，先列基本特徵） */}
-            <ul className="grid grid-cols-2 gap-3 text-sm">
-              <li className="rounded-xl bg-white p-4 border">連棟透天門牌</li>
-              <li className="rounded-xl bg-white p-4 border">地下室停車</li>
-              <li className="rounded-xl bg-white p-4 border">
-                小規模社區（15 戶）
-              </li>
-              <li className="rounded-xl bg-white p-4 border">成熟生活圈</li>
-            </ul>
           </div>
         </div>
       </section>
