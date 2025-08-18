@@ -69,7 +69,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>{" "}
+          </section>
           <section className="lg:py-[50px] max-w-[1920px]  mx-auto">
             <div className="flex lg:flex-row justify-center items-center flex-col w-full sm:w-[95%] mx-auto ">
               <div className="img  w-full lg:w-1/2 flex justify-center items-center p-10  mx-auto sm:mx-3  h-auto lg:h-[60vh] xl:h-[60vh] overflow-hidden">
@@ -149,8 +149,25 @@ export default function Home() {
               ></Image>
             </div>
           </section>
+
           <section className=" py-[30px]  lg:mt-0 lg:py-[50px] bg-[#6D7B80] sm:py-[70px]">
             <div className="flex  max-w-[1920px]  lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh] w-[98%] mx-auto">
+              <div className="img w-full lg:px-[60px]  xl:px-[110px] lg:w-1/2">
+                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden">
+                  <div className="image-container ">
+                    <Link href="/hot-sale">
+                      <Image
+                        src="/images/JPOM9734.jpg"
+                        alt="About Image 2"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 90vw, (max-width: 1024px) 550px, 85vw"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              {/* 
               <div className="img w-[98%] px-[0px]  xl:px-[110px] md:w-[85%] lg:w-[50%] mx-auto h-auto overflow-hidden">
                 <div className="animate-image-wrapper relative w-full lg:w-[90%] mx-auto pl-0 lg:pl-20 aspect-[3/2.6] overflow-hidden">
                   <div className="image-container relative w-full h-full">
@@ -165,7 +182,7 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="text mb-5 lg:mb-0 w-[85%]  mx-auto lg:w-[40%]  flex flex-col ">
                 <div className="flex flex-col justify-center items-center h-full">
@@ -210,7 +227,23 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="img w-[98%] px-0 xl:px-[110px]  md:w-[85%] lg:w-[50%] mx-auto h-auto overflow-hidden">
+              <div className="img w-full lg:px-[60px]  xl:px-[110px] lg:w-1/2">
+                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden">
+                  <div className="image-container ">
+                    <Link href="/hot-sale">
+                      <Image
+                        src="/images/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
+                        alt="About Image 2"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 90vw, (max-width: 1024px) 550px, 85vw"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="img w-[98%] px-0 xl:px-[110px]  md:w-[85%] lg:w-[50%] mx-auto h-auto overflow-hidden">
                 <div className="animate-image-wrapper relative w-full lg:w-[90%] mx-auto pl-0 lg:pl-20 aspect-[3/2.6] overflow-hidden">
                   <div className="image-container relative w-full h-full">
                     <Link href="/hot-sale">
@@ -223,7 +256,7 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* <div className="flex max-w-[1920px]  lg:flex-row flex-col mb-5 mt-20 lg:mt-[10vh] w-full mx-auto">
               <div className="text mb-5 lg:mb-0 w-[85%]  mx-auto lg:w-[40%]  flex flex-col ">
