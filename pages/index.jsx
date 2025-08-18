@@ -54,7 +54,7 @@ export default function Home() {
               <div className="flex flex-col  px-0 lg:px-20 justify-start items-start ">
                 <div className="title  mx-auto flex flex-col justify-center items-center">
                   <p className="text-[43px]">TRUST</p>
-                  <h2 className="text-[24px] font-bold font-heading">
+                  <h2 className="text-[24px] font-bold font-heading font-heading">
                     信任 ｜ 宜安心
                   </h2>
                   <p className="leading-loose tracking-widest w-full mt-8">
@@ -75,7 +75,9 @@ export default function Home() {
               <div className="img  w-full lg:w-1/2 flex justify-center items-center p-10  mx-auto sm:mx-3  h-auto lg:h-[60vh] xl:h-[60vh] overflow-hidden">
                 <div className="title w-full mx-auto flex flex-col justify-center items-center">
                   <p className="text-[43px]">RELATION</p>
-                  <h2 className="text-[24px] font-bold">關係 ｜ 宜真情</h2>
+                  <h2 className="text-[24px] font-bold font-heading">
+                    關係 ｜ 宜真情
+                  </h2>
 
                   <p className="leading-loose tracking-widest  mt-8">
                     建築，是連結土地的根，也是凝聚人心的橋。<br></br>
@@ -130,7 +132,7 @@ export default function Home() {
             <div className=" aspect-[16/12]  lg:aspect-[16/6] overflow-hidden relative">
               <div className="txt absolute z-40 left-1/2 top-1/2  -translate-x-1/2 -translate-y-1/2">
                 <div className="flex flex-col justify-center items-center max-w-[600px]">
-                  <h2 className="text-white text-3xl lg:text-[45px] font-normal">
+                  <h2 className="text-white text-3xl font-heading lg:text-[45px] font-normal">
                     實在的經典
                   </h2>
                   <p className="text-white text-center mt-4 tracking-widest">
@@ -169,7 +171,7 @@ export default function Home() {
                 <div className="flex flex-col justify-center items-center h-full">
                   <div className="title mx-auto flex flex-col justify-center items-center">
                     <p className="text-[43px] text-gray-50">UNIQUE</p>
-                    <h2 className="text-[24px] font-bold text-gray-50">
+                    <h2 className="text-[24px] font-bold font-heading text-gray-50">
                       獨特 ｜ 宜居所
                     </h2>
 
@@ -193,7 +195,7 @@ export default function Home() {
                     <p className="text-[43px] mt-5 sm:mt-0 text-gray-50">
                       FOEVER
                     </p>
-                    <h2 className="text-[24px] font-bold text-gray-50">
+                    <h2 className="text-[24px] font-bold font-heading text-gray-50">
                       永恆 ｜ 宜融入
                     </h2>
 

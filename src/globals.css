@@ -1,17 +1,32 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+/* 定義 Times-Roman-01.ttf */
 @font-face {
-  font-family: "FuturaCyr";
-  src: url("/fonts/FuturaCyrillicBook.ttf") format("truetype");
-  font-weight: 100 !important;
+  font-family: "TimesCustom";
+  src: url("/fonts/Times-Roman-01.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
-}
-body {
-   font-family: "FuturaCyr", sans-serif !important;
-
+  font-display: swap;
 }
 
+/* 定義 蒙纳繁中宋.ttf */
+@font-face {
+  font-family: "SongCustom";
+  src: url("/fonts/蒙纳繁中宋.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 自訂 class 方便動態使用 */
+.font-body {
+  font-family: "TimesCustom", serif;
+}
+
+.font-heading {
+  font-family: "SongCustom", serif;
+}
 @keyframes scroll-line {
   0% {
     transform: translateY(-100%);
