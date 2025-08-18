@@ -162,8 +162,20 @@ const Nav = () => {
                   宜園建設股份有限公司
                 </p>
                 <b className="text-gray-400 text-[.8rem]">Project</b>
-                <span className="text-[.8rem] text-white mt-1">一青隱</span>
-                <span className="text-[.8rem] text-white mt-1">宜園大院</span>
+                <Link
+                  target="_blank"
+                  href="https://www.adholic.com.tw/yiqingyin/"
+                >
+                  {" "}
+                  <span className="text-[.8rem] text-white mt-1">一青隱</span>
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://www.adholic.com.tw/yutayuanli/"
+                >
+                  {" "}
+                  <span className="text-[.8rem] text-white mt-1">宜園大院</span>
+                </Link>
               </div>
             </div>
           </div>
