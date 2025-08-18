@@ -215,7 +215,7 @@ export default function Home() {
                   <div className="image-container relative w-full h-full">
                     <Link href="/hot-sale">
                       <img
-                        src="/images/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.JPG"
+                        src="/images/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
                         alt="About Image 2"
                         fill
                         className="object-cover scale-[1.3] object-[20%_60%] transition-transform duration-500"
