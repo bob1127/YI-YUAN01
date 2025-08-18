@@ -219,7 +219,6 @@ export default function Home() {
                         alt="About Image 2"
                         fill
                         className="object-cover scale-[1.3] object-[20%_60%] transition-transform duration-500"
-                        sizes="(max-width: 768px) 90vw, (max-width: 1024px) 550px, 85vw"
                       />
                     </Link>
                   </div>
