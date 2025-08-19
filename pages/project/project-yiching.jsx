@@ -209,30 +209,6 @@ const Project = () => {
       {/* ============ 規格（精簡版） ============ */}
       <section id="next-section" className="py-6 sm:py-12">
         <div className="w-[90%] max-w-[1200px] mx-auto">
-          {/* 1) 頁首一句話摘要 */}
-          <div className="mb-6 text-sm sm:text-base text-gray-700">
-            台中市西屯區甘州五街｜20 戶 / 6 樓｜預計 2027 上半年完工
-          </div>
-
-          {/* 2) 關鍵指標條（徽章） */}
-          <div className="flex flex-wrap gap-2 sm:gap-3 mb-8">
-            {[
-              "1房 14–16 坪",
-              "2房 21–28 坪",
-              "公設比 37.9%",
-              "RC 鋼筋混凝土",
-              "一樓平面車位",
-              "基地 106 坪",
-            ].map((t) => (
-              <span
-                key={t}
-                className="inline-flex items-center rounded-full border border-emerald-800/20 bg-emerald-50 px-3 py-1 text-sm text-emerald-800"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
           {/* 3) 精簡細節（雙欄列表） */}
           <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-sm sm:text-base">
             <div className="flex justify-between gap-4">

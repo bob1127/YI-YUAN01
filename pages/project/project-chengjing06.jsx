@@ -128,73 +128,6 @@ const Project = () => {
   return (
     <Layout>
       {/* ===== Hero ===== */}
-      <section className="relative aspect-[16/6.5] w-full overflow-hidden">
-        <Image
-          src={hero.image}
-          alt={hero.title}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[90%] max-w-[1100px] text-center text-white">
-            <motion.h1
-              className="text-4xl sm:text-5xl font-bold tracking-tight"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-            >
-              {hero.title}
-            </motion.h1>
-            <motion.p
-              className="mt-3 text-lg sm:text-xl"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.05 }}
-            >
-              {hero.subtitle}
-            </motion.p>
-            <motion.p
-              className="mt-2 text-sm sm:text-base text-white/90"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            >
-              {hero.tagline}
-            </motion.p>
-
-            {/* Scroll 提示 */}
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-6 flex flex-col items-center">
-              <div className="w-px h-16 bg-white/40 overflow-hidden relative">
-                <div className="absolute top-0 left-0 w-px h-full bg-white animate-scroll-line" />
-              </div>
-              <button
-                onClick={handleScroll}
-                className="mt-2 text-white text-xs hover:underline"
-                aria-label="scroll to next section"
-              >
-                Scroll
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 跑線動畫 */}
-        <style jsx global>{`
-          @keyframes scroll-line {
-            0% {
-              transform: translateY(-100%);
-            }
-            100% {
-              transform: translateY(100%);
-            }
-          }
-          .animate-scroll-line {
-            animation: scroll-line 2.8s linear infinite;
-          }
-        `}</style>
-      </section>
 
       {/* ============ 建案亮點（圖片 + 卡片） ============ */}
       <section className="py-10 sm:py-16 bg-gray-50">
@@ -216,28 +149,6 @@ const Project = () => {
       <section id="next-section" className="py-6 sm:py-12">
         <div className="w-[90%] max-w-[1200px] mx-auto">
           {/* 1) 頁首一句話摘要 */}
-          <div className="mb-6 text-sm sm:text-base text-gray-700">
-            台中市沙鹿區七賢南路 66 號｜9 戶 / 4 層｜屋齡約 3 年（成屋）
-          </div>
-
-          {/* 2) 關鍵指標條（徽章） */}
-          <div className="flex flex-wrap gap-2 sm:gap-3 mb-8">
-            {[
-              "連棟透天",
-              "建坪 52–84 坪",
-              "地坪 28–58 坪",
-              "住三分區",
-              "RC 結構",
-              "車位合計約 7 位",
-            ].map((t) => (
-              <span
-                key={t}
-                className="inline-flex items-center rounded-full border border-emerald-800/20 bg-emerald-50 px-3 py-1 text-sm text-emerald-800"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
 
           {/* 3) 精簡細節（雙欄列表） */}
           <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-sm sm:text-base">
