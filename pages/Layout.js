@@ -43,7 +43,8 @@ export default function RootLayout({ children }) {
   return (
     <>
      <Head>
-  <title>宜園建設｜實在的構築</title>
+ <title>宜園建設｜實在的構築 · 信任與安心的居所</title>
+
   <meta name="description" content="Speed-eSIM | International eSIM" />
   <meta name="keywords" content="產品, 購物, 優惠" />
   <meta name="author" content="" />
