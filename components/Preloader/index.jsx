@@ -13,18 +13,7 @@ import { BsCart, BsArrowRight } from "react-icons/bs";
 import HeroSlider from "../HeroSlider/page";
 
 function Home() {
-  const [showLoader, setShowLoader] = useState(false);
-
-  // 第一次進站顯示 loader（仍然會立即隱藏，避免遮住文案）
-  useEffect(() => {
-    const hasVisited = localStorage.getItem("hasVisited");
-    if (!hasVisited) {
-      setShowLoader(true);
-      localStorage.setItem("hasVisited", "true");
-    } else {
-      setShowLoader(false);
-    }
-  }, []);
+  const [showLoader, setShowLoader] = useState(true); // 每次掛載首頁都顯示
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(null);
@@ -109,7 +98,11 @@ function Home() {
     });
 
     // 關閉/隱藏 loader（若不存在此 class 也不會報錯）
-    tl.set(".loader", { display: "none", pointerEvents: "none" }, 0);
+    tl.set(
+      ".loader",
+      { display: "block", pointerEvents: "auto", opacity: 1 },
+      0
+    );
 
     const counts = document.querySelectorAll(".count");
     counts.forEach((count, index) => {
@@ -173,7 +166,7 @@ function Home() {
           id="dark-section"
           className="relative w-full aspect-[16/9] md:aspect-[1024/576]"
         >
-          <section className="section-hero w-full aspect-[500/500] sm:aspect-[500/400] md:aspect-[1024/768] xl:aspect-[1920/1080] 2xl:aspect-[1920/1080] overflow-hidden relative">
+          <section className="section-hero w-full aspect-[500/500] sm:aspect-[500/400] md:aspect-[1024/768] xl:aspect-[1920/1080] 2xl:aspect-[1920/850] overflow-hidden relative">
             {/* 背景輪播（淡入淡出＋慢速縮放） */}
             {backgroundImages.map((bg, i) => (
               <motion.div

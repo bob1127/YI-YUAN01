@@ -7,12 +7,10 @@ import Image from "next/image";
 import gsap from "gsap";
 
 export default function Index() {
-  // 狀態
   const [animationDone, setAnimationDone] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const [hideAll, setHideAll] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-  const [slide, setSlide] = useState(0);
 
   // 降低動效
   const reduceMotion = useMemo(() => {
@@ -20,41 +18,22 @@ export default function Index() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  // 首次造訪判斷：若已經看過，直接不顯示此元件
+  // 首次造訪判斷
   useEffect(() => {
     if (typeof window === "undefined") return;
     const seen = window.localStorage.getItem("yy_intro_done");
     if (seen === "1") {
       setShowIntro(false);
-      setHideAll(true); // 直接卸載，讓後方頁面顯示
+      setHideAll(true);
     }
   }, []);
 
-  // 尺寸（如果別處用得到可保留）
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const handleLoad = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
-    };
-    handleLoad();
-    window.addEventListener("resize", handleLoad);
-    return () => window.removeEventListener("resize", handleLoad);
-  }, []);
-
-  // Intro 結束 -> 關閉（進到 Preload）
+  // Intro 結束 -> 關閉
   useEffect(() => {
     if (!animationDone) return;
     const t = setTimeout(() => setShowIntro(false), 500);
     return () => clearTimeout(t);
   }, [animationDone]);
-
-  // 文案輪播
-  useEffect(() => {
-    if (showIntro) return;
-    const id = setInterval(() => setSlide((s) => (s + 1) % 3), 5200);
-    return () => clearInterval(id);
-  }, [showIntro]);
 
   // 片頭淡出動畫
   const introExit = {
@@ -70,17 +49,12 @@ export default function Index() {
     animate: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        when: "beforeChildren",
-        staggerChildren: 0.08,
-      },
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
     },
     exit: {
       opacity: 0,
       y: reduceMotion ? 0 : 18,
-      transition: { duration: 0.55, ease: [0.4, 0, 1, 1] },
+      transition: { duration: 0.55 },
     },
   };
   const lineVariants = {
@@ -93,32 +67,20 @@ export default function Index() {
     },
   };
 
-  const slides = [
-    {
-      title: "實在的構築",
-      sub: "TRUE ARCH",
-      body: "從基地的風向、光線到一磚一瓦，回應土地而生。不是張揚的形狀，而是安穩的秩序；讓回家成為日常最踏實的風景。",
-    },
-    {
-      title: "實在的構築",
-      sub: "TRUE ARCH",
-      body: "我們相信好房子像土壤，滋養一家人的四季。動線純粹、材質溫潤、收納有序，在忙與靜之間，留給生活剛好的喘息。",
-    },
-    {
-      title: "實在的構築",
-      sub: "TRUE ARCH",
-      body: "少一點華麗，多一些誠意。以結構與工法守護耐久，以光影與通風帶來舒適；每一天，都被細節溫柔托住。",
-    },
-  ];
+  const slide = {
+    title: "實在的構築",
+    sub: "TRUE ARCH",
+    body: "從基地的風向、光線到一磚一瓦，回應土地而生。不是張揚的形狀，而是安穩的秩序；讓回家成為日常最踏實的風景。",
+  };
 
   const handleEnter = () => {
     try {
-      window.localStorage.setItem("yy_intro_done", "1"); // 記錄看過
+      window.localStorage.setItem("yy_intro_done", "1");
     } catch (e) {}
-    setHideAll(true); // 卸載元件，讓後方頁面顯示
+    setHideAll(true);
   };
 
-  // ===== Enter 按鈕 GSAP 磁吸 =====
+  // 磁吸按鈕
   const magnetWrapRef = useRef(null);
   const btnRef = useRef(null);
   useEffect(() => {
@@ -150,18 +112,17 @@ export default function Index() {
     };
   }, [reduceMotion]);
 
-  // ⚠️ 注意：return 要放在所有 hooks 之後，避免 hooks 計數錯亂
   if (hideAll) return null;
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
-      {/* ===== Preload：影片背景 + 文字輪播 ===== */}
+      {/* ===== Preload：影片背景 + 固定文案 ===== */}
       {!showIntro && (
         <motion.div
           className="fixed inset-0 z-[999999] bg-black"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6 }}
         >
           <div className="absolute inset-0">
             <motion.video
@@ -171,11 +132,10 @@ export default function Index() {
               loop
               preload="metadata"
               poster="/images/宜園誠境實景照片.jpg"
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
-              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover"
               initial={{ opacity: 0 }}
               animate={{ opacity: videoReady ? 1 : 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6 }}
               onCanPlay={() => setVideoReady(true)}
             >
               <source
@@ -198,80 +158,55 @@ export default function Index() {
           </div>
 
           {/* 遮罩 */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/30 to-transparent" />
 
-          {/* 中央文案 + Enter */}
+          {/* 中央文案 */}
           <div className="relative z-20 h-full w-full flex items-center justify-center px-6">
             <div className="text-center">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={slide}
-                  variants={groupVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
+              <motion.div
+                variants={groupVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <motion.h1
+                  variants={lineVariants}
+                  className="text-white font-semibold leading-tight tracking-wide text-[clamp(28px,5.5vw,44px)]"
                 >
-                  <motion.h1
-                    variants={lineVariants}
-                    className="text-white font-semibold leading-tight tracking-wide text-[clamp(28px,5.5vw,44px)]"
-                  >
-                    {slides[slide].title}
-                  </motion.h1>
-                  <motion.div
-                    variants={lineVariants}
-                    className="mt-2 text-[clamp(14px,2.8vw,20px)] tracking-[0.35em] text-[#E8D9B5]"
-                  >
-                    {slides[slide].sub}
-                  </motion.div>
-                  <motion.p
-                    variants={lineVariants}
-                    className="mt-6 max-w-[70ch] mx-auto text-white/90 text-[clamp(13px,2.2vw,16px)] leading-relaxed"
-                    style={{ textWrap: "balance" }}
-                  >
-                    {slides[slide].body}
-                  </motion.p>
+                  {slide.title}
+                </motion.h1>
+                <motion.div
+                  variants={lineVariants}
+                  className="mt-2 text-[clamp(14px,2.8vw,20px)] tracking-[0.35em] text-[#E8D9B5]"
+                >
+                  {slide.sub}
                 </motion.div>
-              </AnimatePresence>
+                <motion.p
+                  variants={lineVariants}
+                  className="mt-6 max-w-[70ch] mx-auto text-white/90 text-[clamp(13px,2.2vw,16px)] leading-relaxed"
+                  style={{ textWrap: "balance" }}
+                >
+                  {slide.body}
+                </motion.p>
+              </motion.div>
 
-              {/* Enter 按鈕（磁吸 + 玻璃霧面 + 光帶） */}
+              {/* Enter 按鈕 */}
               <div
                 ref={magnetWrapRef}
                 className="relative mt-10 inline-block group"
-                aria-hidden={reduceMotion ? "true" : "false"}
               >
-                <div className="pointer-events-none absolute -inset-[2px] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,.5),rgba(232,217,181,.65),rgba(255,255,255,.5))] opacity-60  transition" />
                 <button
                   ref={btnRef}
                   onClick={handleEnter}
-                  className="relative z-10 inline-flex items-center gap-2 rounded-full px-7 py-3 bg-white/15 backdrop-blur-md text-white border border-white/30 hover:border-white/60 transition-colors"
+                  className="relative z-10 inline-flex items-center gap-2 rounded-full px-7 py-3 bg-white/15 backdrop-blur-md text-white border border-white/30 hover:border-white/60"
                 >
-                  <span className="relative z-10 font-medium tracking-wider">
-                    Enter
-                  </span>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    className="translate-y-[1px] transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <path
-                      d="M5 12h14M13 5l7 7-7 7"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span className="pointer-events-none absolute inset-0 rounded-full bg-[linear-gradient(180deg,rgba(255,255,255,.35),transparent_55%)] opacity-70" />
+                  Enter
                 </button>
-                <span className="pointer-events-none absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition duration-500 blur-xl bg-[radial-gradient(60%_80%_at_50%_50%,rgba(232,217,181,.45),transparent_70%)]" />
               </div>
             </div>
           </div>
         </motion.div>
       )}
-
       {/* ===== Intro（SVG 畫線） ===== */}
       <AnimatePresence mode="wait">
         {showIntro && !hideAll && (
