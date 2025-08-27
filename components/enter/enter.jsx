@@ -5,11 +5,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
+import { usePathname } from "next/navigation";
 
 export default function Index() {
+  const pathname = usePathname();
+  const [runKey, setRunKey] = useState(0);
+
+  // ---- 動畫狀態 ----
   const [animationDone, setAnimationDone] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
-  const [hideAll, setHideAll] = useState(false);
+  const [showIntro, setShowIntro] = useState(true); // 進場 SVG 畫線
+  const [hideAll, setHideAll] = useState(false); // 點 Enter 後關閉覆蓋層
   const [videoReady, setVideoReady] = useState(false);
 
   // 降低動效
@@ -18,17 +23,49 @@ export default function Index() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  // 首次造訪判斷
+  // ✅ 每次「進到首頁 /」都重新開啟 Intro 並重置狀態
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const seen = window.localStorage.getItem("yy_intro_done");
-    if (seen === "1") {
-      setShowIntro(false);
-      setHideAll(true);
+    if (pathname === "/") {
+      // 重置所有旗標
+      setAnimationDone(false);
+      setShowIntro(true);
+      setHideAll(false);
+      setVideoReady(false);
+      // 用 key 迫使子樹 remount（確保所有 useEffect 再跑一次）
+      setRunKey((k) => k + 1);
     }
-  }, []);
+  }, [pathname]);
 
-  // Intro 結束 -> 關閉
+  // ✅ BFCache / 從背景回到前景時也重新跑（iOS/Safari 常見）
+  useEffect(() => {
+    const handlePageShow = (e) => {
+      // BFCache 返回時 e.persisted 為 true；兩種情況都保險重跑
+      if (pathname === "/") {
+        setAnimationDone(false);
+        setShowIntro(true);
+        setHideAll(false);
+        setVideoReady(false);
+        setRunKey((k) => k + 1);
+      }
+    };
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible" && pathname === "/") {
+        setAnimationDone(false);
+        setShowIntro(true);
+        setHideAll(false);
+        setVideoReady(false);
+        setRunKey((k) => k + 1);
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [pathname]);
+
+  // Intro 結束 -> 關閉（自動淡出）
   useEffect(() => {
     if (!animationDone) return;
     const t = setTimeout(() => setShowIntro(false), 500);
@@ -73,10 +110,8 @@ export default function Index() {
     body: "從基地的風向、光線到一磚一瓦，回應土地而生。不是張揚的形狀，而是安穩的秩序；讓回家成為日常最踏實的風景。",
   };
 
+  // 點擊 Enter：只關閉這次覆蓋層（不再寫入 localStorage）
   const handleEnter = () => {
-    try {
-      window.localStorage.setItem("yy_intro_done", "1");
-    } catch (e) {}
     setHideAll(true);
   };
 
@@ -110,12 +145,13 @@ export default function Index() {
       wrap.removeEventListener("mousemove", onMove);
       wrap.removeEventListener("mouseleave", onLeave);
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, runKey]); // runKey 變動時也重綁，確保新一輪動畫一致
 
   if (hideAll) return null;
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden">
+    // 用 runKey 讓子樹 remount：所有 motion/gSAP 狀態歸零
+    <div key={runKey} className="relative w-screen h-screen overflow-hidden">
       {/* ===== Preload：影片背景 + 固定文案 ===== */}
       {!showIntro && (
         <motion.div
@@ -207,11 +243,12 @@ export default function Index() {
           </div>
         </motion.div>
       )}
+
       {/* ===== Intro（SVG 畫線） ===== */}
       <AnimatePresence mode="wait">
         {showIntro && !hideAll && (
           <motion.div
-            key="intro"
+            key={`intro-${runKey}`}
             exit={introExit}
             className={styles.introduction}
             style={{
