@@ -162,11 +162,8 @@ function Home() {
 
         <div className="nav">{/* 導航略 */}</div>
 
-        <div
-          id="dark-section"
-          className="relative w-full aspect-[16/9] md:aspect-[1024/576]"
-        >
-          <section className="section-hero w-full aspect-[500/500] sm:aspect-[500/400] md:aspect-[1024/768] xl:aspect-[1920/1080] 2xl:aspect-[1920/850] overflow-hidden relative">
+        <div id="dark-section" className="relative w-full h-screen">
+          <section className="section-hero w-full h-full overflow-hidden relative">
             {/* 背景輪播（淡入淡出＋慢速縮放） */}
             {backgroundImages.map((bg, i) => (
               <motion.div

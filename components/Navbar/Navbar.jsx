@@ -85,7 +85,7 @@ const MenuBar = ({ closeMenu }) => {
               <Link
                 href={href}
                 key={href}
-                className="px-3 py-1 mx-2 text-sm border-y-1 border-gray-600 font-medium text-black hover:opacity-80 transition"
+                className="px-3 py-1 scale-100 hover:scale-105 transition duration-300 mx-2 text-sm border-y-1 border-gray-600 font-medium text-black hover:opacity-80 "
                 onClick={closeAll}
               >
                 {label}
