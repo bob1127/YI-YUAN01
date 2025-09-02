@@ -1,212 +1,183 @@
+// app/(site)/page.jsx  or  any client page component
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic"; // ✅ 關閉 SSR
+import { useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic"; // ✅ 關閉 SSR（避免伺服器載入 GSAP/DOM）
+import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import CustomEase from "gsap/dist/CustomEase";
+import CustomEase from "gsap/CustomEase";
 import Image from "next/image";
-import GsapText from "../../components/RevealText/index";
 import { motion } from "framer-motion";
 
-import { BsCart, BsArrowRight } from "react-icons/bs";
-import HeroSlider from "../HeroSlider/page";
+// （如果真的要用 Icon / 其他元件再打開）
+// import { BsCart, BsArrowRight } from "react-icons/bs";
+// import HeroSlider from "../HeroSlider/page";
+// import GsapText from "../../components/RevealText";
 
 function Home() {
-  const [showLoader, setShowLoader] = useState(true); // 每次掛載首頁都顯示
+  /* ----------------------- State & Refs ----------------------- */
+  const pathname = usePathname();
+  const videoRef = useRef(null);
+  const [videoReady, setVideoReady] = useState(false);
 
+  // 追蹤背景圖輪播（如不需要可刪）
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(null);
 
-  const backgroundImages = [
-    "/images/宜園誠境實景照片.jpg",
-    "/images/JPOM9734.jpg",
-    "/images/JPOM9756.jpg",
-    "/images/img001.png",
-  ];
+  const backgroundImages = useMemo(
+    () => [
+      "/images/宜園誠境實景照片.jpg",
+      "/images/JPOM9734.jpg",
+      "/images/JPOM9756.jpg",
+      "/images/img001.png",
+    ],
+    []
+  );
 
+  // 降低動效：系統層級偏好
+  const reduceMotion = useMemo(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  /* ----------------------- Effects ----------------------- */
+
+  // ✅ GSAP 初始化
+  useEffect(() => {
+    gsap.registerPlugin(CustomEase);
+    if (!gsap.parseEase("hop")) {
+      CustomEase.create("hop", "0.9, 0, 0.1, 1");
+    }
+  }, []);
+
+  // ✅ 讓影片在 iOS / Safari 上穩定自動播放
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    // 必要屬性：muted + playsInline + autoplay
+    v.muted = true;
+    v.playsInline = true;
+
+    const tryPlay = async () => {
+      try {
+        await v.play();
+      } catch {
+        // 若被阻擋，等到可播放再試一次
+      }
+    };
+
+    // 若 metadata 已就緒就試播
+    const onLoadedMeta = () => tryPlay();
+    const onCanPlay = () => {
+      setVideoReady(true);
+      tryPlay();
+    };
+
+    v.addEventListener("loadedmetadata", onLoadedMeta);
+    v.addEventListener("canplay", onCanPlay);
+
+    // 部分瀏覽器需要「使用者互動後」才允許播放，保險起見再綁一次
+    const resumeOnUserGesture = () => tryPlay();
+    window.addEventListener("pointerdown", resumeOnUserGesture, { once: true });
+
+    return () => {
+      v.removeEventListener("loadedmetadata", onLoadedMeta);
+      v.removeEventListener("canplay", onCanPlay);
+      window.removeEventListener("pointerdown", resumeOnUserGesture);
+    };
+  }, [pathname]);
+
+  // ✅ 每 5 秒切換背景圖片（若你只用影片可以刪掉這段）
   useEffect(() => {
     const timer = setInterval(() => {
       setPrevIndex(currentIndex);
       setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, [currentIndex, backgroundImages.length]);
 
-  const people = [
-    {
-      id: 1,
-      name: "John Doe",
-      designation: "業務人員",
-      qrCodeImage:
-        "https://thumb.ac-illust.com/bd/bd2c033b5a0f028d5d0a5f63223c0781_t.jpeg",
-      image:
-        "/images/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      designation: "買屋看房",
-      qrCodeImage:
-        "https://thumb.ac-illust.com/bd/bd2c033b5a0f028d5d0a5f63223c0781_t.jpeg",
-      image: "/images/hero-img/img05.png",
-    },
-    {
-      id: 3,
-      name: "John Doe",
-      designation: "詢問價格",
-      qrCodeImage:
-        "https://thumb.ac-illust.com/bd/bd2c033b5a0f028d5d0a5f63223c0781_t.jpeg",
-      image: "/images/hero-img/img06.png",
-    },
-    {
-      id: 4,
-      name: "John Doe",
-      designation: "詢問價格",
-      qrCodeImage:
-        "https://thumb.ac-illust.com/bd/bd2c033b5a0f028d5d0a5f63223c0781_t.jpeg",
-      image: "/images/hero-img/img07.png",
-    },
-  ];
-
-  const [showNav, setShowNav] = useState(true);
-  let lastScrollY = 0;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (typeof window !== "undefined") {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY) setShowNav(false);
-        else setShowNav(true);
-        lastScrollY = currentScrollY;
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    gsap.registerPlugin(CustomEase);
-    CustomEase.create("hop", "0.9, 0, 0.1, 1");
-  }, []);
-
-  // GSAP 進場：一開始就把 loader 關掉，避免遮住文案
+  // ✅ Hero 文字進場（不被 loader 擋、且立即顯示）
   useGSAP(() => {
-    const tl = gsap.timeline({
-      delay: 0,
-      defaults: { ease: "hop" },
-    });
-
-    // 關閉/隱藏 loader（若不存在此 class 也不會報錯）
-    tl.set(
-      ".loader",
-      { display: "block", pointerEvents: "auto", opacity: 1 },
-      0
+    if (reduceMotion) return;
+    const tl = gsap.timeline({ defaults: { ease: "hop" } });
+    tl.fromTo(
+      ".hero-title",
+      { yPercent: 20, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.8 }
     );
-
-    const counts = document.querySelectorAll(".count");
-    counts.forEach((count, index) => {
-      const digits = count.querySelectorAll(".digit h1");
-      tl.to(digits, { y: "0%", duration: 1, stagger: 0.075 }, index * 1);
-      if (index < counts.length) {
-        tl.to(
-          digits,
-          { y: "-100%", duration: 1, stagger: 0.075 },
-          index * 1 + 1
-        );
-      }
-    });
-
-    tl.to(".word h1", { y: "0%", duration: 1 }, "<");
-    tl.to(".divider", {
-      scaleY: "100%",
-      duration: 1,
-      onComplete: () =>
-        gsap.to(".divider", { opacity: 0, duration: 0.3, delay: 0.3 }),
-    });
-    tl.to("#word-1 h1", { y: "100%", duration: 1, delay: 0.3 });
-    tl.to("#word-2 h1", { y: "-100%", duration: 1 }, "<");
-    tl.to(
-      ".preloader-block",
-      {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-        duration: 1,
-        stagger: 0.1,
-        delay: 0.75,
-        onStart: () =>
-          gsap.to(".hero-img", { scale: 1, duration: 2, ease: "hop" }),
-      },
-      "<"
+    tl.fromTo(
+      ".hero-subtitle",
+      { yPercent: 20, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.8 },
+      "-=0.4"
     );
-    tl.to(
-      [".nav", ".line h1", ".line p"],
-      { y: "0%", duration: 1.5, stagger: 0.2 },
-      "<"
-    );
-    tl.to(
-      [".cta", ".cta-icon"],
-      { scale: 1, duration: 1.5, stagger: 0.75, delay: 0.75 },
-      "<"
-    );
-    tl.to(".cta-label p", { y: "0%", duration: 1.5, delay: 0.5 }, "<");
-  });
+  }, [reduceMotion]);
 
+  /* ----------------------- Render ----------------------- */
   return (
-    <>
-      {/* 若有 loader，className 請用 .loader（會被 GSAP 立即隱藏） */}
-
-      <div className="container w-full max-w-[100%]">
-        <div className="hero-img">
-          <Image src="/hero-img.jpg" alt="KindRoot Hero Image" fill priority />
-        </div>
-
-        <div className="nav">{/* 導航略 */}</div>
-
-        <div id="dark-section" className="relative w-full h-screen">
-          <section className="section-hero w-full h-full overflow-hidden relative">
-            {/* 背景輪播（淡入淡出＋慢速縮放） */}
-            {backgroundImages.map((bg, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 1 }}
-                animate={{
-                  opacity: i === currentIndex ? 1 : 0,
-                  scale: i === currentIndex ? 1.15 : 1,
-                }}
-                transition={{
-                  opacity: { duration: 1.5, ease: "easeInOut" },
-                  scale: { duration: 20, ease: "linear" },
-                }}
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-                style={{ backgroundImage: `url(${bg})` }}
-              />
-            ))}
-            <div className="bg-black opacity-40 w-full h-full absolute top-0 left-0 z-10" />
-          </section>
-        </div>
-
-        {/* Hero 文案：掛載就顯示（不受任何延遲） */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full px-4">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0 }}
-            className="flex flex-col items-center justify-center text-center space-y-2"
-            style={{ opacity: 1, transform: "translateY(0)" }}
-          >
-            <div className="flex flex-col items-center justify-center text-center space-y-2">
-              <GsapText
-                text="Yi-Yuan"
-                id="hero-title-1"
-                className="block !text-white !text-[clamp(1.8rem,5vw,3rem)] font-medium leading-tight"
-              />
-            </div>
-          </motion.div>
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* 背景圖（做為影片失敗時的保底） */}
+      <div className="absolute inset-0 -z-20">
+        {/* 使用 next/image 需要父層 relative */}
+        <div className="relative w-full h-full">
+          <Image
+            src={backgroundImages[currentIndex]}
+            alt="Background Fallback"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
         </div>
       </div>
-    </>
+
+      {/* 影片背景層 */}
+      <div className=" inset-0 h-screen -z-10">
+        <motion.video
+          key={pathname === "/" ? "home-video" : "default-video"} // 進入首頁時強制 remount
+          ref={videoRef}
+          autoPlay
+          muted
+          playsInline
+          loop
+          preload="auto"
+          poster="/images/宜園誠境實景照片.jpg"
+          className="w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: videoReady ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <source
+            src="/videos/2882118-uhd_3840_2160_24fps.mp4"
+            type="video/mp4"
+          />
+          {/* 若瀏覽器不支援 video，會顯示此文字 */}
+          您的瀏覽器不支援 HTML5 影片。
+        </motion.video>
+      </div>
+
+      {/* 內容層 */}
+      <div className="relative z-10 flex items-center justify-center h-screen px-6">
+        <div className="text-center">
+          <h1 className="hero-title text-white text-[clamp(1.8rem,5vw,3rem)] font-semibold tracking-wide">
+            Yi-Yuan
+          </h1>
+          <p className="hero-subtitle mt-2 text-white/85 text-[clamp(1rem,2.6vw,1.25rem)]">
+            誠境 · 實景 · 美好生活
+          </p>
+        </div>
+      </div>
+
+      {/* 可選：覆蓋一層漸層提升文字可讀性 */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/20"
+      />
+    </div>
   );
 }
 
-// 關閉這頁 SSR，避免伺服器載入 gsap / ESM 模組
+// ✅ 關閉 SSR，避免伺服器端載入與 DOM/GSAP 相關物件
 export default dynamic(() => Promise.resolve(Home), { ssr: false });

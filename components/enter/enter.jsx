@@ -9,11 +9,12 @@ import { usePathname } from "next/navigation";
 
 export default function Index() {
   const pathname = usePathname();
-  const [runKey, setRunKey] = useState(0);
 
-  // ---- 動畫狀態 ----
+  // ---- 狀態 ----
+  const [runKey, setRunKey] = useState(0);
+  const [shouldShowIntro, setShouldShowIntro] = useState(false); // ✅ 是否該顯示 preloader（僅搜尋引擎來）
   const [animationDone, setAnimationDone] = useState(false);
-  const [showIntro, setShowIntro] = useState(true); // 進場 SVG 畫線
+  const [showIntro, setShowIntro] = useState(false); // 進場 SVG 畫線
   const [hideAll, setHideAll] = useState(false); // 點 Enter 後關閉覆蓋層
   const [videoReady, setVideoReady] = useState(false);
 
@@ -23,49 +24,90 @@ export default function Index() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  // ✅ 每次「進到首頁 /」都重新開啟 Intro 並重置狀態
+  // ✅ 判斷是否從搜尋引擎進來（只在首次進到 "/" 時檢查）
   useEffect(() => {
-    if (pathname === "/") {
-      // 重置所有旗標
-      setAnimationDone(false);
-      setShowIntro(true);
-      setHideAll(false);
-      setVideoReady(false);
-      // 用 key 迫使子樹 remount（確保所有 useEffect 再跑一次）
+    if (pathname !== "/") return;
+
+    const isFromSearchEngine = () => {
+      if (typeof window === "undefined") return false;
+
+      const ref = document.referrer || "";
+      let fromSE = false;
+
+      // 常見搜尋引擎網域
+      const seHosts = [
+        /(^|\.)google\./i,
+        /(^|\.)bing\./i,
+        /(^|\.)search\.yahoo\./i,
+        /(^|\.)duckduckgo\.com$/i,
+        /(^|\.)yandex\./i,
+        /(^|\.)baidu\.com$/i,
+        /(^|\.)naver\.com$/i,
+        /(^|\.)ecosia\.org$/i,
+        /(^|\.)startpage\.com$/i,
+        /(^|\.)seznam\.cz$/i,
+        /(^|\.)sogou\.com$/i,
+        /(^|\.)sm\.cn$/i,
+      ];
+
+      // 1) 先看 referrer 網域
+      if (ref) {
+        try {
+          const refHost = new URL(ref).hostname;
+          const sameHost = refHost === window.location.hostname;
+          if (!sameHost) {
+            fromSE = seHosts.some((rx) => rx.test(refHost));
+          }
+        } catch {
+          // ignore parse error
+        }
+      }
+
+      // 2) 若 referrer 不可靠，再看 URL 參數（常見搜尋/廣告參數）
+      if (!fromSE) {
+        const sp = new URLSearchParams(window.location.search);
+        const utm = (sp.get("utm_source") || "").toLowerCase();
+        const hasClickId = sp.has("gclid") || sp.has("msclkid");
+        const utmIsSE =
+          /google|bing|yahoo|duckduckgo|yandex|baidu|naver|ecosia|startpage/.test(
+            utm
+          );
+        if (utmIsSE || hasClickId) fromSE = true;
+      }
+
+      return fromSE;
+    };
+
+    const fromSE = isFromSearchEngine();
+
+    // 只有「搜尋引擎進來首頁」才顯示 preloader
+    setShouldShowIntro(fromSE);
+    setShowIntro(fromSE);
+    setHideAll(false);
+    setAnimationDone(false);
+    setVideoReady(false);
+
+    if (fromSE) {
+      // 強制 remount，確保動畫/事件都重跑
       setRunKey((k) => k + 1);
     }
   }, [pathname]);
 
-  // ✅ BFCache / 從背景回到前景時也重新跑（iOS/Safari 常見）
+  // ✅ BFCache / 從背景回到前景：只在「本次本來就該顯示」時維持，不重新強制顯示
   useEffect(() => {
-    const handlePageShow = (e) => {
-      // BFCache 返回時 e.persisted 為 true；兩種情況都保險重跑
-      if (pathname === "/") {
-        setAnimationDone(false);
-        setShowIntro(true);
-        setHideAll(false);
-        setVideoReady(false);
-        setRunKey((k) => k + 1);
-      }
-    };
-    const handleVisibility = () => {
-      if (document.visibilityState === "visible" && pathname === "/") {
-        setAnimationDone(false);
-        setShowIntro(true);
-        setHideAll(false);
-        setVideoReady(false);
-        setRunKey((k) => k + 1);
-      }
-    };
-    window.addEventListener("pageshow", handlePageShow);
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => {
-      window.removeEventListener("pageshow", handlePageShow);
-      document.removeEventListener("visibilitychange", handleVisibility);
-    };
-  }, [pathname]);
+    if (pathname !== "/") return;
 
-  // Intro 結束 -> 關閉（自動淡出）
+    const onPageShow = (e) => {
+      if (e.persisted && shouldShowIntro) {
+        // 維持當前狀態，不重新開啟（避免返回就再跑一次）
+        // 如想返回也重新播放，可在此 reset；本需求不需要
+      }
+    };
+    window.addEventListener("pageshow", onPageShow);
+    return () => window.removeEventListener("pageshow", onPageShow);
+  }, [pathname, shouldShowIntro]);
+
+  // Intro 線條動畫結束 -> 0.5s 後關閉線條畫面（切到影片層 + Enter）
   useEffect(() => {
     if (!animationDone) return;
     const t = setTimeout(() => setShowIntro(false), 500);
@@ -104,16 +146,10 @@ export default function Index() {
     },
   };
 
-  const slide = {
-    title: "實在的構築",
-    sub: "TRUE ARCH",
-    body: "從基地的風向、光線到一磚一瓦，回應土地而生。不是張揚的形狀，而是安穩的秩序；讓回家成為日常最踏實的風景。",
-  };
+  const slide = { title: "實在的構築", sub: "TRUE ARCH" };
 
-  // 點擊 Enter：只關閉這次覆蓋層（不再寫入 localStorage）
-  const handleEnter = () => {
-    setHideAll(true);
-  };
+  // 點擊 Enter -> 關閉覆蓋層（本回合不再顯示）
+  const handleEnter = () => setHideAll(true);
 
   // 磁吸按鈕
   const magnetWrapRef = useRef(null);
@@ -145,14 +181,15 @@ export default function Index() {
       wrap.removeEventListener("mousemove", onMove);
       wrap.removeEventListener("mouseleave", onLeave);
     };
-  }, [reduceMotion, runKey]); // runKey 變動時也重綁，確保新一輪動畫一致
+  }, [reduceMotion, runKey]);
 
-  if (hideAll) return null;
+  // 若本次不需要顯示（站內連回首頁 or 不是搜尋引擎流量），直接不渲染任何覆蓋層
+  if (!shouldShowIntro || hideAll) return null;
 
   return (
-    // 用 runKey 讓子樹 remount：所有 motion/gSAP 狀態歸零
+    // 用 runKey 讓子樹 remount：所有 motion/GSAP 狀態歸零
     <div key={runKey} className="relative w-screen h-screen overflow-hidden">
-      {/* ===== Preload：影片背景 + 固定文案 ===== */}
+      {/* ===== 影片背景 + 固定文案（在 SVG 畫線後才出現） ===== */}
       {!showIntro && (
         <motion.div
           className="fixed inset-0 z-[999999] bg-black"
@@ -175,7 +212,7 @@ export default function Index() {
               onCanPlay={() => setVideoReady(true)}
             >
               <source
-                src="/videos/3161307-hd_1920_1080_24fps.mp4"
+                src="/videos/3179186-hd_1920_1080_24fps.mp4"
                 type="video/mp4"
               />
             </motion.video>
@@ -196,7 +233,7 @@ export default function Index() {
           {/* 遮罩 */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/30 to-transparent" />
 
-          {/* 中央文案 */}
+          {/* 中央文案 + Enter */}
           <div className="relative z-20 h-full w-full flex items-center justify-center px-6">
             <div className="text-center">
               <motion.div
@@ -217,16 +254,8 @@ export default function Index() {
                 >
                   {slide.sub}
                 </motion.div>
-                <motion.p
-                  variants={lineVariants}
-                  className="mt-6 max-w-[70ch] mx-auto text-white/90 text-[clamp(13px,2.2vw,16px)] leading-relaxed"
-                  style={{ textWrap: "balance" }}
-                >
-                  {slide.body}
-                </motion.p>
               </motion.div>
 
-              {/* Enter 按鈕 */}
               <div
                 ref={magnetWrapRef}
                 className="relative mt-10 inline-block group"
@@ -246,7 +275,7 @@ export default function Index() {
 
       {/* ===== Intro（SVG 畫線） ===== */}
       <AnimatePresence mode="wait">
-        {showIntro && !hideAll && (
+        {showIntro && (
           <motion.div
             key={`intro-${runKey}`}
             exit={introExit}
