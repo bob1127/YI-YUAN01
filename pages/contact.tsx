@@ -16,7 +16,7 @@ export default function About() {
 
   return (
     <Layout>
-      <section className="py-[10vh] px-4 md:px-12 lg:px-20 w-full xl:!w-[80%] 2xl:w-full max-w-[1920px] mx-auto">
+      <section className="py-[90px] sm:py-[150px] px-4 md:px-12 lg:px-20 w-full xl:!w-[80%] 2xl:w-full max-w-[1920px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start min-h-[600px]">
           {/* 左側：表單 */}
           <div className="w-full px-4 max-w-3xl mx-auto md:mx-0 h-full flex items-start">

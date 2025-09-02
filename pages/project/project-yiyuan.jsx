@@ -16,8 +16,12 @@ import "swiper/css/thumbs";
 
 const Project = () => {
   const gallery = [
-    "/images/S__28844100.png",
-    "/images/project/S__31399939.jpg",
+    "/images/project/S__3497987_0.jpg",
+    "/images/project/S__3497988(1).jpg",
+    "/images/project/S__3497989_0.jpg",
+    "/images/project/S__3497990_0.jpg",
+    "/images/project/S__3497991_0.jpg",
+    "/images/project/S__3497992_0.jpg",
   ];
 
   const faqs = [
@@ -154,6 +158,7 @@ const Project = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
+              <span>3D外觀示意圖，本公司保有修改之權利</span>
             </div>
           </div>
 

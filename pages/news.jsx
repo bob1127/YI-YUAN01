@@ -251,7 +251,86 @@ export default function Photos() {
               <h2>工程進度｜</h2>
             </div>
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
-              <div />
+              <div className="flex flex-col new-items">
+                <div className="news-item mt-2 bg-slate-100 flex p-2 items-center ">
+                  <div className="img w-[40%]">
+                    <Image
+                      src="/images/news/動土典禮/2-67ab1efd657f9.jpg"
+                      width={800}
+                      height={600}
+                      alt="news-img"
+                      placeholder="empty"
+                      loading="lazy"
+                      className="w-full"
+                    ></Image>
+                  </div>
+                  <div className="txt p-8 w-[60%]">
+                    <h3 className="text-lg font-bold">
+                      宜園建設推出極奢豪墅，<br></br>
+                      坐擁捷運、百貨、水岸三重優勢
+                    </h3>
+                    <p className="text-[14px] font-normal ">
+                      南台中13期重劃區因捷運文心南路軸線加持，逐步展現「富人聚落」潛力，鄰近8期、7期、單元四、單元五與南區，區位優勢鮮明。其中，宜園建設攜手國際知名建築大師劉偉彥
+                    </p>
+                    <div className="flex pt-5 justify-end">
+                      {" "}
+                      <span>閱讀更多</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="news-item mt-2 bg-slate-100 flex p-2 items-center ">
+                  <div className="img w-[40%]">
+                    <Image
+                      src="/images/news/動土典禮/2-67ab1efd657f9.jpg"
+                      width={800}
+                      height={600}
+                      alt="news-img"
+                      placeholder="empty"
+                      loading="lazy"
+                      className="w-full"
+                    ></Image>
+                  </div>
+                  <div className="txt p-8 w-[60%]">
+                    <h3 className="text-lg font-bold">
+                      宜園建設推出極奢豪墅，<br></br>
+                      坐擁捷運、百貨、水岸三重優勢
+                    </h3>
+                    <p className="text-[14px] font-normal ">
+                      南台中13期重劃區因捷運文心南路軸線加持，逐步展現「富人聚落」潛力，鄰近8期、7期、單元四、單元五與南區，區位優勢鮮明。其中，宜園建設攜手國際知名建築大師劉偉彥
+                    </p>
+                    <div className="flex pt-5 justify-end">
+                      {" "}
+                      <span>閱讀更多</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="news-item mt-2 bg-slate-100 flex p-2 items-center ">
+                  <div className="img w-[40%]">
+                    <Image
+                      src="/images/news/動土典禮/2-67ab1efd657f9.jpg"
+                      width={800}
+                      height={600}
+                      alt="news-img"
+                      placeholder="empty"
+                      loading="lazy"
+                      className="w-full"
+                    ></Image>
+                  </div>
+                  <div className="txt p-8 w-[60%]">
+                    <h3 className="text-lg font-bold">
+                      宜園建設推出極奢豪墅，<br></br>
+                      坐擁捷運、百貨、水岸三重優勢
+                    </h3>
+                    <p className="text-[14px] font-normal ">
+                      南台中13期重劃區因捷運文心南路軸線加持，逐步展現「富人聚落」潛力，鄰近8期、7期、單元四、單元五與南區，區位優勢鮮明。其中，宜園建設攜手國際知名建築大師劉偉彥
+                    </p>
+                    <div className="flex pt-5 justify-end">
+                      {" "}
+                      <span>閱讀更多</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -142,20 +142,20 @@ export default function Home() {
                     </div>
                   </div>
                   <p className="leading-loose tracking-widest w-full mt-8">
-                    房子，值得依靠；好關係，值得託付。<br></br>
-                    當市場競逐利益，宜園回歸最本質的「家」， 最關鍵的「住」。
+                    好房子，值得依靠；好關係，值得託付<br></br>
+                    當市場競逐利益，宜園回歸最本質的「家」，最關鍵的「住」
                     <br></br>
-                    以職人專業為基，堅守實在本質，落實大小細節，築起家的價值。
+                    以職人專業為基，堅守實在本質，落實大小細節，築起家的價值
                     <br></br>
                     <br></br>
-                    宜園，以「實在的構築」，默默守護，讓您踏實生活，放心每一天。
+                    宜園，以「實在的構築」，默默守護，讓您踏實生活，放心每一天
                   </p>
                 </div>
               </div>
             </div>
           </section>
-          <section className="lg:py-[50px] max-w-[1920px]  mx-auto">
-            <div className="flex lg:flex-row justify-center items-center flex-col w-full sm:w-[95%] mx-auto ">
+          <section className="lg:py-[50px]  w-full  ">
+            <div className="flex lg:flex-row justify-center items-center flex-col w-full  mx-auto ">
               <div className="img  w-full lg:w-1/2 flex justify-center items-center p-10  mx-auto sm:mx-3  h-auto lg:h-[60vh] xl:h-[60vh] overflow-hidden">
                 <div className="title w-full mx-auto flex flex-col justify-center items-center">
                   <div className="flex justify-center items">
@@ -171,12 +171,12 @@ export default function Home() {
                   </div>
 
                   <p className="leading-loose tracking-widest  mt-8">
-                    建築，是連結土地的根，也是凝聚人心的橋。<br></br>
-                    於家人，傳遞溫度與關懷； 於鄰里，凝聚和睦與理解；
-                    <br></br>於土地，報以尊重與謙遜；於城市，追求共
-                    宜園，以實在的構築，<br></br>
+                    建築，是連結土地的根，也是凝聚人心的橋<br></br>
+                    於家人，傳遞溫度與關懷；於鄰里，凝聚和睦與理解
+                    <br></br>於土地，報以尊重與謙遜；於城市，追求共生共榮
                     <br></br>
-                    讓人與人、與土地、與城市之間，美好關係加以延續。
+                    <br></br>
+                    宜園，以實在的構築，讓人與人、與土地、與城市之間，美好關係加以延續
                   </p>
                 </div>
               </div>
@@ -247,13 +247,13 @@ export default function Home() {
                     </div>
 
                     <p className="leading-loose tracking-widest text-gray-200 mt-8 w-full ">
-                      每個人，都是獨一無二的個體。
-                      好的房子，懂得尊重每一種獨特。<br></br>
-                      以好規劃，讓私領域的靜謐、公領域的交流，恰如其分。
+                      每個人，都是獨一無二的個體。 好的房子，懂得尊重每一種獨特
                       <br></br>
-                      以好設計，迎風納景，擋聲遮擾，恰到好處。<br></br>
+                      以好規劃，讓私領域的靜謐、公領域的交流，恰如其分
                       <br></br>
-                      宜園，以實在的構築，成就居住者理想居所，守護與眾不同的生活想像。
+                      以好設計，迎風納景，擋聲遮擾，恰到好處<br></br>
+                      <br></br>
+                      宜園，以實在的構築，成就居住者理想居所，守護與眾不同的生活想像
                     </p>
                   </div>
                 </div>
@@ -276,12 +276,12 @@ export default function Home() {
                     </div>
 
                     <p className="leading-loose tracking-widest text-gray-200 mt-8 w-full ">
-                      好房子懂得跟土地相處，找出最舒適的生活方式。<br></br>
-                      宜園傾聽土地的聲音，細說生命的故事，<br></br>
-                      讓建築扎根於大地，成就心的歸宿。<br></br>
+                      好房子懂得跟土地相處，找出最舒適的生活方式<br></br>
+                      宜園傾聽土地的聲音，細說生命的故事<br></br>
+                      讓建築扎根於大地，成就心的歸宿<br></br>
                       <br />
-                      宜園，以實在的構築，融入環境，與自然共生共長；<br></br>
-                      順應時間，讓家越住越美，恆久宜居。
+                      宜園，以實在的構築，融入環境，與自然共生共長<br></br>
+                      順應時間，讓家越住越美，恆久宜居
                     </p>
                   </div>
                 </div>

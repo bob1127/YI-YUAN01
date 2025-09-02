@@ -5,6 +5,7 @@ import Image from "next/image";
 import Layout from "./Layout";
 import ProjectSlider from "../components/SwiperCarousel/BuildProject";
 import Head from "next/head";
+import { motion } from "framer-motion";
 /** 可重用的 Hero 視差元件 */
 function HeroParallax({
   src,
@@ -79,7 +80,37 @@ function HeroParallax({
     </div>
   );
 }
+const handleScroll = () => {
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
+  const target = document.querySelector("#next-section");
+  const targetY = target
+    ? window.scrollY + (target.getBoundingClientRect().top || 0)
+    : window.scrollY + window.innerHeight * 0.9;
+
+  if (prefersReduced) {
+    window.scrollTo({ top: targetY, behavior: "auto" });
+    return;
+  }
+
+  const startY = window.scrollY;
+  const distance = Math.max(0, targetY - startY);
+  const DURATION_MS = 1400;
+  const start = performance.now();
+  const easeInExpo = (t) => (t === 0 ? 0 : Math.pow(2, 10 * (t - 1)));
+
+  const step = (now) => {
+    const elapsed = now - start;
+    const t = Math.min(1, elapsed / DURATION_MS);
+    const eased = easeInExpo(t);
+    window.scrollTo(0, startY + distance * eased);
+    if (t < 1) requestAnimationFrame(step);
+  };
+
+  requestAnimationFrame(step);
+};
 export default function About() {
   return (
     <Layout>
@@ -93,24 +124,70 @@ export default function About() {
         heightClass="h-[100vh]"
       >
         {/* ✅ 自適應的文字區塊（僅替換這一段） */}
-        <div className="absolute z-20 inset-x-6 sm:inset-x-auto sm:right-[8%] md:right-[12%] lg:right-[15%] bottom-[50%] sm:bottom-[30%] md:bottom-[38%]">
+        <div className="absolute z-20  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4">
             {/* 圓形標章：尺寸/字級皆隨斷點調整 */}
-            <div className="icon w-14 text-white h-14 sm:w-16 sm:h-16 p-3 md:w-20 text-center md:h-20 bg-[#4e2b18] rounded-full flex justify-center items-center shadow-md text-[10px] sm:text-xs md:text-sm font-medium tracking-wider">
-              HOT-SALE
-            </div>
 
             {/* 文案：行長限制 + clamp 字級 + 置中到靠左切換 */}
             <div
-              className="txt max-w-[min(88vw,720px)] text-center sm:text-left"
+              className="txt flex justify-center items-center flex-col max-w-[min(88vw,720px)] text-center sm:text-left"
               style={{ textWrap: "balance" }} // 支援的瀏覽器會更均衡換行
             >
-              <h1 className="text-white font-extralight leading-tight tracking-[0.18em] drop-shadow-md text-[clamp(24px,6vw,56px)]">
-                超越設想的心思量
+              <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
+                PROJECT
               </h1>
-              <h2 className="text-white font-extralight leading-tight tracking-[0.22em] drop-shadow text-[clamp(18px,5vw,40px)]">
-                Project
-              </h2>
+              <p className="text-white font-extralight leading-tight tracking-[0.18em] drop-shadow-md text-[clamp(16px,18px,20px)]">
+                超越設想的心思量
+              </p>
+              <h2 className="text-white font-extralight leading-tight tracking-[0.22em] drop-shadow text-[clamp(18px,5vw,40px)]"></h2>
+              <motion.button
+                type="button"
+                onClick={handleScroll}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.94 }}
+                className="flex flex-col items-center mt-8 z-30 cursor-pointer select-none"
+                aria-label="Scroll down"
+              >
+                <div className="w-px h-16 bg-white/40 overflow-hidden relative">
+                  <div className="absolute top-0 left-0 w-px h-full bg-white animate-scroll-line" />
+                </div>
+                <svg
+                  className="w-6 h-6 text-white mt-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+                <motion.span
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="text-white text-sm mt-1"
+                >
+                  Down
+                </motion.span>
+              </motion.button>
+
+              {/* keyframes */}
+              <style jsx global>{`
+                @keyframes scroll-line {
+                  0% {
+                    transform: translateY(-100%);
+                  }
+                  100% {
+                    transform: translateY(100%);
+                  }
+                }
+                .animate-scroll-line {
+                  animation: scroll-line 2.8s linear infinite;
+                }
+              `}</style>
             </div>
           </div>
         </div>
