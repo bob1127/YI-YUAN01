@@ -50,7 +50,7 @@ const project = () => {
       <Head>
         <title>經典選粹 CLASSIC 貫徹更好的美好旅程 | 宜園建設</title>
       </Head>
-      <section className="section-hero-title  aspect-[16/16] sm:aspect-[16/12]  md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
+      <section className="section-hero-title  mb-[150px] aspect-[16/16] sm:aspect-[16/12]  md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
           {/* <Image
             src="/"
@@ -130,7 +130,7 @@ const project = () => {
         `}</style>
       </section>
       <div className="title py-1"></div>
-      <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
+      <section className="grid  grid-cols-1 sm:grid-cols-3 w-full ">
         <Link href="/project/project-yiyuan" className="group block">
           <div className="project-item  flex relative group overflow-hidden flex-col">
             <div className="img aspect-[4/3] relative overflow-hidden">
@@ -260,7 +260,7 @@ const project = () => {
           </div>
         </Link>
       </section>
-      <section className="grid  grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full ">
+      <section className="grid  grid-cols-1 sm:grid-cols-3 w-full ">
         <Link href="/project/project-chengjing05" className="group block">
           <div className="project-item  flex relative group overflow-hidden flex-col">
             <div className="img aspect-[4/3] relative overflow-hidden">
