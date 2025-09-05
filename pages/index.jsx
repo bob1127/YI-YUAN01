@@ -21,7 +21,7 @@ export default function Home() {
 
           {/* ✅ 背景影片取代 Image */}
           <video
-            src="/videos/2882118-uhd_3840_2160_24fps.mp4"
+            src="/videos/1130417_宜園建設-形象影片_Bcopy(大檔).mp4"
             autoPlay
             muted
             loop
