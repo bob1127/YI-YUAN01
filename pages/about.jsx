@@ -154,9 +154,9 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section className="lg:py-[50px]  w-full  ">
+          <section className=" flex lg:flex-row max-w-[1920px] flex-col-reverse mb-5 w-full mx-auto ">
             <div className="flex lg:flex-row justify-center items-center flex-col w-full  mx-auto ">
-              <div className="img  w-full lg:w-1/2 flex justify-center items-center p-10  mx-auto sm:mx-3  h-auto lg:h-[60vh] xl:h-[60vh] overflow-hidden">
+              <div className="img  w-full lg:w-1/2 flex justify-center items-center p-10  mx-auto sm:mx-3  h-auto  overflow-hidden">
                 <div className="title w-full mx-auto flex flex-col justify-center items-center">
                   <div className="flex justify-center items">
                     <span className="capital-text text-[103px] leading-none mr-2 text-center m-0 p-0 font-normal">
