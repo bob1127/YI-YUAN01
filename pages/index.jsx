@@ -10,7 +10,7 @@ export default function Home() {
     <Layout>
       <Enter />
       <div className="bg-white">
-        <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
+        <section className="section-hero-title h-screen mt-[0px] w-full relative">
           {/* <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
             <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
               實在的構築
@@ -27,7 +27,7 @@ export default function Home() {
             loop
             playsInline
             preload="auto"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 mt-[60px] w-full h-full object-cover"
           />
         </section>
       </div>
