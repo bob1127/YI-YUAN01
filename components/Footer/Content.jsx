@@ -129,7 +129,7 @@ const Nav = () => {
                   aria-label="在 Google 地圖開啟：台中市北區賴興里文心路四段212號10樓-2"
                 >
                   <span className="text-[.8rem] text-white mt-1 ">
-                    地址：台中市北區賴興里文心路四段212號10樓-2
+                    地址：台中市北區文心路四段212號10樓之2
                   </span>
                 </Link>
 
