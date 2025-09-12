@@ -110,7 +110,7 @@ export default function Home() {
           `}</style>
         </section>
 
-        <section className="section_features w-full mt-[10vh] mx-auto  ">
+        <section className="section_features w-full mt-[40px] xl:mt-[10vh] mx-auto  ">
           <section className="flex lg:flex-row max-w-[1920px] flex-col-reverse mb-5  w-full mx-auto">
             <div className="img w-full lg:px-[60px]  xl:px-[110px] lg:w-1/2">
               <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden">
@@ -176,7 +176,9 @@ export default function Home() {
                     <br></br>於土地，報以尊重與謙遜；於城市，追求共生共榮
                     <br></br>
                     <br></br>
-                    宜園，以實在的構築，讓人與人、與土地、與城市之間，美好關係加以延續
+                    宜園，以實在的構築<br></br>讓人與人、與土地、與城市之間
+                    <br></br>
+                    美好關係加以延續
                   </p>
                 </div>
               </div>
@@ -259,10 +261,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="flex  max-w-[1920px]  lg:flex-row flex-col-reverse mb-5 mt-20 lg:mt-[10vh]  w-[98%] mx-auto">
+            <div className="flex  max-w-[1920px]  lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh]  w-[98%] mx-auto">
               <div className="text mb-5 lg:mb-0 w-[85%]  mx-auto lg:w-[40%]  flex flex-col ">
                 <div className="flex flex-col justify-center items-center h-full">
-                  <div className="title mx-auto flex flex-col justify-center items-center">
+                  <div className="title mb-5 mt-10  mx-auto flex flex-col justify-center items-center">
                     <div className="flex justify-center items">
                       <span className="capital-text text-white text-[103px] leading-none mr-2 text-center m-0 p-0 font-normal">
                         F
