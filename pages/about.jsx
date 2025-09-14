@@ -177,7 +177,6 @@ export default function Home() {
                     <br></br>
                     <br></br>
                     宜園，以實在的構築<br></br>讓人與人、與土地、與城市之間
-                    <br></br>
                     美好關係加以延續
                   </p>
                 </div>
