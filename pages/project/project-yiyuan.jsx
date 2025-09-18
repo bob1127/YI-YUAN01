@@ -172,7 +172,7 @@ const Project = () => {
 
               <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
                 <div className="flex  gap-4">
-                  <span className="text-gray-500">地址</span>
+                  <span className="text-gray-500">建案地址</span>
                   <span className="text-gray-900">台中市南屯區大墩南一街</span>
                 </div>
                 <div className="flex  gap-4">
@@ -180,7 +180,7 @@ const Project = () => {
                   <span className="text-gray-900">人車分道別墅</span>
                 </div>
                 <div className="flex  gap-4">
-                  <span className="text-gray-500">建築師團隊</span>
+                  <span className="text-gray-500">建築團隊</span>
                   <span className="text-gray-900">劉偉彥建築師事務所</span>
                 </div>
               </div>
