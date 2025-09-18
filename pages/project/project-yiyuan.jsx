@@ -170,62 +170,18 @@ const Project = () => {
                 <h2 className="text-3xl">建案資訊：</h2>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-sm sm:text-base">
-                <div className="flex justify-between gap-4">
+              <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
+                <div className="flex  gap-4">
                   <span className="text-gray-500">地址</span>
                   <span className="text-gray-900">台中市南屯區大墩南一街</span>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="flex  gap-4">
                   <span className="text-gray-500">產品規劃</span>
-                  <span className="text-gray-900">連棟透天</span>
+                  <span className="text-gray-900">人車分道別墅</span>
                 </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">總戶數</span>
-                  <span className="text-gray-900">15 戶</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">總樓高</span>
-                  <span className="text-gray-900">4 層</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">土地使用分區</span>
-                  <span className="text-gray-900">住一</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">基地面積</span>
-                  <span className="text-gray-900">約 534 坪</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">構造種類</span>
-                  <span className="text-gray-900">RC 鋼筋混凝土</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">建坪</span>
-                  <span className="text-gray-900">約 102–134 坪</span>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <span className="text-gray-500">車位類別</span>
-                  <span className="text-gray-900">地下室停車</span>
-                </div>
-              </div>
-
-              <div className="mt-8 flex items-center gap-4">
-                <Image
-                  src="/images/宜園建設LOGO-1.png"
-                  alt="brand-logo"
-                  width={120}
-                  height={50}
-                  className="h-auto w-[120px]"
-                />
-                <div>
-                  <div className="text-sm text-gray-500">團隊資訊</div>
-                  <div className="text-base font-medium text-[#20382c]">
-                    建設：宜園建設｜
-                    <br />
-                    建築設計：劉偉彥建築師事務所｜
-                    <br />
-                    企劃銷售：晟揮廣告國際有限公司
-                  </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">建築師團隊</span>
+                  <span className="text-gray-900">劉偉彥建築師事務所</span>
                 </div>
               </div>
             </div>

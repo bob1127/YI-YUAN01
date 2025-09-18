@@ -152,55 +152,25 @@ const Project = () => {
             `}</style>
           </div>
 
-          {/* 右：建案名稱 + 資訊（6 欄） */}
           <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
-            {/* 建案名稱直接顯示在資訊欄 */}
-            <h1 className="text-3xl font-bold mb-6">宜園一青隱</h1>
+            <div id="next-section" className="py-0 sm:py-2">
+              <div className="flex flex-col mb-5">
+                <h2 className="text-3xl mb-8">建案名稱：宜園 一青隱</h2>
+                <h2 className="text-3xl">建案資訊：</h2>
+              </div>
 
-            <div className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-sm sm:text-base">
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">土地使用分區</span>
-                <span className="text-gray-900">住二</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">基地面積</span>
-                <span className="text-gray-900">106 坪</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">建設公司</span>
-                <span className="text-gray-900">宜園建設</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">建築設計</span>
-                <span className="text-gray-900">鼎承建築師事務所</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">企劃銷售</span>
-                <span className="text-gray-900">晟揮廣告國際有限公司</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">車位數量</span>
-                <span className="text-gray-900">6 位（規劃）</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">歷史成交區間</span>
-                <span className="text-gray-900">約 52.88–59.32 萬/坪</span>
-              </div>
-            </div>
-
-            {/* 品牌區塊 */}
-            <div className="mt-8 flex items-center gap-4">
-              <Image
-                src="/images/宜園建設LOGO-1.png"
-                alt="brand-logo"
-                width={120}
-                height={50}
-                className="h-auto w-[120px]"
-              />
-              <div>
-                <div className="text-sm text-gray-500">品牌理念</div>
-                <div className="text-base font-medium text-[#20382c]">
-                  「實在的構築」— 以人為本，打造真正適居的生活器皿
+              <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">地址</span>
+                  <span className="text-gray-900">台中市西屯區甘州五街</span>
+                </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">產品規劃</span>
+                  <span className="text-gray-900">集合式住宅大樓</span>
+                </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">建築師團隊</span>
+                  <span className="text-gray-900">鼎承建築師事務所</span>
                 </div>
               </div>
             </div>

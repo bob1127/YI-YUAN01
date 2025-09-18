@@ -147,7 +147,7 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/S__31399939.jpg"
+                src="/images/project/S__3497991_0.jpg"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
