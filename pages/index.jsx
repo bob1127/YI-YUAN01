@@ -38,7 +38,7 @@ export default function Home() {
       <Enter />
       <div className="bg-white">
         {/* ===== HERO（影片：寬100%、高auto） ===== */}
-        <section className="section-hero-title relative w-full  mb-[50px]">
+        <section className="section-hero-title relative w-full  mb-[50px] mt-[70px] ">
           {/* 遮罩覆蓋在影片之上，但不阻擋點擊 */}
           <div className="pointer-events-none absolute inset-0 z-30 bg-black/20" />
 
@@ -50,7 +50,7 @@ export default function Home() {
             playsInline
             preload="auto"
             muted={muted}
-            className="block w-full h-auto" /* 〈— 關鍵：寬100% 高auto */
+            className=" w-full object-cover h-[90vh]" /* 〈— 關鍵：寬100% 高auto */
           />
 
           {showUnmute && (
