@@ -162,7 +162,7 @@ const Project = () => {
           <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
-                <h2 className="text-3xl mb-8">建案名稱：宜園誠境6</h2>
+                <h2 className="text-3xl mb-8">宜園誠境6</h2>
                 <h2 className="text-3xl">建案資訊：</h2>
               </div>
 
@@ -188,13 +188,6 @@ const Project = () => {
       {/* 地段與周邊 */}
       <section className="py-10 sm:py-14 bg-emerald-50/40">
         <div className="w-[92%] max-w-[1400px] mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
-            地段與周邊
-          </h2>
-          <p className="mt-2 text-gray-700">
-            座落台中市沙鹿區七賢南路 66
-            號，連棟透天產品、戶數精巧，學區完整，日常採買與主要幹道機能成熟，適合講究生活品質與私密性的族群。
-          </p>
           <div className="mt-6 grid grid-cols-1 gap-6">
             <div className="rounded-2xl overflow-hidden border">
               <iframe

@@ -9,32 +9,26 @@ import Image from "next/image";
 
 export default function Home() {
   const videoRef = useRef(null);
-  const [muted, setMuted] = useState(true); // 先以靜音自動播放以通過瀏覽器限制
+  const [muted, setMuted] = useState(true);
   const [showUnmute, setShowUnmute] = useState(true);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-
-    // 嘗試靜音自動播放（最穩）
     v.muted = true;
-    v.play().catch(() => {
-      // 若連靜音自動播放都被擋，顯示控制鍵讓使用者手動播放
-      setShowUnmute(true);
-    });
+    v.play().catch(() => setShowUnmute(true));
   }, []);
 
   const handleUnmute = async () => {
     const v = videoRef.current;
     if (!v) return;
     try {
-      v.muted = false; // 取消靜音
-      v.volume = 0.8; // 可調整預設音量
-      await v.play(); // 使用者點擊 → 符合政策，可帶聲音播放
+      v.muted = false;
+      v.volume = 0.8;
+      await v.play();
       setMuted(false);
       setShowUnmute(false);
-    } catch (e) {
-      // 若仍被阻擋，顯示控制列讓使用者手動操作
+    } catch {
       setShowUnmute(true);
     }
   };
@@ -43,10 +37,11 @@ export default function Home() {
     <Layout>
       <Enter />
       <div className="bg-white">
-        <section className="section-hero-title mb-[50px] aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-0 md:mt-5 w-full relative">
-          <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30" />
+        {/* ===== HERO（影片：寬100%、高auto） ===== */}
+        <section className="section-hero-title relative w-full  mb-[50px]">
+          {/* 遮罩覆蓋在影片之上，但不阻擋點擊 */}
+          <div className="pointer-events-none absolute inset-0 z-30 bg-black/20" />
 
-          {/* 影片：預設靜音自動播放，點一下即開聲音 */}
           <video
             ref={videoRef}
             src="/videos/1130417_宜園建設-形象影片_Bcopy(大檔) - Compressed with FlexClip-2.mp4"
@@ -55,10 +50,9 @@ export default function Home() {
             playsInline
             preload="auto"
             muted={muted}
-            className="absolute inset-0 mt-[60px] w-full h-full object-cover"
+            className="block w-full h-auto" /* 〈— 關鍵：寬100% 高auto */
           />
 
-          {/* Unmute 按鈕（僅在需要時顯示） */}
           {showUnmute && (
             <button
               onClick={handleUnmute}

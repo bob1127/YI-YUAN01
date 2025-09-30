@@ -161,7 +161,7 @@ const Project = () => {
           <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
-                <h2 className="text-3xl mb-8">建案名稱：宜園誠境</h2>
+                <h2 className="text-3xl mb-8">宜園誠境</h2>
                 <h2 className="text-3xl">建案資訊：</h2>
               </div>
 
@@ -187,15 +187,6 @@ const Project = () => {
       {/* 地段與周邊 */}
       <section className="py-10 sm:py-14 bg-emerald-50/40">
         <div className="w-[92%] max-w-[1400px] mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
-            地段與周邊
-          </h2>
-          <p className="mt-2 text-gray-700">
-            座落台中市烏日區五光路 189 巷 6
-            號。小規模門牌、環境單純，生活圈完善，
-            近主要幹道；學區涵蓋五光國小與光德國中（雙語）。
-          </p>
-
           <div className="mt-6 grid grid-cols-1">
             <div className="rounded-2xl overflow-hidden border">
               <iframe

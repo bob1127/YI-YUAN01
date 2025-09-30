@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Layout from "./Layout";
 import { motion } from "framer-motion";
+
 export default function Home() {
   const handleScroll = () => {
     const prefersReduced =
@@ -41,9 +42,10 @@ export default function Home() {
   return (
     <Layout>
       <div className="bg-white">
+        {/* ================= HERO ================= */}
         <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
           <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
-            <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
+            <h1 className="text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
               About
             </h1>
           </div>
@@ -94,7 +96,6 @@ export default function Home() {
             </motion.span>
           </motion.button>
 
-          {/* keyframes */}
           <style jsx global>{`
             @keyframes scroll-line {
               0% {
@@ -110,101 +111,121 @@ export default function Home() {
           `}</style>
         </section>
 
-        <section className="section_features w-full mt-[40px] xl:mt-[10vh] mx-auto  ">
-          <section className="flex lg:flex-row max-w-[1920px] flex-col-reverse mb-5  w-full mx-auto">
-            <div className="img w-full lg:px-[60px]  xl:px-[110px] lg:w-1/2">
-              <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden">
-                <div className="image-container ">
+        {/* ================= SECTIONS ================= */}
+        <section
+          id="next-section"
+          className="section_features w-full mt-10 xl:mt-[10vh] mx-auto"
+        >
+          {/* --- Section 1 --- */}
+          <section className="flex lg:flex-row max-w-[1920px] flex-col-reverse mb-5 w-full mx-auto items-center">
+            <div className="img w-full lg:px-16 xl:px-28 lg:w-1/2 flex items-center justify-center">
+              <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden grid place-items-center">
+                <div className="image-container relative w-full h-full">
                   <Link href="/hot-sale">
                     <Image
                       src="/images/project/JPOM9756.tif"
                       alt="About Image 2"
                       fill
-                      className="object-cover"
+                      className="object-cover object-center"
                       sizes="(max-width: 768px) 90vw, (max-width: 1024px) 550px, 85vw"
                     />
                   </Link>
                 </div>
               </div>
             </div>
-            <div className="text w-full lg:w-1/2 pb-12 px-8  flex flex-col  justify-center items-center">
-              <div className="flex flex-col   justify-start items-start ">
-                <div className="title  mx-auto flex flex-col justify-center items-center">
-                  <div className="flex justify-center items">
-                    <span className="capital-text text-[103px] leading-none mr-2 text-center m-0 p-0 font-normal">
+
+            {/* 文字區塊：筆電(>=lg)移除左右 padding / margin */}
+            <div className="text w-full lg:w-1/2 pb-12 px-8 lg:px-0 lg:mx-0 flex flex-col justify-center items-center">
+              <div className="flex flex-col justify-start items-start">
+                <div className="title mx-auto lg:mx-0 flex flex-col justify-center items-start">
+                  <div className="flex items-end">
+                    <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
                       T
                     </span>
                     <div className="flex flex-col">
-                      <p className="text-[43px]">RUST</p>
-                      <h2 className="text-[24px] font-bold font-heading font-heading">
+                      <p className="leading-none text-[1.75rem] mb-2 sm:text-[2.125rem] md:text-[2.5rem]">
+                        RUST
+                      </p>
+                      <h2 className="text-2xl font-bold font-heading">
                         信任 ｜ 宜安心
                       </h2>
                     </div>
                   </div>
-                  <p className="leading-loose tracking-widest w-full mt-8">
-                    好房子，值得依靠；好關係，值得託付<br></br>
+                  <p className="text-base leading-relaxed tracking-wide w-full mt-6">
+                    好房子，值得依靠；好關係，值得託付
+                    <br />
                     當市場競逐利益，宜園回歸最本質的「家」，最關鍵的「住」
-                    <br></br>
+                    <br />
                     以職人專業為基，堅守實在本質，落實大小細節，築起家的價值
-                    <br></br>
-                    <br></br>
+                    <br />
+                    <br />
                     宜園，以「實在的構築」，默默守護，讓您踏實生活，放心每一天
                   </p>
                 </div>
               </div>
             </div>
           </section>
-          <section className=" flex lg:flex-row max-w-[1920px] flex-col-reverse mb-5 w-full mx-auto ">
-            <div className="flex lg:flex-row justify-center items-center flex-col w-full  mx-auto ">
-              <div className="img  w-full lg:w-1/2 flex justify-center items-center p-10  mx-auto sm:mx-3  h-auto  overflow-hidden">
-                <div className="title w-full mx-auto flex flex-col justify-center items-center">
-                  <div className="flex justify-center items">
-                    <span className="capital-text text-[103px] leading-none mr-2 text-center m-0 p-0 font-normal">
-                      R
-                    </span>
-                    <div className="flex flex-col">
-                      <p className="text-[43px]">ELATION</p>
-                      <h2 className="text-[24px] font-bold font-heading font-heading">
-                        關係 ｜ 宜真情
-                      </h2>
-                    </div>
-                  </div>
 
-                  <p className="leading-loose tracking-widest  mt-8">
-                    建築，是連結土地的根，也是凝聚人心的橋<br></br>
-                    於家人，傳遞溫度與關懷；於鄰里，凝聚和睦與理解
-                    <br></br>於土地，報以尊重與謙遜；於城市，追求共生共榮
-                    <br></br>
-                    <br></br>
-                    宜園，以實在的構築<br></br>讓人與人、與土地、與城市之間
-                    美好關係加以延續
-                  </p>
+          {/* --- Section 2 --- */}
+          <section className="flex lg:flex-row max-w-[1920px] flex-col-reverse mb-5 w-full mx-auto items-center">
+            <div className="flex lg:flex-row justify-center items-center flex-col w-full mx-auto">
+              <div className="img w-full lg:w-1/2 flex justify-center items-center py-10 mx-auto sm:mx-3 h-auto overflow-hidden">
+                <div className="flex flex-col justify-start items-start">
+                  {/* 文字區塊：筆電(>=lg)移除左右 margin */}
+                  <div className="title mx-auto lg:mx-0 flex flex-col justify-center items-start">
+                    <div className="flex items-end">
+                      <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
+                        R
+                      </span>
+                      <div className="flex flex-col">
+                        <p className="leading-none text-[1.75rem] mb-2 sm:text-[2.125rem] md:text-[2.5rem]">
+                          ELATION
+                        </p>
+                        <h2 className="text-2xl font-bold font-heading">
+                          關係 ｜ 宜真情
+                        </h2>
+                      </div>
+                    </div>
+
+                    <p className="text-base leading-relaxed tracking-wide mt-6">
+                      建築，是連結土地的根，也是凝聚人心的橋
+                      <br />
+                      於家人，傳遞溫度與關懷；於鄰里，凝聚和睦與理解
+                      <br />
+                      於土地，報以尊重與謙遜；於城市，追求共生共榮
+                      <br />
+                      <br />
+                      宜園，以實在的構築
+                      <br />
+                      讓人與人、與土地、與城市之間 美好關係加以延續
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="w-full lg:w-1/2 flex lg:flex-row flex-col">
-                <div className="img w-[90%] py-3 mx-auto  lg:w-1/2 pr-0 lg:pr-5">
-                  <div className="overflow-hidden relative w-full aspect-[4/5]">
+              <div className="w-full lg:w-1/2 flex lg:flex-row flex-col items-center justify-center">
+                <div className="img w-[90%] py-3 mx-auto lg:w-1/2 pr-0 lg:pr-5 flex items-center justify-center">
+                  <div className="overflow-hidden relative w-full aspect-[4/5] grid place-items-center">
                     <div className="image-container relative w-full h-full">
                       <Image
                         src="/images/烏日區五張犁西段474地號(誠境5)-完工實景照片10-1090219-S.jpg"
                         alt="About Image 1"
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 50vw"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="img w-[90%] py-3 mx-auto  lg:w-1/2 pr-0 lg:pr-5">
-                  <div className="overflow-hidden relative w-full aspect-[4/5]">
+                <div className="img w-[90%] py-3 mx-auto lg:w-1/2 pr-0 lg:pr-5 flex items-center justify-center">
+                  <div className="overflow-hidden relative w-full aspect-[4/5] grid place-items-center">
                     <div className="image-container relative w-full h-full">
                       <Image
                         src="/images/宜園誠境實景照片.jpg"
                         alt="About Image 2"
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 40vw"
                       />
                     </div>
@@ -214,17 +235,19 @@ export default function Home() {
             </div>
           </section>
 
-          <section className=" py-[30px]  lg:mt-0 lg:py-[50px] bg-[#6D7B80] sm:py-[70px]">
-            <div className="flex  max-w-[1920px]  lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh] w-[98%] mx-auto">
-              <div className="img w-full lg:px-[60px]  xl:px-[110px] lg:w-1/2">
-                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden">
-                  <div className="image-container ">
+          {/* --- Section 3 --- */}
+          <section className="py-8 lg:py-12 bg-[#6D7B80] sm:py-16">
+            <div className="flex max-w-[1920px] lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh] w-[98%] mx-auto items-center justify-center">
+              {/* ← 加上 justify-center */}
+              <div className="img w-full lg:px-16 xl:px-28 lg:w-1/2 flex items-center justify-center">
+                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden grid place-items-center">
+                  <div className="image-container relative w-full h-full">
                     <Link href="/hot-sale">
                       <Image
                         src="/images/JPOM9734.jpg"
                         alt="About Image 2"
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         sizes="(max-width: 768px) 90vw, (max-width: 1024px) 550px, 85vw"
                       />
                     </Link>
@@ -232,70 +255,84 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="text mb-5 lg:mb-0 w-[85%]  mx-auto lg:w-[40%]  flex flex-col ">
+              {/* 文字區塊：筆電(>=lg)移除左右 padding / margin */}
+              <div className="text mb-5 lg:mb-0 w-[85%] lg:w-[40%] mx-auto lg:mx-0 px-0 lg:px-0 flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center h-full">
-                  <div className="title  flex flex-col justify-center items-center">
-                    <div className="flex justify-center items">
-                      <span className="capital-text text-white text-[103px] leading-none mr-2 text-center m-0 p-0 font-normal">
+                  <div className="title flex flex-col justify-center items-start">
+                    <div className="flex items-end">
+                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
                         U
                       </span>
                       <div className="flex flex-col">
-                        <p className="text-[43px] text-white">NIQUE</p>
-                        <h2 className="text-[24px] text-white font-bold font-heading font-heading">
+                        <p className="leading-none text-white mb-2 text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem]">
+                          NIQUE
+                        </p>
+                        <h2 className="text-2xl text-white font-bold font-heading">
                           獨特 ｜ 宜居所
                         </h2>
                       </div>
                     </div>
 
-                    <p className="leading-loose tracking-widest text-gray-200 mt-8 w-full ">
+                    <p className="text-base leading-relaxed tracking-wide text-gray-200 mt-6 w-full">
                       每個人，都是獨一無二的個體。 好的房子，懂得尊重每一種獨特
-                      <br></br>
+                      <br />
                       以好規劃，讓私領域的靜謐、公領域的交流，恰如其分
-                      <br></br>
-                      以好設計，迎風納景，擋聲遮擾，恰到好處<br></br>
-                      <br></br>
+                      <br />
+                      以好設計，迎風納景，擋聲遮擾，恰到好處
+                      <br />
+                      <br />
                       宜園，以實在的構築，成就居住者理想居所，守護與眾不同的生活想像
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex  max-w-[1920px]  lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh]  w-[98%] mx-auto">
-              <div className="text mb-5 lg:mb-0 w-[85%]  mx-auto lg:w-[40%]  flex flex-col ">
+
+            <div className="flex max-w-[1920px] lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh] w-[98%] mx-auto items-center justify-center">
+              {/* ← 加上 justify-center */}
+              {/* 文字區塊：筆電(>=lg)移除左右 padding / margin */}
+              <div className="text mb-5 lg:mb-0 w-[85%] lg:w-[40%] mx-auto lg:mx-0 px-0 lg:px-0 flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center h-full">
-                  <div className="title mb-5 mt-10  mx-auto flex flex-col justify-center items-center">
-                    <div className="flex justify-center items">
-                      <span className="capital-text text-white text-[103px] leading-none mr-2 text-center m-0 p-0 font-normal">
-                        F
+                  <div className="title mb-5 mt-10 mx-auto lg:mx-0 flex flex-col justify-center items-start">
+                    <div className="flex items-end">
+                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
+                        E
                       </span>
-                      <div className="flex flex-col">
-                        <p className="text-[43px] text-white"> OEVER</p>
-                        <h2 className="text-[24px] text-white font-bold font-heading font-heading">
+                      <div className="flex flex-col ">
+                        <p className="leading-none mb-2 text-white text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem]">
+                          TERNAL
+                        </p>
+                        <h2 className="text-2xl text-white font-bold font-heading">
                           永恆 ｜ 宜融入
                         </h2>
                       </div>
                     </div>
 
-                    <p className="leading-loose tracking-widest text-gray-200 mt-8 w-full ">
-                      好房子懂得跟土地相處，找出最舒適的生活方式<br></br>
-                      宜園傾聽土地的聲音，細說生命的故事<br></br>
-                      讓建築扎根於大地，成就心的歸宿<br></br>
+                    <p className="text-base leading-relaxed tracking-wide text-gray-200 mt-6 w-full">
+                      好房子懂得跟土地相處，找出最舒適的生活方式
                       <br />
-                      宜園，以實在的構築，融入環境，與自然共生共長<br></br>
+                      宜園傾聽土地的聲音，細說生命的故事
+                      <br />
+                      讓建築扎根於大地，成就心的歸宿
+                      <br />
+                      <br />
+                      宜園，以實在的構築，融入環境，與自然共生共長
+                      <br />
                       順應時間，讓家越住越美，恆久宜居
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="img w-full lg:px-[60px]  xl:px-[110px] lg:w-1/2">
-                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden">
-                  <div className="image-container ">
+
+              <div className="img w-full lg:px-16 xl:px-28 lg:w-1/2 flex items-center justify-center">
+                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden grid place-items-center">
+                  <div className="image-container relative w-full h-full">
                     <Link href="/hot-sale">
                       <Image
                         src="/images/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
                         alt="About Image 2"
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         sizes="(max-width: 768px) 90vw, (max-width: 1024px) 550px, 85vw"
                       />
                     </Link>

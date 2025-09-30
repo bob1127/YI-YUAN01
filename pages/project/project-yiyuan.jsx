@@ -166,7 +166,7 @@ const Project = () => {
           <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
-                <h2 className="text-3xl mb-8">建案名稱：宜園大院</h2>
+                <h2 className="text-3xl mb-8">宜園大院</h2>
                 <h2 className="text-3xl">建案資訊：</h2>
               </div>
 
@@ -200,13 +200,6 @@ const Project = () => {
       {/* 地段與周邊（已保留；實景 3D 已刪除） */}
       <section className="py-10 px-10 sm:py-14 bg-emerald-50/40">
         <div className="w-[85%] max-w-[1800px] mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#20382c]">
-            地段與周邊
-          </h2>
-          <p className="mt-2 text-gray-700">
-            座落台中市南屯區大墩南一街，連棟透天產品、戶數精巧，地下室停車，生活圈成熟、交通機能便捷。
-          </p>
-
           <div className="mt-6 grid grid-cols-1">
             <div className="rounded-2xl overflow-hidden border">
               <iframe

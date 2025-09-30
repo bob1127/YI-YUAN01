@@ -140,7 +140,7 @@ const Nav = () => {
                   aria-label="寫信給 Yi.yuan@msa.hinet.net"
                 >
                   <span className="text-[.8rem] text-white mt-1  break-all">
-                    信箱：Yi.yuan@msa.hinet.net
+                    信箱：yi.yuan@msa.hinet.net
                   </span>
                 </Link>
 

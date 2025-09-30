@@ -185,11 +185,27 @@ export default function Photos() {
         img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
         date: "114.01",
       },
+      {
+        id: "n8b",
+        title: "交通樞紐加持，區域可及性大幅提升",
+        excerpt:
+          "軌道路網串聯核心生活圈，縮短通勤時間，帶動周邊商業服務與居住人口成長。",
+        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
+        date: "114.01",
+      },
+      {
+        id: "n9b",
+        title: "宜園品牌誌發刊，分享建築與生活觀點",
+        excerpt:
+          "從基地選址、量體設計到材料細節，紀錄每個關鍵決策背後的思維與初衷。",
+        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
+        date: "114.01",
+      },
     ],
     []
   );
 
-  const ITEMS_PER_PAGE = 5; // 右欄每頁顯示 5 則
+  const ITEMS_PER_PAGE = 6; // 右欄每頁顯示 5 則
   const pageCount = Math.ceil(newsData.length / ITEMS_PER_PAGE);
   const [page, setPage] = useState(0);
   const [prevPage, setPrevPage] = useState(0);
@@ -379,6 +395,10 @@ export default function Photos() {
         <div className="flex flex-col lg:flex-row max-w-[1920px] mx-auto">
           {/* ===== 左邊：工程進度（點圖開啟 Lightbox） ===== */}
           <div className="left w-full lg:w-1/2">
+            <div className="flex flex-col px-4 md:px-8 xl:px-16">
+              <h2>工程進度｜</h2>
+            </div>
+
             {galleries.map((group, gi) => (
               <div key={gi} className="flex flex-col px-4 md:px-8 xl:px-16">
                 {/* 區塊標題 */}
@@ -552,9 +572,9 @@ export default function Photos() {
                           <motion.article
                             key={`${item.id}-${idx}`}
                             variants={itemVariants}
-                            className="news-item bg-slate-100 flex p-2 items-center rounded-lg"
+                            className="news-item bg-slate-100 h-[180px] my-[9px] flex p-2 items-center rounded-lg"
                           >
-                            <div className="img w-[40%] overflow-hidden rounded-md">
+                            <div className="img w-[30%] overflow-hidden rounded-md">
                               <Image
                                 src={item.img}
                                 width={800}
