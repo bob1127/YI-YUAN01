@@ -50,7 +50,7 @@ export default function Home() {
             playsInline
             preload="auto"
             muted={muted}
-            className=" w-full object-cover h-[90vh]" /* 〈— 關鍵：寬100% 高auto */
+            className=" w-full object-cover h-[85vh]" /* 〈— 關鍵：寬100% 高auto */
           />
 
           {showUnmute && (
