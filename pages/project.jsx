@@ -50,7 +50,7 @@ const project = () => {
       <Head>
         <title>經典選粹 CLASSIC 貫徹更好的美好旅程 | 宜園建設</title>
       </Head>
-      <section className="section-hero-title  mb-[150px] aspect-[16/16] sm:aspect-[16/12]  md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
+      <section className="section-hero-title  mb-[150px]  h-[85vh] mt-[50px] overflow-hidden w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
           {/* <Image
             src="/"

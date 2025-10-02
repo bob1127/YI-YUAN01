@@ -115,6 +115,38 @@ const Project = () => {
             </div>
 
             {/* 縮圖（在主圖底下；可點切換；被選有黑框） */}
+
+            {/* 被選縮圖黑框樣式 */}
+            <style jsx global>{`
+              .swiper-slide-thumb-active .thumb {
+                outline: 2px solid #000;
+                outline-offset: 0;
+              }
+            `}</style>
+          </div>
+          {/* 右：6 欄（資訊） */}
+          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
+            <div id="next-section" className="py-0 sm:py-2">
+              <div className="flex flex-col mb-5">
+                <h2 className="text-3xl mb-8">宜園誠境</h2>
+                <h2 className="text-3xl">建案資訊：</h2>
+              </div>
+
+              <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">建案地址</span>
+                  <span className="text-gray-900">台中市清水區忠誠路</span>
+                </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">產品規劃</span>
+                  <span className="text-gray-900">人車分道別墅</span>
+                </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">建築團隊</span>
+                  <span className="text-gray-900">謝其安建築師事務所</span>
+                </div>
+              </div>
+            </div>
             <div className="mt-3">
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -147,38 +179,6 @@ const Project = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            </div>
-
-            {/* 被選縮圖黑框樣式 */}
-            <style jsx global>{`
-              .swiper-slide-thumb-active .thumb {
-                outline: 2px solid #000;
-                outline-offset: 0;
-              }
-            `}</style>
-          </div>
-          {/* 右：6 欄（資訊） */}
-          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
-            <div id="next-section" className="py-0 sm:py-2">
-              <div className="flex flex-col mb-5">
-                <h2 className="text-3xl mb-8">宜園誠境</h2>
-                <h2 className="text-3xl">建案資訊：</h2>
-              </div>
-
-              <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
-                <div className="flex  gap-4">
-                  <span className="text-gray-500">建案地址</span>
-                  <span className="text-gray-900">台中市清水區忠誠路</span>
-                </div>
-                <div className="flex  gap-4">
-                  <span className="text-gray-500">產品規劃</span>
-                  <span className="text-gray-900">人車分道別墅</span>
-                </div>
-                <div className="flex  gap-4">
-                  <span className="text-gray-500">建築團隊</span>
-                  <span className="text-gray-900">謝其安建築師事務所</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
