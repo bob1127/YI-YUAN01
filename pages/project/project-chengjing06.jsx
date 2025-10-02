@@ -114,8 +114,30 @@ const Project = () => {
                 ))}
               </Swiper>
             </div>
+          </div>
 
-            {/* 底部縮圖 */}
+          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
+            <div id="next-section" className="py-0 sm:py-2">
+              <div className="flex flex-col mb-5">
+                <h2 className="text-3xl mb-8">宜園誠境6</h2>
+                <h2 className="text-3xl">建案資訊：</h2>
+              </div>
+
+              <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">建案地址</span>
+                  <span className="text-gray-900">台中市沙鹿區七賢南路</span>
+                </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">產品規劃</span>
+                  <span className="text-gray-900">人車分道別墅</span>
+                </div>
+                <div className="flex  gap-4">
+                  <span className="text-gray-500">建築團隊</span>
+                  <span className="text-gray-900">楊千芝建築師事務所</span>
+                </div>
+              </div>
+            </div>
             <div className="mt-3">
               <Swiper
                 onSwiper={setThumbsSwiper}
@@ -149,6 +171,7 @@ const Project = () => {
                 ))}
               </Swiper>
             </div>
+            {/* 底部縮圖 */}
 
             {/* 被選縮圖黑框 */}
             <style jsx global>{`
@@ -157,30 +180,6 @@ const Project = () => {
                 outline-offset: 0;
               }
             `}</style>
-          </div>
-
-          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
-            <div id="next-section" className="py-0 sm:py-2">
-              <div className="flex flex-col mb-5">
-                <h2 className="text-3xl mb-8">宜園誠境6</h2>
-                <h2 className="text-3xl">建案資訊：</h2>
-              </div>
-
-              <div className="grid grid-cols-1 max-w-[450px] gap-x-10 gap-y-3 text-sm sm:text-base">
-                <div className="flex  gap-4">
-                  <span className="text-gray-500">建案地址</span>
-                  <span className="text-gray-900">台中市沙鹿區七賢南路</span>
-                </div>
-                <div className="flex  gap-4">
-                  <span className="text-gray-500">產品規劃</span>
-                  <span className="text-gray-900">人車分道別墅</span>
-                </div>
-                <div className="flex  gap-4">
-                  <span className="text-gray-500">建築團隊</span>
-                  <span className="text-gray-900">楊千芝建築師事務所</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

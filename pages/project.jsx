@@ -255,6 +255,7 @@ const project = () => {
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境6</h2>
+              <p>2020 完工</p>
               <p className="text-[#337162]">景觀別墅·庭院·大露台</p>
             </div>
           </div>
@@ -299,6 +300,7 @@ const project = () => {
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境5</h2>
+              <p>2018 完工</p>
               <p className="text-[#337162]">匠心巨作·典藏誠境五期.</p>
             </div>
           </div>
@@ -341,6 +343,7 @@ const project = () => {
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境2</h2>
+              <p>2016 完工</p>
               <p className="text-[#337162]">匠心續作，典藏誠境二期</p>
             </div>
           </div>
@@ -384,6 +387,7 @@ const project = () => {
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">
                 宜園誠境
               </h2>
+              <p>2014 完工</p>
               <p className="text-[#337162]">誠境首章｜境啟未來</p>
             </div>
           </div>
