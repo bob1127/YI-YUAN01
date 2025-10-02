@@ -183,7 +183,7 @@ const Project = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <span>3D外觀示意圖，本公司保有修改之權利</span>
+              <span>3D外觀示意圖，本公司保有修改之權利.</span>
             </div>
           </div>
 
