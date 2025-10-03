@@ -17,9 +17,12 @@ import "swiper/css/thumbs";
 const Project = () => {
   // 圖庫
   const gallery = [
-    "/images/project/S__31399941.jpg",
-    "/images/project/S__31399941.jpg",
-    "/images/project/S__31399941.jpg",
+    "/images/project/宜園一青隱/1.webp",
+    "/images/project/宜園一青隱/2.webp",
+    "/images/project/宜園一青隱/3.webp",
+    "/images/project/宜園一青隱/4.webp",
+    "/images/project/宜園一青隱/5.webp",
+    "/images/project/宜園一青隱/6.webp",
   ];
 
   // ===== Lightbox =====
@@ -117,7 +120,7 @@ const Project = () => {
             `}</style>
           </div>
 
-          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
+          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0 flex justify-between flex-col">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
                 <h2 className="text-3xl mb-8">宜園 一青隱</h2>

@@ -18,9 +18,12 @@ import "swiper/css/thumbs";
 const Project = () => {
   // 原始圖庫（移除多餘逗號，避免 undefined）
   const gallery = [
-    "/images/project/誠境6/JPOM9756.tif",
-    "/images/project/誠境6/JPOM9749-2.jpg",
-    "/images/project/誠境6/JPOM9752-2.jpg",
+    "/images/project/宜園誠境6/1.webp",
+    "/images/project/宜園誠境6/2.webp",
+    "/images/project/宜園誠境6/3.webp",
+    "/images/project/宜園誠境6/4.webp",
+    "/images/project/宜園誠境6/5.webp",
+    "/images/project/宜園誠境6/6.webp",
   ].filter(Boolean);
 
   // ===== Lightbox =====
@@ -116,7 +119,7 @@ const Project = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
+          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0 flex justify-between flex-col">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
                 <h2 className="text-3xl mb-8">宜園誠境6</h2>

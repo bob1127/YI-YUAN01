@@ -183,7 +183,7 @@ const Nav = () => {
         <div className=" w-full lg:w-[60%] pb-5 flex  justufy-start lg:justify-end items-center">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3639.9665782425545!2d120.67565527588322!3d24.17290487242401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x44766439ed9d2f13%3A0x7915785e2ed054c3!2z5a6c5ZyS5bu66Kit6IKh5Lu95pyJ6ZmQ5YWs5Y-4!5e0!3m2!1szh-TW!2stw!4v1754890059188!5m2!1szh-TW!2stw"
-            width="600"
+            width="500"
             height="210"
             allowfullscreen=""
             loading="lazy"

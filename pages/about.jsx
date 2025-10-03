@@ -160,7 +160,6 @@ export default function Home() {
                     <br />
                     <br />
                     宜園，以「實在的構築」 <br />
-                    <br />
                     默默守護，讓您踏實生活，放心每一天
                   </p>
                 </div>
@@ -283,7 +282,7 @@ export default function Home() {
                       以好設計，迎風納景，擋聲遮擾，恰到好處
                       <br />
                       <br />
-                      宜園，以實在的構築 <br /> <br />
+                      宜園，以實在的構築 <br />
                       成就居住者理想居所，守護與眾不同的生活想像
                     </p>
                   </div>

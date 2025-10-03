@@ -129,7 +129,7 @@ const Project = () => {
           </div>
 
           {/* 右：6 欄（資訊） */}
-          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
+          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0 flex justify-between flex-col">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
                 <h2 className="text-3xl mb-8">宜園大院</h2>

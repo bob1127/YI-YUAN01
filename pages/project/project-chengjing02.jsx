@@ -18,9 +18,11 @@ import "swiper/css/thumbs";
 const Project = () => {
   // 圖庫：先把 .tif 濾掉，避免瀏覽器不支援
   const gallery = [
-    "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片10-1090219-S.tif",
-    "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片08-1090219.jpg",
-    "/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg",
+    "/images/project/宜園誠境2/1.webp",
+    "/images/project/宜園誠境2/2.webp",
+    "/images/project/宜園誠境2/3.webp",
+    "/images/project/宜園誠境2/4.webp",
+    "/images/project/宜園誠境2/5.webp",
   ]
     .filter(Boolean)
     .filter((src) => !/\.tif$/i.test(src)); // ← 有轉檔後的 jpg/png 再加回
@@ -115,7 +117,7 @@ const Project = () => {
               </Swiper>
             </div>
           </div>
-          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0">
+          <div className="lg:col-span-6 pl-0 lg:pl-8 min-w-0 flex justify-between flex-col">
             <div id="next-section" className="py-0 sm:py-2">
               <div className="flex flex-col mb-5">
                 <h2 className="text-3xl mb-8">宜園誠境2</h2>

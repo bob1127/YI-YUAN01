@@ -60,7 +60,7 @@ const project = () => {
             width={1000}
             height={500}
           ></Image> */}
-          <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
+          <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-5xl text-white">
             CLASSIC 貫徹更好的美好旅程
           </h1>
         </div>
@@ -235,7 +235,7 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/誠境6/S__31400252.jpg"
+                src="/images/project/宜園誠境6/1.webp"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -246,7 +246,7 @@ const project = () => {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
                 <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
                   <span className="text-white font-semibold tracking-wide">
-                    完售
+                    2020
                   </span>
                 </div>
               </div>
@@ -255,7 +255,7 @@ const project = () => {
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境6</h2>
-              <p>2020 完工</p>
+
               <p className="text-[#337162]">景觀別墅·庭院·大露台</p>
             </div>
           </div>
@@ -280,7 +280,7 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/誠境5/烏日區五張犁西段474地號(誠境5)-完工實景照片03-1090219.jpg"
+                src="/images/project/宜園誠境5/1.webp"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -291,7 +291,7 @@ const project = () => {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
                 <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
                   <span className="text-white font-semibold tracking-wide">
-                    完售
+                    2018
                   </span>
                 </div>
               </div>
@@ -300,7 +300,7 @@ const project = () => {
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境5</h2>
-              <p>2018 完工</p>
+
               <p className="text-[#337162]">匠心巨作·典藏誠境五期.</p>
             </div>
           </div>
@@ -323,7 +323,7 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/誠境2/DSC_2058.jpg"
+                src="/images/project/宜園誠境2/1.webp"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -334,7 +334,7 @@ const project = () => {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
                 <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
                   <span className="text-white font-semibold tracking-wide">
-                    完售
+                    2016
                   </span>
                 </div>
               </div>
@@ -343,7 +343,7 @@ const project = () => {
             {/* 文字區塊 */}
             <div className="txt flex flex-col justify-center items-center p-8 mt-2">
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境2</h2>
-              <p>2016 完工</p>
+
               <p className="text-[#337162]">匠心續作，典藏誠境二期</p>
             </div>
           </div>
@@ -366,7 +366,7 @@ const project = () => {
 
               {/* 圖片本體 */}
               <Image
-                src="/images/project/誠境1/宜園誠境實景照片03-1041020.jpg"
+                src="/images/project/宜園誠境/1.webp"
                 alt="宜園大院"
                 fill
                 className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
@@ -376,7 +376,7 @@ const project = () => {
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
                 <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
                   <span className="text-white font-semibold tracking-wide">
-                    完售
+                    2014
                   </span>
                 </div>
               </div>
@@ -387,7 +387,7 @@ const project = () => {
               <h2 className="text-3xl mb-4 font-bold text-[#20382c]">
                 宜園誠境
               </h2>
-              <p>2014 完工</p>
+
               <p className="text-[#337162]">誠境首章｜境啟未來</p>
             </div>
           </div>
