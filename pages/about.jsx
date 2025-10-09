@@ -329,7 +329,7 @@ export default function Home() {
               </div>
 
               <div className="img w-full lg:px-16 xl:px-28 lg:w-1/2 flex items-center justify-center">
-                <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden grid place-items-center">
+                <div className="animate-image-wrapper relative w-full aspect-[4/4] overflow-hidden grid place-items-center">
                   <div className="image-container relative w-full h-full">
                     <Link href="/hot-sale">
                       <Image

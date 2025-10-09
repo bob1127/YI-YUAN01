@@ -118,102 +118,80 @@ export default function About() {
         <title>新案鑒賞PROJECT 超越設想的新思量 | 宜園建設</title>
       </Head>
       {/* Hero 視差 */}
-      <HeroParallax
-        src="/images/hero01.jpg"
-        speed={0.09}
-        heightClass="h-[100vh]"
-      >
-        {/* ✅ 自適應的文字區塊（僅替換這一段） */}
-        <div className="absolute z-20  left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4">
-            {/* 圓形標章：尺寸/字級皆隨斷點調整 */}
 
-            {/* 文案：行長限制 + clamp 字級 + 置中到靠左切換 */}
-            <div
-              className="txt flex justify-center items-center flex-col max-w-[min(88vw,720px)] text-center sm:text-left"
-              style={{ textWrap: "balance" }} // 支援的瀏覽器會更均衡換行
-            >
-              <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
-                PROJECT
-              </h1>
-              <p className="text-white font-extralight leading-tight tracking-[0.18em] drop-shadow-md text-[clamp(16px,18px,20px)]">
-                超越設想的心思量
-              </p>
-              <h2 className="text-white font-extralight leading-tight tracking-[0.22em] drop-shadow text-[clamp(18px,5vw,40px)]"></h2>
-              <motion.button
-                type="button"
-                onClick={handleScroll}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.94 }}
-                className="flex flex-col items-center mt-8 z-30 cursor-pointer select-none"
-                aria-label="Scroll down"
-              >
-                <div className="w-px h-16 bg-white/40 overflow-hidden relative">
-                  <div className="absolute top-0 left-0 w-px h-full bg-white animate-scroll-line" />
-                </div>
-                <svg
-                  className="w-6 h-6 text-white mt-2"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-                <motion.span
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="text-white text-sm mt-1"
-                >
-                  Down
-                </motion.span>
-              </motion.button>
-
-              {/* keyframes */}
-              <style jsx global>{`
-                @keyframes scroll-line {
-                  0% {
-                    transform: translateY(-100%);
-                  }
-                  100% {
-                    transform: translateY(100%);
-                  }
-                }
-                .animate-scroll-line {
-                  animation: scroll-line 2.8s linear infinite;
-                }
-              `}</style>
-            </div>
-          </div>
+      <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
+        <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
+          <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
+            PROJECT 超越設想的心思量
+          </h1>
         </div>
-      </HeroParallax>
 
-      {/* Main content */}
-      <div className="relative bg-white mt-[-10vh]">
-        {/* 往上淡出的白色漸層（更柔順，多段 stop 可再自行調整） */}
-        <div
-          className="pointer-events-none absolute inset-x-0 -top-44 h-44 z-[15]"
-          style={{
-            background:
-              "linear-gradient(to top," +
-              "rgba(255,255,255,1) 0%," +
-              "rgba(255,255,255,0.98) 18%," +
-              "rgba(255,255,255,0.92) 34%," +
-              "rgba(255,255,255,0.80) 50%," +
-              "rgba(255,255,255,0.55) 68%," +
-              "rgba(255,255,255,0.30) 84%," +
-              "rgba(255,255,255,0.00) 100%)",
-          }}
+        <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30" />
+
+        <Image
+          src="/images/Image01.webp"
+          alt="banner"
+          fill
+          sizes="100vw"
+          priority={false}
+          className="object-cover object-center sm:object-right md:object-[80%_center]"
         />
 
-        <section className="pt-12">{/* 內容區塊 */}</section>
-        <ProjectSlider />
-      </div>
+        {/* Scroll Down CTA */}
+        <motion.button
+          type="button"
+          onClick={handleScroll}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.94 }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center z-30 cursor-pointer select-none"
+          aria-label="Scroll down"
+        >
+          <div className="w-px h-16 bg-white/40 overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-px h-full bg-white animate-scroll-line" />
+          </div>
+          <svg
+            className="w-6 h-6 text-white mt-2"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+          <motion.span
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-white text-sm mt-1"
+          >
+            Down
+          </motion.span>
+        </motion.button>
+
+        {/* keyframes */}
+        <style jsx global>{`
+          @keyframes scroll-line {
+            0% {
+              transform: translateY(-100%);
+            }
+            100% {
+              transform: translateY(100%);
+            }
+          }
+          .animate-scroll-line {
+            animation: scroll-line 2.8s linear infinite;
+          }
+        `}</style>
+      </section>
+
+      {/* Main content */}
+
+      <ProjectSlider />
     </Layout>
   );
 }
