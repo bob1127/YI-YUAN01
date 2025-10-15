@@ -11,10 +11,6 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
-function FallbackLayout({ children }) {
-  return <div className="min-h-screen bg-white">{children}</div>;
-}
-
 function decodeEntities(str = "") {
   return str
     .replace(/&amp;/g, "&")
@@ -36,7 +32,6 @@ function toRocMonth(iso) {
 export default function NewsPage({ galleriesFromCMS, posts }) {
   const prefersReduced = useReducedMotion();
 
-  // ===== Hero CTA smooth scroll（保留你的效果） =====
   const handleScroll = () => {
     const target = document.querySelector("#next-section");
     const targetY = target
@@ -60,10 +55,8 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
     requestAnimationFrame(step);
   };
 
-  // 左欄（progress）
   const galleries = useMemo(() => galleriesFromCMS || [], [galleriesFromCMS]);
 
-  // 右欄（posts）
   const ITEMS_PER_PAGE = 6;
   const pageCount = Math.ceil(posts.length / ITEMS_PER_PAGE);
   const [page, setPage] = useState(0);
@@ -82,15 +75,15 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
   const nextPage = () => goToPage(page + 1);
   const prevPageFn = () => goToPage(page - 1);
 
-  // Lightbox（左欄用）
+  // Lightbox（左欄）
   const [lbOpen, setLbOpen] = useState(false);
   const [slides, setSlides] = useState([]);
   const [lbIndex, setLbIndex] = useState(0);
   const openLightbox = useCallback((groupItems, startIndex = 0) => {
     const s = groupItems.map((it) => ({
       src: it.src,
-      alt: it.title,
-      description: it.title,
+      alt: it.alt,
+      description: it.alt, // 用替代文字
       width: it.width || 1600,
       height: it.height || 1066,
     }));
@@ -99,7 +92,6 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
     setLbOpen(true);
   }, []);
 
-  // 動畫（右欄）
   const pageVariants = {
     enter: (dir) => ({
       x: dir > 0 ? 40 : -40,
@@ -133,7 +125,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
 
   return (
     <Layout>
-      {/* ===== Hero（保留你的設計） ===== */}
+      {/* Hero 省略，與你原本一致 */}
       <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
           <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
@@ -203,7 +195,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
 
       <section className="section-content py-10 lg:py-20">
         <div className="flex flex-col lg:flex-row max-w-[1920px] mx-auto">
-          {/* ===== 左欄：工程進度（動態） ===== */}
+          {/* 左欄：工程進度 —— 文字全部使用圖片 alt（或 figcaption） */}
           <div className="left w-full lg:w-1/2">
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
               <h2>工程進度｜</h2>
@@ -237,17 +229,17 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                             type="button"
                             onClick={() => openLightbox(group.items, idx)}
                             className="relative w-full h-[288px] overflow-hidden group text-left"
-                            aria-label={`放大檢視：${it.title}`}
+                            aria-label={`放大檢視：${it.alt || "工程照片"}`}
                           >
                             <Image
                               src={it.src}
-                              alt={it.title}
+                              alt={it.alt || "工程照片"}
                               fill
                               sizes="(max-width: 768px) 100vw, 50vw"
                               className="object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
-                              <p className="text-white text-sm">{it.title}</p>
+                              <p className="text-white text-sm">{it.alt}</p>
                             </div>
                           </button>
                         );
@@ -262,17 +254,17 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                             type="button"
                             onClick={() => openLightbox(group.items, 2)}
                             className="relative w-full h-[600px] overflow-hidden group text-left"
-                            aria-label={`放大檢視：${it.title}`}
+                            aria-label={`放大檢視：${it.alt || "工程照片"}`}
                           >
                             <Image
                               src={it.src}
-                              alt={it.title}
+                              alt={it.alt || "工程照片"}
                               fill
                               sizes="(max-width: 768px) 100vw, 50vw"
                               className="object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
-                              <p className="text-white text-sm">{it.title}</p>
+                              <p className="text-white text-sm">{it.alt}</p>
                             </div>
                           </button>
                         );
@@ -290,17 +282,17 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                             type="button"
                             onClick={() => openLightbox(group.items, 0)}
                             className="relative w-full h-[600px] overflow-hidden group text-left"
-                            aria-label={`放大檢視：${it.title}`}
+                            aria-label={`放大檢視：${it.alt || "工程照片"}`}
                           >
                             <Image
                               src={it.src}
-                              alt={it.title}
+                              alt={it.alt || "工程照片"}
                               fill
                               sizes="(max-width: 768px) 100vw, 50vw"
                               className="object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
-                              <p className="text-white text-sm">{it.title}</p>
+                              <p className="text-white text-sm">{it.alt}</p>
                             </div>
                           </button>
                         );
@@ -316,17 +308,17 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                             type="button"
                             onClick={() => openLightbox(group.items, idx)}
                             className="relative w-full h-[288px] overflow-hidden group text-left"
-                            aria-label={`放大檢視：${it.title}`}
+                            aria-label={`放大檢視：${it.alt || "工程照片"}`}
                           >
                             <Image
                               src={it.src}
-                              alt={it.title}
+                              alt={it.alt || "工程照片"}
                               fill
                               sizes="(max-width: 768px) 100vw, 50vw"
                               className="object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
-                              <p className="text-white text-sm">{it.title}</p>
+                              <p className="text-white text-sm">{it.alt}</p>
                             </div>
                           </button>
                         );
@@ -338,7 +330,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
             ))}
           </div>
 
-          {/* ===== 右欄：新聞中心（接 /wp/v2/posts，排版維持） ===== */}
+          {/* 右欄（原樣） */}
           <div className="right w-full lg:w-1/2">
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
               <h2>新聞中心｜</h2>
@@ -375,14 +367,11 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                             variants={itemVariants}
                             className="news-item relative bg-slate-100 min-h-[180px] my-[9px] flex p-2 items-center rounded-lg overflow-hidden cursor-pointer hover:bg-slate-100/70"
                           >
-                            {/* 讓整張卡片都能點進去 */}
                             <Link
                               href={`/news/${item.slug}`}
                               className="absolute inset-0 z-10"
                               aria-label={`閱讀更多：${item.title}`}
                             />
-
-                            {/* 左：圖片 + 圖說（alt / 摘要） */}
                             <div className="w-[30%] overflow-hidden rounded-md flex-shrink-0 flex flex-col z-0">
                               <div className="relative w-full h-[110px] md:h-[140px]">
                                 {item.img ? (
@@ -401,8 +390,6 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                                 {item.alt || item.excerpt}
                               </p>
                             </div>
-
-                            {/* 右：標題、摘要、閱讀更多（視覺保留） */}
                             <div className="txt p-6 w-[60%] z-0">
                               <h3 className="text-lg font-bold leading-snug">
                                 {item.title.split("，")[0]}
@@ -431,7 +418,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                   </AnimatePresence>
                 </div>
 
-                {/* 分頁器 */}
+                {/* 分頁器（原樣） */}
                 <div className="mt-4 flex items-center justify-center gap-2 select-none">
                   <motion.button
                     type="button"
@@ -536,23 +523,43 @@ function KeyboardPager({ onLeft, onRight, enabledLeft, enabledRight }) {
 export async function getStaticProps() {
   const base = process.env.WP_API_URL;
 
-  // 左欄：progress
   const progressUrl = `${base}/wp-json/wp/v2/progress?acf_format=standard&per_page=10&orderby=date&order=desc`;
-  // 右欄：posts（加 _embed 取特色圖與 alt）
   const postsUrl = `${base}/wp-json/wp/v2/posts?per_page=30&orderby=date&order=desc&_embed`;
 
-  const extractImagesFromHTML = (html = "") => {
+  // ✅ 重寫：針對 Gutenberg <figure><img ...><figcaption>…</figcaption></figure>
+  const extractImagesFromHTML = (html = "", fallbackTitle = "工程照片") => {
     const out = [];
-    const re =
-      /<img\b[^>]*src=["']([^"']+)["'][^>]*?(?:alt=["']([^"']*)["'][^>]*)?[^>]*>/gi;
-    let m;
-    while ((m = re.exec(html)) !== null) {
-      const src = m[1];
-      const alt = m[2] || "";
-      if (/^https?:\/\/inf\.fjg\.mybluehost\.me/i.test(src)) {
-        out.push({ src, title: alt || "工程照片", width: 1600, height: 1066 });
+    // 先找 figure 區塊（可跨行）
+    const figureRe = /<figure\b[^>]*>([\s\S]*?)<\/figure>/gi;
+    let fm;
+    while ((fm = figureRe.exec(html)) !== null) {
+      const block = fm[1];
+      const imgRe =
+        /<img\b[^>]*src=["']([^"']+)["'][^>]*?(?:alt=["']([^"']*)["'])?[^>]*>/i;
+      const im = imgRe.exec(block);
+      if (!im) continue;
+      const src = im[1];
+      let alt = im[2] || "";
+      // 若 alt 空，抓 figcaption 文字
+      if (!alt) {
+        const capRe = /<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/i;
+        const cap = capRe.exec(block);
+        if (cap && cap[1]) alt = stripHtml(cap[1]);
       }
+      out.push({ src, alt: alt || fallbackTitle, width: 1600, height: 1066 });
       if (out.length >= 6) break;
+    }
+    // 沒 figure 時，再用單純 <img> 萃取
+    if (!out.length) {
+      const imgRe =
+        /<img\b[^>]*src=["']([^"']+)["'][^>]*?(?:alt=["']([^"']*)["'])?[^>]*>/gi;
+      let m;
+      while ((m = imgRe.exec(html)) !== null) {
+        const src = m[1];
+        const alt = m[2] || fallbackTitle;
+        out.push({ src, alt, width: 1600, height: 1066 });
+        if (out.length >= 6) break;
+      }
     }
     return out;
   };
@@ -568,24 +575,13 @@ export async function getStaticProps() {
     const progRows = progRes.ok ? await progRes.json() : [];
     const postRows = postRes.ok ? await postRes.json() : [];
 
-    // progress → galleries
+    // progress → galleries（每張圖一定帶 alt：img.alt 或 figcaption）
     galleriesFromCMS = progRows
       .map((p, idx) => {
         const title = decodeEntities(p?.title?.rendered || "工程進度");
-        const acfPhotos = Array.isArray(p?.acf?.photos) ? p.acf.photos : [];
-        let items = [];
-
-        if (acfPhotos.length) {
-          items = acfPhotos.slice(0, 6).map((img) => ({
-            src: img?.url,
-            title: img?.alt || img?.title || title || "工程照片",
-            width: img?.width || 1600,
-            height: img?.height || 1066,
-          }));
-        }
-        if (!items.length && typeof p?.content?.rendered === "string") {
-          items = extractImagesFromHTML(p.content.rendered);
-        }
+        const contentHtml =
+          typeof p?.content?.rendered === "string" ? p.content.rendered : "";
+        let items = extractImagesFromHTML(contentHtml, title);
         if (!items.length) return null;
 
         let date = "";
@@ -597,7 +593,7 @@ export async function getStaticProps() {
       })
       .filter(Boolean);
 
-    // posts → 右欄資料
+    // posts → 右欄資料（原樣）
     posts = postRows.map((post) => {
       const media = post?._embedded?.["wp:featuredmedia"]?.[0];
       const img = media?.source_url || "";
@@ -619,8 +615,5 @@ export async function getStaticProps() {
     // ignore
   }
 
-  return {
-    props: { galleriesFromCMS, posts },
-    revalidate: 60,
-  };
+  return { props: { galleriesFromCMS, posts }, revalidate: 60 };
 }
