@@ -3,6 +3,8 @@ const path = require("path");
 module.exports = {
   images: {
     remotePatterns: [
+       { protocol: 'https', hostname: 'inf.fjg.mybluehost.me' }, // WP 圖片主機
+      { protocol: 'https', hostname: 'images.pexels.com' },     // 你的 hero 圖片
       {
         protocol: "https",
         hostname: "dyx.wxv.mybluehost.me",

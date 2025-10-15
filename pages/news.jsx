@@ -1,14 +1,42 @@
-"use client";
-
-import { useEffect, useMemo, useState, useCallback, useRef } from "react";
-import Layout from "./Layout";
+// pages/news.jsx
+import { useEffect, useMemo, useState, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Layout from "./Layout";
 
-export default function Photos() {
+import Lightbox from "yet-another-react-lightbox";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+
+function FallbackLayout({ children }) {
+  return <div className="min-h-screen bg-white">{children}</div>;
+}
+
+function decodeEntities(str = "") {
+  return str
+    .replace(/&amp;/g, "&")
+    .replace(/&#038;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'");
+}
+function stripHtml(html = "") {
+  return decodeEntities(html.replace(/<[^>]+>/g, "").trim());
+}
+function toRocMonth(iso) {
+  const d = new Date(iso);
+  const yy = d.getFullYear() - 1911;
+  return `${yy}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
+export default function NewsPage({ galleriesFromCMS, posts }) {
   const prefersReduced = useReducedMotion();
 
-  // ===== Smooth scroll (hero CTA) =====
+  // ===== Hero CTA smooth scroll（保留你的效果） =====
   const handleScroll = () => {
     const target = document.querySelector("#next-section");
     const targetY = target
@@ -19,314 +47,100 @@ export default function Photos() {
       window.scrollTo({ top: targetY, behavior: "auto" });
       return;
     }
-
     const startY = window.scrollY;
     const distance = Math.max(0, targetY - startY);
-    const DURATION_MS = 1400;
+    const DURATION_MS = 1200;
     const start = performance.now();
-    const easeInExpo = (t) => (t === 0 ? 0 : Math.pow(2, 10 * (t - 1)));
-
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
     const step = (now) => {
-      const elapsed = now - start;
-      const t = Math.min(1, elapsed / DURATION_MS);
-      const eased = easeInExpo(t);
-      window.scrollTo(0, startY + distance * eased);
+      const t = Math.min(1, (now - start) / DURATION_MS);
+      window.scrollTo(0, startY + distance * ease(t));
       if (t < 1) requestAnimationFrame(step);
     };
-
     requestAnimationFrame(step);
   };
 
-  // ===== 左欄相簿資料（可維持你的原圖片路徑與標題） =====
-  const galleries = useMemo(
-    () => [
-      {
-        sectionTitle: "宜園一青隱",
-        date: "114.05",
-        layout: "L2R1", // 左二右一
-        items: [
-          {
-            src: "/images/news/樓版清洗.jpg",
-            title: "樓版清洗",
-            width: 1200,
-            height: 800,
-          },
-          {
-            src: "/images/news/樓板施作完成,灌漿前照片.jpg",
-            title: "樓板施作完成，灌漿前照片",
-            width: 1200,
-            height: 800,
-          },
-          {
-            src: "/images/news/正面外觀施工照片.jpg",
-            title: "正面外觀施工照片",
-            width: 1200,
-            height: 1600,
-          },
-        ],
-      },
-      {
-        sectionTitle: "宜園13期新案",
-        date: "114.05",
-        layout: "R1L2", // 右一左二
-        items: [
-          {
-            src: "/images/news/土方開挖完成.jpg",
-            title: "土方開挖完成",
-            width: 1200,
-            height: 1600,
-          },
-          {
-            src: "/images/news/擋土柱鋼筋幫紮完成勘驗.jpg",
-            title: "擋土柱鋼筋綁紮完成",
-            width: 1200,
-            height: 800,
-          },
-          {
-            src: "/images/news/擋土柱施作-1.jpg",
-            title: "擋土柱施作中",
-            width: 1200,
-            height: 800,
-          },
-        ],
-      },
-    ],
-    []
-  );
+  // 左欄（progress）
+  const galleries = useMemo(() => galleriesFromCMS || [], [galleriesFromCMS]);
 
-  // ====== 右欄「新聞中心」資料與分頁 ======
-  const newsData = useMemo(
-    () => [
-      {
-        id: "n1",
-        title: "宜園建設推出極奢豪墅，坐擁捷運、百貨、水岸三重優勢",
-        excerpt:
-          "南台中13期重劃區因捷運文心南路軸線加持，逐步展現「富人聚落」潛力，鄰近8期、7期、單元四、單元五與南區，區位優勢鮮明。其中，宜園建設攜手國際知名建築大師劉偉彥",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.05",
-      },
-      {
-        id: "n2",
-        title: "13期重劃區話題延燒，豪宅市場買氣升溫",
-        excerpt:
-          "重劃推進讓生活機能成形，區域價值持續攀升，軌道經濟效益逐步擴散，吸引置產族群目光。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.05",
-      },
-      {
-        id: "n3",
-        title: "景觀大道完工在即，串聯城市綠帶新樣貌",
-        excerpt:
-          "基地鄰近大面積綠意軸線與水岸景觀，提供宜居步行路徑，形塑低碳慢活圈。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.04",
-      },
-      {
-        id: "n4",
-        title: "品牌建築與國際設計合作，質感再升級",
-        excerpt:
-          "外觀量體以簡潔俐落的框架語彙，透過材質對比與光影層次，呈現永恆經典的當代風格。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.04",
-      },
-      {
-        id: "n5",
-        title: "基地動工典禮圓滿，工程安全品質雙把關",
-        excerpt:
-          "施工團隊落實工安管理與品質檢核，建立標準化SOP，以確保工程進度與品質。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.03",
-      },
-      {
-        id: "n6",
-        title: "公開接待會館啟用，體驗未來生活藍圖",
-        excerpt:
-          "以沉浸式動線導覽建築、環境與機能，展示多元格局與材質樣本，完整呈現產品力。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.03",
-      },
-      {
-        id: "n7",
-        title: "智慧宅配備升級，導入門禁宅安系統",
-        excerpt:
-          "社區公共空間與住家門禁採用多重驗證機制搭配訪客管理，兼顧便利與安全。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.02",
-      },
-      {
-        id: "n8a",
-        title: "交通樞紐加持，區域可及性大幅提升",
-        excerpt:
-          "軌道路網串聯核心生活圈，縮短通勤時間，帶動周邊商業服務與居住人口成長。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.01",
-      },
-      {
-        id: "n9a",
-        title: "宜園品牌誌發刊，分享建築與生活觀點",
-        excerpt:
-          "從基地選址、量體設計到材料細節，紀錄每個關鍵決策背後的思維與初衷。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.01",
-      },
-      {
-        id: "n8b",
-        title: "交通樞紐加持，區域可及性大幅提升",
-        excerpt:
-          "軌道路網串聯核心生活圈，縮短通勤時間，帶動周邊商業服務與居住人口成長。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.01",
-      },
-      {
-        id: "n9b",
-        title: "宜園品牌誌發刊，分享建築與生活觀點",
-        excerpt:
-          "從基地選址、量體設計到材料細節，紀錄每個關鍵決策背後的思維與初衷。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.01",
-      },
-      {
-        id: "n8b",
-        title: "交通樞紐加持，區域可及性大幅提升",
-        excerpt:
-          "軌道路網串聯核心生活圈，縮短通勤時間，帶動周邊商業服務與居住人口成長。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.01",
-      },
-      {
-        id: "n9b",
-        title: "宜園品牌誌發刊，分享建築與生活觀點",
-        excerpt:
-          "從基地選址、量體設計到材料細節，紀錄每個關鍵決策背後的思維與初衷。",
-        img: "/images/news/動土典禮/2-67ab1efd657f9.jpg",
-        date: "114.01",
-      },
-    ],
-    []
-  );
-
-  const ITEMS_PER_PAGE = 6; // 右欄每頁顯示 5 則
-  const pageCount = Math.ceil(newsData.length / ITEMS_PER_PAGE);
+  // 右欄（posts）
+  const ITEMS_PER_PAGE = 6;
+  const pageCount = Math.ceil(posts.length / ITEMS_PER_PAGE);
   const [page, setPage] = useState(0);
   const [prevPage, setPrevPage] = useState(0);
   const direction = page > prevPage ? 1 : page < prevPage ? -1 : 0;
 
   const pagedItems = useMemo(() => {
     const start = page * ITEMS_PER_PAGE;
-    return newsData.slice(start, start + ITEMS_PER_PAGE);
-  }, [page, newsData]);
+    return posts.slice(start, start + ITEMS_PER_PAGE);
+  }, [page, posts]);
 
   const goToPage = (next) => {
     setPrevPage(page);
-    const clamped = Math.max(0, Math.min(pageCount - 1, next));
-    setPage(clamped);
+    setPage(Math.max(0, Math.min(pageCount - 1, next)));
   };
   const nextPage = () => goToPage(page + 1);
   const prevPageFn = () => goToPage(page - 1);
 
-  // ====== Lightbox（彈出式幻燈片） ======
+  // Lightbox（左欄用）
   const [lbOpen, setLbOpen] = useState(false);
-  const [lbItems, setLbItems] = useState([]); // 當前群組圖片
+  const [slides, setSlides] = useState([]);
   const [lbIndex, setLbIndex] = useState(0);
-  const overlayRef = useRef(null);
-
   const openLightbox = useCallback((groupItems, startIndex = 0) => {
-    setLbItems(groupItems);
+    const s = groupItems.map((it) => ({
+      src: it.src,
+      alt: it.title,
+      description: it.title,
+      width: it.width || 1600,
+      height: it.height || 1066,
+    }));
+    setSlides(s);
     setLbIndex(startIndex);
     setLbOpen(true);
   }, []);
 
-  const closeLightbox = useCallback(() => setLbOpen(false), []);
-  const prevSlide = useCallback(
-    () => setLbIndex((i) => (i - 1 + lbItems.length) % lbItems.length),
-    [lbItems.length]
-  );
-  const nextSlide = useCallback(
-    () => setLbIndex((i) => (i + 1) % lbItems.length),
-    [lbItems.length]
-  );
-
-  // 鎖捲動 + 鍵盤控制
-  useEffect(() => {
-    if (!lbOpen) return;
-    const { body } = document;
-    const original = body.style.overflow;
-    body.style.overflow = "hidden";
-
-    const onKey = (e) => {
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") prevSlide();
-      if (e.key === "ArrowRight") nextSlide();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      body.style.overflow = original;
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [lbOpen, closeLightbox, prevSlide, nextSlide]);
-
-  // 觸控滑動
-  const touchStartX = useRef(null);
-  const onTouchStart = (e) => (touchStartX.current = e.touches[0].clientX);
-  const onTouchEnd = (e) => {
-    if (touchStartX.current == null) return;
-    const dx = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(dx) > 50) {
-      dx > 0 ? prevSlide() : nextSlide();
-    }
-    touchStartX.current = null;
-  };
-
-  // 動畫 variants
+  // 動畫（右欄）
   const pageVariants = {
-    enter: (dir) =>
-      prefersReduced
-        ? { opacity: 0 }
-        : { x: dir > 0 ? 40 : -40, opacity: 0, filter: "blur(6px)" },
-    center: prefersReduced
-      ? { opacity: 1, transition: { duration: 0.2 } }
-      : {
-          x: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          transition: { duration: 0.45, ease: [0.22, 0.7, 0, 1] },
-        },
-    exit: (dir) =>
-      prefersReduced
-        ? { opacity: 0, transition: { duration: 0.15 } }
-        : {
-            x: dir > 0 ? -40 : 40,
-            opacity: 0,
-            filter: "blur(6px)",
-            transition: { duration: 0.35, ease: "easeInOut" },
-          },
+    enter: (dir) => ({
+      x: dir > 0 ? 40 : -40,
+      opacity: 0,
+      filter: "blur(6px)",
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.45, ease: [0.22, 0.7, 0, 1] },
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -40 : 40,
+      opacity: 0,
+      filter: "blur(6px)",
+      transition: { duration: 0.35, ease: "easeInOut" },
+    }),
   };
-  const listStagger = prefersReduced
-    ? {}
-    : { transition: { staggerChildren: 0.06, delayChildren: 0.04 } };
-  const itemVariants = prefersReduced
-    ? { hidden: { opacity: 0 }, show: { opacity: 1 } }
-    : {
-        hidden: { opacity: 0, y: 8 },
-        show: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.35, ease: [0.22, 0.7, 0, 1] },
-        },
-      };
+  const listStagger = {
+    transition: { staggerChildren: 0.06, delayChildren: 0.04 },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 8 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.35, ease: [0.22, 0.7, 0, 1] },
+    },
+  };
 
   return (
     <Layout>
-      {/* ===== Hero ===== */}
+      {/* ===== Hero（保留你的設計） ===== */}
       <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
           <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
             NEWS
           </h1>
         </div>
-
         <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30" />
-
         <Image
           src="https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg"
           alt="banner"
@@ -335,8 +149,6 @@ export default function Photos() {
           priority={false}
           className="object-cover object-center sm:object-right md:object-[80%_center]"
         />
-
-        {/* Scroll Down CTA */}
         <motion.button
           type="button"
           onClick={handleScroll}
@@ -372,7 +184,6 @@ export default function Photos() {
           </motion.span>
         </motion.button>
 
-        {/* keyframes */}
         <style jsx global>{`
           @keyframes scroll-line {
             0% {
@@ -388,145 +199,136 @@ export default function Photos() {
         `}</style>
       </section>
 
-      {/* 內容起點（給捲動用） */}
       <div id="next-section" />
 
       <section className="section-content py-10 lg:py-20">
         <div className="flex flex-col lg:flex-row max-w-[1920px] mx-auto">
-          {/* ===== 左邊：工程進度（點圖開啟 Lightbox） ===== */}
+          {/* ===== 左欄：工程進度（動態） ===== */}
           <div className="left w-full lg:w-1/2">
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
               <h2>工程進度｜</h2>
             </div>
 
+            {galleries.length === 0 && (
+              <div className="px-4 md:px-8 xl:px-16 text-slate-500">
+                尚無工程進度資料。
+              </div>
+            )}
+
             {galleries.map((group, gi) => (
-              <div key={gi} className="flex flex-col px-4 md:px-8 xl:px-16">
-                {/* 區塊標題 */}
+              <div
+                key={`${group.sectionTitle}-${gi}`}
+                className="flex flex-col px-4 md:px-8 xl:px-16"
+              >
                 <div className="title pt-10 mb-4 border-b flex justify-between w-full">
                   <h3 className="text-[22px]">{group.sectionTitle}</h3>
-                  <span>更新日期：{group.date}</span>
+                  {group.date && <span>更新日期：{group.date}</span>}
                 </div>
 
-                {/* 相片區塊（兩種版型） */}
                 {group.layout === "L2R1" ? (
                   <div className="news-img flex flex-col md:flex-row gap-6 items-stretch">
-                    {/* 左側兩圖 */}
                     <div className="flex flex-col gap-6 md:w-1/2">
                       {[0, 1].map((idx) => {
                         const it = group.items[idx];
+                        if (!it) return null;
                         return (
-                          <div
+                          <button
                             key={idx}
-                            className="relative w-full h-[288px] overflow-hidden group"
+                            type="button"
+                            onClick={() => openLightbox(group.items, idx)}
+                            className="relative w-full h-[288px] overflow-hidden group text-left"
+                            aria-label={`放大檢視：${it.title}`}
                           >
-                            <button
-                              type="button"
-                              onClick={() => openLightbox(group.items, idx)}
-                              className="absolute inset-0 focus:outline-none"
-                              aria-label={`放大檢視：${it.title}`}
-                            >
-                              <Image
-                                src={it.src}
-                                alt={it.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                priority={false}
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                              />
-                            </button>
+                            <Image
+                              src={it.src}
+                              alt={it.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
                               <p className="text-white text-sm">{it.title}</p>
                             </div>
-                          </div>
+                          </button>
                         );
                       })}
                     </div>
-
-                    {/* 右側一圖（高） */}
                     <div className="md:w-1/2">
                       {(() => {
                         const it = group.items[2];
+                        if (!it) return null;
                         return (
-                          <div className="relative w-full h-[600px] overflow-hidden group">
-                            <button
-                              type="button"
-                              onClick={() => openLightbox(group.items, 2)}
-                              className="absolute inset-0 focus:outline-none"
-                              aria-label={`放大檢視：${it.title}`}
-                            >
-                              <Image
-                                src={it.src}
-                                alt={it.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                              />
-                            </button>
+                          <button
+                            type="button"
+                            onClick={() => openLightbox(group.items, 2)}
+                            className="relative w-full h-[600px] overflow-hidden group text-left"
+                            aria-label={`放大檢視：${it.title}`}
+                          >
+                            <Image
+                              src={it.src}
+                              alt={it.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
                               <p className="text-white text-sm">{it.title}</p>
                             </div>
-                          </div>
+                          </button>
                         );
                       })()}
                     </div>
                   </div>
                 ) : (
                   <div className="news-img flex flex-col md:flex-row gap-6 items-stretch">
-                    {/* 右側一圖（高） */}
                     <div className="md:w-1/2 order-2 md:order-1">
                       {(() => {
                         const it = group.items[0];
+                        if (!it) return null;
                         return (
-                          <div className="relative w-full h-[600px] overflow-hidden group">
-                            <button
-                              type="button"
-                              onClick={() => openLightbox(group.items, 0)}
-                              className="absolute inset-0 focus:outline-none"
-                              aria-label={`放大檢視：${it.title}`}
-                            >
-                              <Image
-                                src={it.src}
-                                alt={it.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                              />
-                            </button>
+                          <button
+                            type="button"
+                            onClick={() => openLightbox(group.items, 0)}
+                            className="relative w-full h-[600px] overflow-hidden group text-left"
+                            aria-label={`放大檢視：${it.title}`}
+                          >
+                            <Image
+                              src={it.src}
+                              alt={it.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
                               <p className="text-white text-sm">{it.title}</p>
                             </div>
-                          </div>
+                          </button>
                         );
                       })()}
                     </div>
-
-                    {/* 左側兩圖 */}
                     <div className="flex flex-col gap-6 md:w-1/2 order-1 md:order-2">
                       {[1, 2].map((idx) => {
                         const it = group.items[idx];
+                        if (!it) return null;
                         return (
-                          <div
+                          <button
                             key={idx}
-                            className="relative w-full h-[288px] overflow-hidden group"
+                            type="button"
+                            onClick={() => openLightbox(group.items, idx)}
+                            className="relative w-full h-[288px] overflow-hidden group text-left"
+                            aria-label={`放大檢視：${it.title}`}
                           >
-                            <button
-                              type="button"
-                              onClick={() => openLightbox(group.items, idx)}
-                              className="absolute inset-0 focus:outline-none"
-                              aria-label={`放大檢視：${it.title}`}
-                            >
-                              <Image
-                                src={it.src}
-                                alt={it.title}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                              />
-                            </button>
+                            <Image
+                              src={it.src}
+                              alt={it.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            />
                             <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-black/70 to-transparent flex items-center px-4 pointer-events-none">
                               <p className="text-white text-sm">{it.title}</p>
                             </div>
-                          </div>
+                          </button>
                         );
                       })}
                     </div>
@@ -536,7 +338,7 @@ export default function Photos() {
             ))}
           </div>
 
-          {/* ===== 右欄：新聞中心（含分頁切換） ===== */}
+          {/* ===== 右欄：新聞中心（接 /wp/v2/posts，排版維持） ===== */}
           <div className="right w-full lg:w-1/2">
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
               <h2>新聞中心｜</h2>
@@ -546,10 +348,9 @@ export default function Photos() {
               <div className="flex flex-col new-items">
                 <div className="title pt-10 mb-2 border-b flex justify-between w-full">
                   <h3 className="text-[22px]">最新消息</h3>
-                  <span>更新日期：114.05</span>
+                  <span>更新日期：{posts[0]?.date ?? ""}</span>
                 </div>
 
-                {/* 分頁內容 */}
                 <div className="relative">
                   <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
@@ -572,23 +373,42 @@ export default function Photos() {
                           <motion.article
                             key={`${item.id}-${idx}`}
                             variants={itemVariants}
-                            className="news-item bg-slate-100 h-[180px] my-[9px] flex p-2 items-center rounded-lg"
+                            className="news-item relative bg-slate-100 min-h-[180px] my-[9px] flex p-2 items-center rounded-lg overflow-hidden cursor-pointer hover:bg-slate-100/70"
                           >
-                            <div className="img w-[30%] overflow-hidden rounded-md">
-                              <Image
-                                src={item.img}
-                                width={800}
-                                height={600}
-                                alt={item.title}
-                                placeholder="empty"
-                                loading="lazy"
-                                className="w-full h-auto"
-                              />
+                            {/* 讓整張卡片都能點進去 */}
+                            <Link
+                              href={`/news/${item.slug}`}
+                              className="absolute inset-0 z-10"
+                              aria-label={`閱讀更多：${item.title}`}
+                            />
+
+                            {/* 左：圖片 + 圖說（alt / 摘要） */}
+                            <div className="w-[30%] overflow-hidden rounded-md flex-shrink-0 flex flex-col z-0">
+                              <div className="relative w-full h-[110px] md:h-[140px]">
+                                {item.img ? (
+                                  <Image
+                                    src={item.img}
+                                    alt={item.alt || item.title}
+                                    fill
+                                    sizes="(max-width: 1024px) 40vw, 30vw"
+                                    className="object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-full h-full bg-slate-200" />
+                                )}
+                              </div>
+                              <p className="text-[11px] text-slate-600 mt-1 line-clamp-2">
+                                {item.alt || item.excerpt}
+                              </p>
                             </div>
-                            <div className="txt p-6 w-[60%]">
+
+                            {/* 右：標題、摘要、閱讀更多（視覺保留） */}
+                            <div className="txt p-6 w-[60%] z-0">
                               <h3 className="text-lg font-bold leading-snug">
-                                {item.title.split("，")[0]}，<br />
-                                {item.title.split("，")[1]}
+                                {item.title.split("，")[0]}
+                                {item.title.includes("，") ? "，" : ""}
+                                <br />
+                                {item.title.split("，")[1] ?? ""}
                               </h3>
                               <p className="text-[14px] font-normal line-clamp-3 mt-2">
                                 {item.excerpt}
@@ -597,14 +417,11 @@ export default function Photos() {
                                 <span className="text-xs text-slate-500">
                                   更新：{item.date}
                                 </span>
-                                <motion.a
-                                  whileHover={{ x: 2 }}
-                                  className="text-slate-900/80 underline underline-offset-4 cursor-pointer"
-                                  href="#"
-                                  onClick={(e) => e.preventDefault()}
-                                >
-                                  閱讀更多
-                                </motion.a>
+                                <motion.span whileHover={{ x: 2 }}>
+                                  <span className="text-slate-900/80 underline underline-offset-4">
+                                    閱讀更多
+                                  </span>
+                                </motion.span>
                               </div>
                             </div>
                           </motion.article>
@@ -631,7 +448,6 @@ export default function Photos() {
                   >
                     ←
                   </motion.button>
-
                   {Array.from({ length: pageCount }).map((_, i) => {
                     const isActive = i === page;
                     return (
@@ -653,7 +469,6 @@ export default function Photos() {
                       </motion.button>
                     );
                   })}
-
                   <motion.button
                     type="button"
                     whileHover={{ scale: 1.05 }}
@@ -670,8 +485,6 @@ export default function Photos() {
                     →
                   </motion.button>
                 </div>
-
-                {/* 小提示：左右鍵切頁（可選） */}
                 <KeyboardPager
                   onLeft={prevPageFn}
                   onRight={nextPage}
@@ -684,119 +497,29 @@ export default function Photos() {
         </div>
       </section>
 
-      {/* ===== Lightbox：彈出式幻燈片 ===== */}
-      <AnimatePresence>
-        {lbOpen && (
-          <motion.div
-            ref={overlayRef}
-            className="fixed inset-0 z-[100] flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 0.2 } }}
-            exit={{ opacity: 0, transition: { duration: 0.2 } }}
-            onClick={(e) => {
-              // 點背景關閉（避免點到內容就關掉）
-              if (e.target === overlayRef.current) closeLightbox();
-            }}
-          >
-            {/* 背景遮罩 */}
-            <div className="absolute inset-0 bg-black/80" />
-
-            {/* 內容容器（自適應） */}
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label="圖片檢視"
-              className="relative z-[101] w-[min(1200px,96vw)] h-[80vh] bg-black/0 flex items-center justify-center"
-              initial={
-                prefersReduced ? { opacity: 0 } : { opacity: 0, scale: 0.98 }
-              }
-              animate={
-                prefersReduced
-                  ? { opacity: 1 }
-                  : { opacity: 1, scale: 1, transition: { duration: 0.2 } }
-              }
-              exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.18 } }}
-              onTouchStart={onTouchStart}
-              onTouchEnd={onTouchEnd}
-            >
-              {/* 圖片（object-contain 自適應） */}
-              {lbItems[lbIndex] && (
-                <div className="relative w-full h-full">
-                  <Image
-                    src={lbItems[lbIndex].src}
-                    alt={lbItems[lbIndex].title}
-                    fill
-                    sizes="96vw"
-                    className="object-contain select-none"
-                    priority
-                  />
-                </div>
-              )}
-
-              {/* 上方工具列 */}
-              <div className="absolute top-3 left-4 right-4 flex items-center justify-between text-white">
-                <div className="text-sm opacity-80">
-                  {lbIndex + 1} / {lbItems.length}
-                </div>
-                <button
-                  type="button"
-                  onClick={closeLightbox}
-                  className="rounded-full bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1 text-sm"
-                  aria-label="關閉"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* 下方標題 */}
-              {lbItems[lbIndex]?.title && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 max-w-[90%] text-center text-white/90 text-sm bg-black/40 px-3 py-1 rounded">
-                  {lbItems[lbIndex].title}
-                </div>
-              )}
-
-              {/* 導航箭頭 */}
-              {lbItems.length > 1 && (
-                <>
-                  <motion.button
-                    type="button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      prevSlide();
-                    }}
-                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 text-white w-10 h-10 grid place-items-center"
-                    aria-label="上一張"
-                  >
-                    ←
-                  </motion.button>
-                  <motion.button
-                    type="button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      nextSlide();
-                    }}
-                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 hover:bg-white/20 text-white w-10 h-10 grid place-items-center"
-                    aria-label="下一張"
-                  >
-                    →
-                  </motion.button>
-                </>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Lightbox：左欄圖片 */}
+      <Lightbox
+        open={lbOpen}
+        close={() => setLbOpen(false)}
+        slides={slides}
+        index={lbIndex}
+        plugins={[Captions, Thumbnails, Zoom, Fullscreen]}
+        animation={{ fade: 300, swipe: 400 }}
+        controller={{ closeOnBackdropClick: true }}
+        carousel={{ swipe: true, finite: false }}
+        zoom={{ maxZoomPixelRatio: 2.2, scrollToZoom: true }}
+        thumbnails={{
+          position: "bottom",
+          border: 0,
+          gap: 8,
+          width: 100,
+          height: 64,
+        }}
+      />
     </Layout>
   );
 }
 
-/**
- * 允許用鍵盤左右鍵切換頁碼（右欄）
- */
 function KeyboardPager({ onLeft, onRight, enabledLeft, enabledRight }) {
   useEffect(() => {
     const handler = (e) => {
@@ -807,4 +530,97 @@ function KeyboardPager({ onLeft, onRight, enabledLeft, enabledRight }) {
     return () => window.removeEventListener("keydown", handler);
   }, [onLeft, onRight, enabledLeft, enabledRight]);
   return null;
+}
+
+/* ---------------- SSG + ISR：左欄(progress) + 右欄(posts) ---------------- */
+export async function getStaticProps() {
+  const base = process.env.WP_API_URL;
+
+  // 左欄：progress
+  const progressUrl = `${base}/wp-json/wp/v2/progress?acf_format=standard&per_page=10&orderby=date&order=desc`;
+  // 右欄：posts（加 _embed 取特色圖與 alt）
+  const postsUrl = `${base}/wp-json/wp/v2/posts?per_page=30&orderby=date&order=desc&_embed`;
+
+  const extractImagesFromHTML = (html = "") => {
+    const out = [];
+    const re =
+      /<img\b[^>]*src=["']([^"']+)["'][^>]*?(?:alt=["']([^"']*)["'][^>]*)?[^>]*>/gi;
+    let m;
+    while ((m = re.exec(html)) !== null) {
+      const src = m[1];
+      const alt = m[2] || "";
+      if (/^https?:\/\/inf\.fjg\.mybluehost\.me/i.test(src)) {
+        out.push({ src, title: alt || "工程照片", width: 1600, height: 1066 });
+      }
+      if (out.length >= 6) break;
+    }
+    return out;
+  };
+
+  let galleriesFromCMS = [];
+  let posts = [];
+
+  try {
+    const [progRes, postRes] = await Promise.all([
+      fetch(progressUrl),
+      fetch(postsUrl),
+    ]);
+    const progRows = progRes.ok ? await progRes.json() : [];
+    const postRows = postRes.ok ? await postRes.json() : [];
+
+    // progress → galleries
+    galleriesFromCMS = progRows
+      .map((p, idx) => {
+        const title = decodeEntities(p?.title?.rendered || "工程進度");
+        const acfPhotos = Array.isArray(p?.acf?.photos) ? p.acf.photos : [];
+        let items = [];
+
+        if (acfPhotos.length) {
+          items = acfPhotos.slice(0, 6).map((img) => ({
+            src: img?.url,
+            title: img?.alt || img?.title || title || "工程照片",
+            width: img?.width || 1600,
+            height: img?.height || 1066,
+          }));
+        }
+        if (!items.length && typeof p?.content?.rendered === "string") {
+          items = extractImagesFromHTML(p.content.rendered);
+        }
+        if (!items.length) return null;
+
+        let date = "";
+        if (p?.acf?.update_month) date = p.acf.update_month;
+        else if (p?.date) date = toRocMonth(p.date);
+
+        const layout = idx % 2 === 0 ? "L2R1" : "R1L2";
+        return { sectionTitle: title, date, layout, items: items.slice(0, 3) };
+      })
+      .filter(Boolean);
+
+    // posts → 右欄資料
+    posts = postRows.map((post) => {
+      const media = post?._embedded?.["wp:featuredmedia"]?.[0];
+      const img = media?.source_url || "";
+      const alt =
+        media?.alt_text ||
+        stripHtml(media?.caption?.rendered || "") ||
+        decodeEntities(media?.title?.rendered || "");
+      return {
+        id: post.id,
+        slug: post.slug,
+        title: decodeEntities(post.title?.rendered || ""),
+        excerpt: stripHtml(post.excerpt?.rendered || ""),
+        date: toRocMonth(post.date),
+        img,
+        alt,
+      };
+    });
+  } catch (e) {
+    // ignore
+  }
+
+  return {
+    props: { galleriesFromCMS, posts },
+    revalidate: 60,
+  };
 }

@@ -12587,6 +12587,11 @@ yargs@^17.7.2:
     y18n "^5.0.5"
     yargs-parser "^21.1.1"
 
+yet-another-react-lightbox@^3.25.0:
+  version "3.25.0"
+  resolved "https://registry.npmjs.org/yet-another-react-lightbox/-/yet-another-react-lightbox-3.25.0.tgz"
+  integrity sha512-NaCeEXCpdwoTvoOpxNK9gdW8+oHs79yVH+D2YeVQWRjH5i32e5CoXndAAFP2p8awzVYfSonherrE9JMTpfD3EA==
+
 youtube-player@5.5.2:
   version "5.5.2"
   resolved "https://registry.npmjs.org/youtube-player/-/youtube-player-5.5.2.tgz"
