@@ -5,6 +5,7 @@ import Link from "next/link";
 import Layout from "../Layout";
 import { decode } from "html-entities";
 
+/* ---------- WP helpers ---------- */
 function getWpOrigin() {
   const raw = process.env.WP_API_URL || "";
   return raw.replace(/\/$/, "");
@@ -13,7 +14,75 @@ function getApiBase() {
   return `${getWpOrigin()}/wp-json`;
 }
 
-export default function NewsArticle({ post, elementorCss = [] }) {
+/* 讓 <img> lazy/async；並剝除會造成卡頓的 inline 動畫/transform */
+function sanitizeAndEnhanceContent(html = "") {
+  if (!html) return html;
+
+  // 1) 移除 <script>（安全）
+  html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+
+  // 2) 剝掉常見造成 jank 的 inline style: transform / transition / animation / filter / will-change
+  html = html.replace(/style=(['"])(.*?)\1/gi, (m, q, s) => {
+    // 拆解 style 屬性
+    const keep = s
+      .split(";")
+      .map((kv) => kv.trim())
+      .filter((kv) => {
+        const k = kv.split(":")[0]?.trim().toLowerCase();
+        return (
+          k &&
+          ![
+            "transform",
+            "transition",
+            "animation",
+            "filter",
+            "will-change",
+            "-webkit-transform",
+            "-webkit-transition",
+            "-webkit-animation",
+            "backdrop-filter",
+            "scroll-behavior",
+          ].includes(k)
+        );
+      })
+      .join("; ");
+    if (!keep) return ""; // 全刪就移除 style 屬性
+    return `style=${q}${keep}${q}`;
+  });
+
+  // 3) 移除會觸發動畫的 class
+  html = html.replace(
+    /\b(elementor-invisible|elementor-animate-[-\w]+|animated|fadeIn\w*|slideIn\w*|zoomIn\w*)\b/gi,
+    ""
+  );
+
+  // 4) 移除動畫/互動相關 data 屬性（避免初始化）
+  html = html.replace(/\sdata-[\w-]+=(['"]).*?\1/gi, "");
+
+  // 5) 強制 <img> lazy + async + 不破版
+  html = html
+    // 若沒有 loading 屬性就加
+    .replace(/<img\b(?![^>]*\bloading=)/gi, '<img loading="lazy" ')
+    // 若沒有 decoding 屬性就加
+    .replace(/<img\b(?![^>]*\bdecoding=)/gi, '<img decoding="async" ')
+    // 圖片加上保護尺寸（避免破版與 reflow）
+    .replace(
+      /<img([^>]*?)style=(['"])(.*?)\2/gi,
+      (_m, attrs, q, s) =>
+        `<img${attrs}style=${q}${s};max-width:100%;height:auto;border-radius:8px${q}`
+    )
+    .replace(/<img((?!style=)[^>])*?>/gi, (m) => {
+      if (/style=/.test(m)) return m;
+      return m.replace(
+        /<img/i,
+        '<img style="max-width:100%;height:auto;border-radius:8px"'
+      );
+    });
+
+  return html;
+}
+
+export default function NewsArticle({ post }) {
   if (!post) {
     return (
       <Layout>
@@ -22,58 +91,60 @@ export default function NewsArticle({ post, elementorCss = [] }) {
     );
   }
 
-  const wpOrigin = getWpOrigin();
   const title = decode(post?.title?.rendered || "未命名");
-  const content = post?.content?.rendered || "";
-  const featured =
-    post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
-  const alt =
-    post?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text || "新聞圖片";
-  const date = new Date(post.date);
-  const rocYear = date.getFullYear() - 1911;
-  const dateStr = `${rocYear}.${String(date.getMonth() + 1).padStart(2, "0")}`;
+  const rawContent = post?.content?.rendered || "";
+  const content = sanitizeAndEnhanceContent(rawContent);
 
-  const blockCss = `${wpOrigin}/wp-includes/css/dist/block-library/style.min.css`;
-  const classicCss = `${wpOrigin}/wp-includes/css/classic-themes.min.css`;
+  const media = post?._embedded?.["wp:featuredmedia"]?.[0];
+  const featured = media?.source_url || null;
+  const alt =
+    media?.alt_text || decode(media?.title?.rendered || "") || "新聞圖片";
+
+  const d = new Date(post.date);
+  const rocYear = d.getFullYear() - 1911;
+  const dateStr = `${rocYear}.${String(d.getMonth() + 1).padStart(2, "0")}`;
 
   return (
     <Layout>
       <Head>
-        <link rel="stylesheet" href={blockCss} />
-        <link rel="stylesheet" href={classicCss} />
-        {elementorCss.map((href) => (
-          <link key={href} rel="stylesheet" href={href} />
-        ))}
-
+        {/* 僅保留你指定的 style（加上兩個保護：在不支援或手持裝置上關閉 content-visibility） */}
         <style>{`
-          html, body {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
+          /* 避免全域平滑捲動影響裝置動量捲動與外掛 */
+          html, body { -webkit-font-smoothing: antialiased; }
+
+          /* 讓 offscreen 區塊等到捲到再渲染，超有感順暢 */
+          .entry-content > * {
+            content-visibility: auto;
+            contain-intrinsic-size: 1000px;
           }
-          body {
-            will-change: scroll-position;
-            overscroll-behavior-y: none;
+
+          /* 手機/平板（粗指標）或瀏覽器不支援時，關閉 content-visibility 以免 jank */
+          @media (hover: none) and (pointer: coarse) {
+            .entry-content > * { content-visibility: visible; }
           }
-          img, video {
-            will-change: transform;
+          @supports not (content-visibility: auto) {
+            .entry-content > * { content-visibility: visible; }
           }
-          .entry-content { color: #334155; max-width: 100%; overflow-x: hidden; }
-          .entry-content p { margin: 1em 0; line-height: 1.9; font-size: 17px; }
-          .entry-content h2 { font-size: 22px; font-weight: 700; margin: 1.5rem 0 .75rem; color: #0f172a; }
-          .entry-content h3 { font-size: 19px; font-weight: 600; margin: 1.25rem 0 .5rem; color: #0f172a; }
-          .entry-content a { color: #2563eb; transition: color .25s; }
-          .entry-content a:hover { text-decoration: underline; color: #1d4ed8; }
-          .entry-content ul, .entry-content ol { margin: 1em 0 1em 1.25em; line-height: 1.9; }
-          .entry-content li { margin: .25em 0; }
-          .entry-content blockquote { border-left: 4px solid #e2e8f0; margin: 1.25rem 0; padding: .25rem 1rem; color: #475569; }
-          .entry-content figure { margin: 1.25rem 0 1.5rem; }
-          .entry-content figure.wp-block-image img,
-          .entry-content img { border-radius: .5rem; height: auto; box-shadow: 0 4px 14px rgba(0,0,0,.07); max-width: 100%; }
-          .entry-content figcaption { text-align: center; font-size: .875rem; color: #64748b; margin-top: .5rem; }
-          .entry-content table { border-collapse: collapse; margin: 1rem 0; }
-          .entry-content table th, .entry-content table td { border: 1px solid #e2e8f0; padding: .5rem .75rem; }
-          /* 移除 elementor swiper overflow 導致卡頓 */
-          .elementor, .swiper, .elementor-section { will-change: auto !important; transform: none !important; }
+
+          .entry-content { color:#334155; max-width:100%; overflow-x:hidden; }
+          .entry-content p { margin:1em 0; line-height:1.9; font-size:17px; }
+          .entry-content h2 { font-size:22px; font-weight:700; margin:1.5rem 0 .75rem; color:#0f172a; }
+          .entry-content h3 { font-size:19px; font-weight:600; margin:1.25rem 0 .5rem; color:#0f172a; }
+          .entry-content a { color:#2563eb; transition:color .2s; }
+          .entry-content a:hover { text-decoration:underline; color:#1d4ed8; }
+          .entry-content ul, .entry-content ol { margin:1em 0 1em 1.25em; line-height:1.9; }
+          .entry-content li { margin:.25em 0; }
+          .entry-content blockquote { border-left:4px solid #e2e8f0; margin:1.25rem 0; padding:.25rem 1rem; color:#475569; }
+          .entry-content figure { margin:1.25rem 0 1.5rem; }
+          .entry-content img, .entry-content figure.wp-block-image img {
+            border-radius:.5rem; box-shadow:0 4px 14px rgba(0,0,0,.07); max-width:100%; height:auto;
+          }
+          .entry-content figcaption { text-align:center; font-size:.875rem; color:#64748b; margin-top:.5rem; }
+          .entry-content table { border-collapse:collapse; margin:1rem 0; }
+          .entry-content table th, .entry-content table td { border:1px solid #e2e8f0; padding:.5rem .75rem; }
+
+          /* 盡量避免外掛對滾動的 transform/overflow 干擾 */
+          .elementor-section, .elementor-widget-container { will-change:auto; }
         `}</style>
       </Head>
 
@@ -97,8 +168,8 @@ export default function NewsArticle({ post, elementorCss = [] }) {
               alt={alt}
               width={1600}
               height={1000}
+              sizes="(max-width: 900px) 100vw, 900px"
               priority
-              loading="eager"
               className="rounded-lg w-full h-auto shadow"
             />
             {alt && (
@@ -109,6 +180,7 @@ export default function NewsArticle({ post, elementorCss = [] }) {
           </figure>
         )}
 
+        {/* 內文（已剝除動畫/transform，img 也 lazy+async） */}
         <div
           className="entry-content"
           dangerouslySetInnerHTML={{ __html: content }}
@@ -127,8 +199,7 @@ export default function NewsArticle({ post, elementorCss = [] }) {
   );
 }
 
-/* ========= SSG / ISR ========= */
-
+/* ---------- SSG / ISR ---------- */
 export async function getStaticPaths() {
   const api = getApiBase();
   const res = await fetch(`${api}/wp/v2/posts?per_page=10&_fields=slug`);
@@ -137,52 +208,18 @@ export async function getStaticPaths() {
   return { paths, fallback: "blocking" };
 }
 
-function extractElementorCss(html, wpOrigin) {
-  const out = new Set();
-  const linkRe =
-    /<link\s[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi;
-  let m;
-  while ((m = linkRe.exec(html)) !== null) {
-    let href = m[1];
-    const hit =
-      /\/elementor\/|\/eicons\/|\/swiper\//i.test(href) ||
-      /\/uploads\/elementor\/css\/post-\d+\.css/i.test(href);
-    if (!hit) continue;
-    if (href.startsWith("//")) href = "https:" + href;
-    if (/^https?:\/\//i.test(href) === false) {
-      href = `${wpOrigin}${href.startsWith("/") ? "" : "/"}${href}`;
-    }
-    out.add(href);
-  }
-  return Array.from(out);
-}
-
 export async function getStaticProps({ params }) {
   const api = getApiBase();
-  const wpOrigin = getWpOrigin();
 
   let post = null;
-  let elementorCss = [];
-
   try {
-    const res = await fetch(`${api}/wp/v2/posts?slug=${params.slug}&&_embed`);
+    const res = await fetch(`${api}/wp/v2/posts?slug=${params.slug}&_embed`);
     const data = res.ok ? await res.json() : [];
     post = data[0] || null;
   } catch {}
 
-  try {
-    const pageUrl = post?.link;
-    if (pageUrl) {
-      const hRes = await fetch(pageUrl);
-      if (hRes.ok) {
-        const html = await hRes.text();
-        elementorCss = extractElementorCss(html, wpOrigin);
-      }
-    }
-  } catch {}
-
   return {
-    props: { post, elementorCss },
+    props: { post },
     revalidate: 60,
   };
 }
