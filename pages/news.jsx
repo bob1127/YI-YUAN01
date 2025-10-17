@@ -365,50 +365,52 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                           <motion.article
                             key={`${item.id}-${idx}`}
                             variants={itemVariants}
-                            className="news-item relative bg-slate-100 min-h-[180px] my-[9px] flex p-2 items-center rounded-lg overflow-hidden cursor-pointer hover:bg-slate-100/70"
+                            className="news-item relative bg-slate-100 min-h-[180px] my-[9px] flex py-[.56vmin] px-2 items-center rounded-lg overflow-hidden cursor-pointer hover:bg-slate-100/70"
                           >
                             <Link
                               href={`/news/${item.slug}`}
                               className="absolute inset-0 z-10"
                               aria-label={`閱讀更多：${item.title}`}
                             />
-                            <div className="w-[30%] overflow-hidden rounded-md flex-shrink-0 flex flex-col z-0">
-                              <div className="relative w-full h-[110px] md:h-[140px]">
-                                {item.img ? (
-                                  <Image
-                                    src={item.img}
-                                    alt={item.alt || item.title}
-                                    fill
-                                    sizes="(max-width: 1024px) 40vw, 30vw"
-                                    className="object-cover"
-                                  />
-                                ) : (
-                                  <div className="w-full h-full bg-slate-200" />
-                                )}
+                            <div className="sm:flex-row flex  flex-col">
+                              <div className=" w-full p-3 sm:w-[30%] overflow-hidden rounded-md flex-shrink-0 flex flex-col z-0">
+                                <div className="relative w-full h-[180px] sm:h-[200px] md:h-[140px]">
+                                  {item.img ? (
+                                    <Image
+                                      src={item.img}
+                                      alt={item.alt || item.title}
+                                      fill
+                                      sizes="(max-width: 1024px) 40vw, 30vw"
+                                      className="object-cover"
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full bg-slate-200" />
+                                  )}
+                                </div>
+                                <p className="text-[11px] text-slate-600 mt-1 line-clamp-2">
+                                  {item.alt || item.excerpt}
+                                </p>
                               </div>
-                              <p className="text-[11px] text-slate-600 mt-1 line-clamp-2">
-                                {item.alt || item.excerpt}
-                              </p>
-                            </div>
-                            <div className="txt p-6 w-[60%] z-0">
-                              <h3 className="text-lg font-bold leading-snug">
-                                {item.title.split("，")[0]}
-                                {item.title.includes("，") ? "，" : ""}
-                                <br />
-                                {item.title.split("，")[1] ?? ""}
-                              </h3>
-                              <p className="text-[14px] font-normal line-clamp-3 mt-2">
-                                {item.excerpt}
-                              </p>
-                              <div className="flex pt-5 justify-between items-center">
-                                <span className="text-xs text-slate-500">
-                                  更新：{item.date}
-                                </span>
-                                <motion.span whileHover={{ x: 2 }}>
-                                  <span className="text-slate-900/80 underline underline-offset-4">
-                                    閱讀更多
+                              <div className="txt p-4 w-full sm:w-[60%] z-0">
+                                <h3 className="text-lg font-bold leading-snug">
+                                  {item.title.split("，")[0]}
+                                  {item.title.includes("，") ? "，" : ""}
+                                  <br />
+                                  {item.title.split("，")[1] ?? ""}
+                                </h3>
+                                <p className="text-[14px] font-normal line-clamp-3 mt-2">
+                                  {item.excerpt}
+                                </p>
+                                <div className="flex pt-5 justify-between items-center">
+                                  <span className="text-xs text-slate-500">
+                                    更新：{item.date}
                                   </span>
-                                </motion.span>
+                                  <motion.span whileHover={{ x: 2 }}>
+                                    <span className="text-slate-900/80 underline underline-offset-4">
+                                      閱讀更多
+                                    </span>
+                                  </motion.span>
+                                </div>
                               </div>
                             </div>
                           </motion.article>
