@@ -14,7 +14,7 @@ export default function About() {
     {
       id: "project2",
       label: "宜園大院",
-      image: "/images/project//images/S__28844101.jpg",
+      image: "/images/project/S__32890919_0.jpg",
     },
   ];
 
