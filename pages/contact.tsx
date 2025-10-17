@@ -11,7 +11,11 @@ export default function About() {
 
   const projects = [
     { id: "project1", label: "一青隱", image: "/images/S__28844101.jpg" },
-    { id: "project2", label: "宜園大院", image: "/images/S__28844100.png" },
+    {
+      id: "project2",
+      label: "宜園大院",
+      image: "/images/project//images/S__28844101.jpg",
+    },
   ];
 
   return (
