@@ -3,7 +3,7 @@
 import Layout from "./Layout";
 import Link from "next/link";
 import React, { useState } from "react";
-
+import Image from "next/image";
 export default function About() {
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState(""); // "success" | "error"
@@ -138,11 +138,11 @@ export default function About() {
                   <label className="text-base font-semibold text-gray-800">
                     您對哪個建案有興趣
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
                     {projects.map((p) => (
                       <label
                         key={p.id}
-                        className="relative cursor-pointer group transition-transform hover:scale-[1.02]"
+                        className="relative cursor-pointer group transition-transform hover:scale-[1.02] h-full"
                         title={p.label}
                       >
                         <input
@@ -152,16 +152,29 @@ export default function About() {
                           className="hidden peer"
                           required
                         />
-                        <div className="rounded-xl border-2 border-gray-300 overflow-hidden shadow-sm group-hover:shadow-md peer-checked:border-black peer-checked:shadow-lg transition-all duration-200">
-                          <img
-                            src={p.image}
-                            alt={p.label}
-                            className="w-full h-[400px] sm:h-auto object-cover"
-                          />
+
+                        {/* 卡片本體：固定比例圖片 + 文字，整張同高 */}
+                        <div className="flex h-full flex-col rounded-xl border-2 border-gray-300 overflow-hidden shadow-sm group-hover:shadow-md peer-checked:border-black peer-checked:shadow-lg transition-all duration-200">
+                          {/* 固定比例圖片容器：手機 4:3、md+ 3:2，確保所有卡片同高 */}
+                          <div className="relative w-full aspect-[4/3] md:aspect-[3/2]">
+                            <Image
+                              src={p.image}
+                              alt={p.label}
+                              fill
+                              className="object-cover"
+                              // 依版型提供合理的 sizes，讓瀏覽器挑對檔案
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                              priority={false}
+                            />
+                          </div>
+
+                          {/* 文字區固定樣式，卡片等高由上方比例決定 */}
                           <div className="p-4 text-center text-base font-medium text-gray-800 bg-white">
                             {p.label}
                           </div>
                         </div>
+
+                        {/* 右上角圓點（被選中時顯示） */}
                         <div className="absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-white bg-black opacity-0 peer-checked:opacity-100 transition" />
                       </label>
                     ))}
