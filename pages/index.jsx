@@ -63,7 +63,7 @@ export default function Home() {
           )}
         </section>
 
-        <section className="max-w-[1920px] mb-20 flex md:flex-row flex-col xl:w-[80%] md:w-[90%] w-full mx-auto">
+        <section className="max-w-[1920px] mb-20 flex md:flex-row flex-col xl:w-[80%] w-[90%]  mx-auto">
           <div className="left w-full md:w-1/2 flex items-center justify-center flex-col">
             <div className="flex flex-col items-start ">
               <h2 className="text-[30px] xl:text-[50px]">實在的構築</h2>

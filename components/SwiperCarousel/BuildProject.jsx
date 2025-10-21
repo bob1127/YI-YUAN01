@@ -23,7 +23,7 @@ export default () => {
             <Card className="py-4 bg-white p-0 m-0 shadow-none">
               <CardBody className="flex pb-[30px] flex-col relative">
                 <img
-                  src="/images/project/1140520-聯播網探索廣告_1200x628.jpg"
+                  src="/images/hot-sale/1141021-聯播網探索廣告_1200x628.jpg"
                   alt="Card background"
                   loading="lazy"
                   decoding="async"
