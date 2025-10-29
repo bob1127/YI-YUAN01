@@ -50,31 +50,25 @@ const project = () => {
       <Head>
         <title>經典選粹 CLASSIC 貫徹更好的美好旅程 | 宜園建設</title>
       </Head>
-      <section className="section-hero-title  mb-[150px]  h-[85vh] mt-[50px] overflow-hidden w-full relative">
+      <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
-          {/* <Image
-            src="/"
-            className="max-w-[600px]"
-            placeholder="empty"
-            loading="lazy"
-            width={1000}
-            height={500}
-          ></Image> */}
-          <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-5xl text-white">
+          <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
             CLASSIC 貫徹更好的美好旅程
           </h1>
         </div>
-        <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30"></div>
+
+        <div className="mask bg-black/20 w-full h-full top-0 left-0 absolute z-30" />
+
         <Image
           src="/images/project/pexels-pixabay-327482.jpg"
           alt="banner"
           fill
-          placeholder="empty"
-          loading="lazy"
+          sizes="100vw"
+          priority={false}
           className="object-cover object-center sm:object-right md:object-[80%_center]"
         />
 
-        {/* Scroll Down 動作入口（整塊可點） */}
+        {/* Scroll Down CTA */}
         <motion.button
           type="button"
           onClick={handleScroll}
@@ -83,18 +77,16 @@ const project = () => {
           className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center z-30 cursor-pointer select-none"
           aria-label="Scroll down"
         >
-          {/* 豎線底軌 */}
           <div className="w-px h-16 bg-white/40 overflow-hidden relative">
             <div className="absolute top-0 left-0 w-px h-full bg-white animate-scroll-line" />
           </div>
-
-          {/* 箭頭 */}
           <svg
             className="w-6 h-6 text-white mt-2"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -102,8 +94,6 @@ const project = () => {
               d="M19 9l-7 7-7-7"
             />
           </svg>
-
-          {/* 文字 */}
           <motion.span
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -114,7 +104,7 @@ const project = () => {
           </motion.span>
         </motion.button>
 
-        {/* 自訂 keyframes（豎線跑動） */}
+        {/* keyframes */}
         <style jsx global>{`
           @keyframes scroll-line {
             0% {
@@ -125,10 +115,11 @@ const project = () => {
             }
           }
           .animate-scroll-line {
-            animation: scroll-line 2.8s linear infinite; /* 放慢線條速度 */
+            animation: scroll-line 2.8s linear infinite;
           }
         `}</style>
       </section>
+
       <div className="title py-1"></div>
       <section className="grid  grid-cols-1 sm:grid-cols-3 w-full ">
         <Link href="/project/project-yiyuan" className="group block">

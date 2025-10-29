@@ -16,12 +16,11 @@ import "swiper/css/thumbs";
 
 const Project = () => {
   const gallery = [
-    "/images/project/S__32890915_0.jpg",
-    "/images/project/S__32890916_0.jpg",
-    "/images/project/S__32890917_0.jpg",
     "/images/project/S__32890918_0.jpg",
     "/images/project/S__32890919_0.jpg",
     "/images/project/S__32890920_0.jpg",
+    "/images/project/S__32890916_0.jpg",
+    "/images/project/S__32890917_0.jpg",
   ];
 
   const faqs = [
