@@ -2,6 +2,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Head from "next/head"; // 1. 引入 Head 元件
 import dynamic from "next/dynamic";
 import Layout from "./Layout";
 import Enter from "../components/enter/enter";
@@ -33,12 +34,30 @@ export default function Home() {
     }
   };
 
+  // 2. 定義結構化資料 (JSON-LD)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "宜園建設",
+    url: "https://www.yiyuan-arch.com.tw/", // 請確認這裡的網址與您實際上線的網址完全一致
+  };
+
   return (
     <Layout>
+      {/* 3. 將資料寫入 Head */}
+      <Head>
+        <title>宜園建設</title>
+        <meta property="og:site_name" content="宜園建設" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </Head>
+
       <Enter />
       <div className="bg-white">
         {/* ===== HERO（影片：寬100%、高auto） ===== */}
-        <section className="section-hero-title relative w-full  mb-[50px] mt-[70px] ">
+        <section className="section-hero-title relative w-full mb-[50px] mt-[70px]">
           {/* 遮罩覆蓋在影片之上，但不阻擋點擊 */}
           <div className="pointer-events-none absolute inset-0 z-30 bg-black/20" />
 
@@ -50,7 +69,7 @@ export default function Home() {
             playsInline
             preload="auto"
             muted={muted}
-            className=" w-full object-cover h-[85vh]" /* 〈— 關鍵：寬100% 高auto */
+            className="w-full object-cover h-[85vh]"
           />
 
           {showUnmute && (
@@ -63,9 +82,9 @@ export default function Home() {
           )}
         </section>
 
-        <section className="max-w-[1920px] mb-20 flex md:flex-row flex-col xl:w-[80%] w-[90%]  mx-auto">
+        <section className="max-w-[1920px] mb-20 flex md:flex-row flex-col xl:w-[80%] w-[90%] mx-auto">
           <div className="left w-full md:w-1/2 flex items-center justify-center flex-col">
-            <div className="flex flex-col items-start ">
+            <div className="flex flex-col items-start">
               <h2 className="text-[30px] xl:text-[50px]">實在的構築</h2>
               <p className="lg:text-[18px] text-[16px]">
                 宜居的建築，承載著宜居的根
