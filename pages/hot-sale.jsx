@@ -122,7 +122,7 @@ export default function About() {
       <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
           <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
-            PROJECT 超越設想的心思量
+            PROJECT <br></br>超越設想的心思量
           </h1>
         </div>
 
