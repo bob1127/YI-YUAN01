@@ -115,7 +115,7 @@ const Nav = () => {
     <div className=" shrink-0 gap-2 ">
       <div className="middle flex flex-col lg:flex-row pb-8 lg:items-center justify-center">
         {/* 左邊：公司資訊 */}
-        <div className="w-full lg:w-[40%] flex justify-center lg:justify-start ">
+        <div className="w-full lg:w-[50%] flex justify-center lg:justify-start ">
           <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
             <div className="flex py-4 sm:py-8 flex-col">
               <div className="flex mt-0  flex-col">
