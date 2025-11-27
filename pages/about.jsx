@@ -137,7 +137,7 @@ export default function Home() {
             {/* 文字區塊：筆電(>=lg)移除左右 padding / margin */}
             <div className="text w-full lg:w-1/2 pb-12 px-8 lg:px-0 lg:mx-0 flex flex-col justify-center items-center">
               <div className="flex flex-col justify-start items-start">
-                <div className="title mx-auto lg:mx-0 flex flex-col justify-center items-start">
+                <div className="title desktop-mode hidden  mx-auto lg:mx-0 sm:flex flex-col justify-center items-start">
                   <div className="flex items-end">
                     <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                       T
@@ -163,6 +163,32 @@ export default function Home() {
                     默默守護，讓您踏實生活，放心每一天
                   </p>
                 </div>
+                <div className="title mobile-mode sm:hidden mx-auto lg:mx-0 flex flex-col justify-center items-center">
+                  <div className="flex items-end">
+                    <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
+                      T
+                    </span>
+                    <div className="flex flex-col mb-1">
+                      <p className="leading-none text-[1.75rem] mb-2 sm:text-[2.125rem] md:text-[2.5rem]">
+                        RUST
+                      </p>
+                      <h2 className="text-2xl font-bold font-heading">
+                        信任 ｜ 宜安心
+                      </h2>
+                    </div>
+                  </div>
+                  <p className="text-base leading-relaxed tracking-wide w-full mt-6">
+                    好房子，值得依靠；好關係，值得託付
+                    <br />
+                    當市場競逐利益，宜園回歸最本質的「家」，最關鍵的「住」以職人專業為基
+                    <br />
+                    堅守實在本質，落實大小細節，築起家的價值
+                    <br />
+                    <br />
+                    宜園，以「實在的構築」 <br />
+                    默默守護，讓您踏實生活，放心每一天
+                  </p>
+                </div>
               </div>
             </div>
           </section>
@@ -173,7 +199,7 @@ export default function Home() {
               <div className="img w-full lg:w-1/2 flex justify-center items-center py-10 mx-auto sm:mx-3 h-auto overflow-hidden">
                 <div className="flex flex-col justify-start items-start">
                   {/* 文字區塊：筆電(>=lg)移除左右 margin */}
-                  <div className="title mx-auto pb-12 px-8 lg:px-0 lg:mx-0 flex flex-col justify-center items-center">
+                  <div className="title mx-auto pb-12 px-8 lg:px-0 lg:mx-0 hidden sm:flex flex-col justify-center desktop-mode  items-start">
                     <div className="flex items-end">
                       <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                         R
@@ -194,6 +220,36 @@ export default function Home() {
                       於家人，傳遞溫度與關懷；於鄰里，凝聚和睦與理解
                       <br />
                       於土地，報以尊重與謙遜；於城市，追求共生共榮
+                      <br />
+                      <br />
+                      宜園，以實在的構築
+                      <br />
+                      讓人與人、與土地、與城市之間 美好關係加以延續
+                    </p>
+                  </div>
+                  <div className="title mobile-mode sm:hidden mx-auto pb-12 px-8 lg:px-0 lg:mx-0 flex flex-col justify-center items-center">
+                    <div className="flex items-end mb-1">
+                      <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
+                        R
+                      </span>
+                      <div className="flex flex-col">
+                        <p className="leading-none text-[1.75rem] mb-2 sm:text-[2.125rem] md:text-[2.5rem]">
+                          ELATION
+                        </p>
+                        <h2 className="text-2xl font-bold font-heading">
+                          關係 ｜ 宜真情
+                        </h2>
+                      </div>
+                    </div>
+
+                    <p className="text-base leading-relaxed tracking-wide mt-6">
+                      建築，是連結土地的根，也是凝聚人心的橋
+                      <br />
+                      於家人，傳遞溫度與關懷 <br />
+                      於鄰里，凝聚和睦與理解
+                      <br />
+                      於土地，報以尊重與謙遜 <br />
+                      於城市，追求共生共榮
                       <br />
                       <br />
                       宜園，以實在的構築
@@ -259,7 +315,7 @@ export default function Home() {
               {/* 文字區塊：筆電(>=lg)移除左右 padding / margin */}
               <div className="text mb-5 lg:mb-0 w-[85%] lg:w-[40%] mx-auto lg:mx-0 px-0 lg:px-0 flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center h-full">
-                  <div className="title flex flex-col justify-center items-start">
+                  <div className="title sm:flex hidden flex-col justify-center items-start">
                     <div className="flex items-end">
                       <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                         U
@@ -286,6 +342,36 @@ export default function Home() {
                       成就居住者理想居所，守護與眾不同的生活想像
                     </p>
                   </div>
+                  <div className="title desktop-mode sm:hidden flex flex-col justify-center items-center">
+                    <div className="flex items-end">
+                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
+                        U
+                      </span>
+                      <div className="flex flex-col mb-1">
+                        <p className="leading-none text-white mb-2 text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem]">
+                          NIQUE
+                        </p>
+                        <h2 className="text-2xl text-white font-bold font-heading">
+                          獨特 ｜ 宜居所
+                        </h2>
+                      </div>
+                    </div>
+
+                    <p className="text-base leading-relaxed tracking-wide text-gray-200 mt-6 w-full">
+                      每個人，都是獨一無二的個體 <br />
+                      好的房子，懂得尊重每一種獨特
+                      <br />
+                      以好規劃，讓私領域的靜謐 <br />
+                      公領域的交流，恰如其分
+                      <br />
+                      以好設計，迎風納景，擋聲遮擾，恰到好處
+                      <br />
+                      <br />
+                      宜園，以實在的構築 <br />
+                      成就居住者理想居所 <br />
+                      守護與眾不同的生活想像
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -295,7 +381,7 @@ export default function Home() {
               {/* 文字區塊：筆電(>=lg)移除左右 padding / margin */}
               <div className="text mb-5 lg:mb-0 w-[85%] lg:w-[40%] mx-auto lg:mx-0 px-0 lg:px-0 flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center h-full">
-                  <div className="title mb-5 mt-10 mx-auto lg:mx-0 flex flex-col justify-center items-start">
+                  <div className="title  mb-5 mt-10 mx-auto lg:mx-0 hidden sm:flex flex-col justify-center items-start">
                     <div className="flex items-end">
                       <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                         E
@@ -319,6 +405,37 @@ export default function Home() {
                       <br />
                       <br />
                       宜園，以實在的構築 <br />
+                      <br />
+                      融入環境，與自然共生共長
+                      <br />
+                      順應時間，讓家越住越美，恆久宜居
+                    </p>
+                  </div>
+                  <div className="title mobile-mode sm:hidden mb-5 mt-10 mx-auto lg:mx-0 flex flex-col justify-center items-center">
+                    <div className="flex items-end mb-1">
+                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
+                        E
+                      </span>
+                      <div className="flex flex-col ">
+                        <p className="leading-none mb-2 text-white text-[1.75rem] sm:text-[2.125rem] md:text-[2.5rem]">
+                          TERNAL
+                        </p>
+                        <h2 className="text-2xl text-white font-bold font-heading">
+                          永恆 ｜ 宜融入
+                        </h2>
+                      </div>
+                    </div>
+
+                    <p className="text-base leading-relaxed tracking-wide text-gray-200 mt-6 w-full">
+                      好房子懂得跟土地相處 <br />
+                      找出最舒適的生活方式
+                      <br />
+                      宜園傾聽土地的聲音，細說生命的故事
+                      <br />
+                      讓建築扎根於大地，成就心的歸宿
+                      <br />
+                      <br />
+                      宜園，以實在的構築
                       <br />
                       融入環境，與自然共生共長
                       <br />
