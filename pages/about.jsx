@@ -139,7 +139,7 @@ export default function Home() {
               <div className="flex flex-col justify-start items-start">
                 <div className="title mx-auto lg:mx-0 flex flex-col justify-center items-start">
                   <div className="flex items-end">
-                    <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
+                    <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                       T
                     </span>
                     <div className="flex flex-col">
@@ -173,9 +173,9 @@ export default function Home() {
               <div className="img w-full lg:w-1/2 flex justify-center items-center py-10 mx-auto sm:mx-3 h-auto overflow-hidden">
                 <div className="flex flex-col justify-start items-start">
                   {/* 文字區塊：筆電(>=lg)移除左右 margin */}
-                  <div className="title mx-auto lg:mx-0 flex flex-col justify-center items-start">
+                  <div className="title mx-auto pb-12 px-8 lg:px-0 lg:mx-0 flex flex-col justify-center items-center">
                     <div className="flex items-end">
-                      <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
+                      <span className="capital-text mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                         R
                       </span>
                       <div className="flex flex-col">
@@ -261,7 +261,7 @@ export default function Home() {
                 <div className="flex flex-col justify-center items-center h-full">
                   <div className="title flex flex-col justify-center items-start">
                     <div className="flex items-end">
-                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
+                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                         U
                       </span>
                       <div className="flex flex-col">
@@ -297,7 +297,7 @@ export default function Home() {
                 <div className="flex flex-col justify-center items-center h-full">
                   <div className="title mb-5 mt-10 mx-auto lg:mx-0 flex flex-col justify-center items-start">
                     <div className="flex items-end">
-                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[3.25rem] sm:text-[4.5rem] md:text-[5.5rem] lg:text-[6.25rem]">
+                      <span className="capital-text text-white mr-2 text-center m-0 p-0 font-normal leading-none text-[5rem]  sm:text-[4.5rem] md:text-[5.5rem] lg:text-[5.5rem]">
                         E
                       </span>
                       <div className="flex flex-col ">
