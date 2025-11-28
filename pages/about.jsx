@@ -180,7 +180,7 @@ export default function Home() {
                   <p className="text-base leading-relaxed tracking-wide w-full mt-6">
                     好房子，值得依靠；好關係，值得託付
                     <br />
-                    當市場競逐利益，宜園回歸最本質的「家」，最關鍵的「住」以職人專業為基
+                    當市場競逐利益，宜園回歸最本質的「家」最關鍵的「住」以職人專業為基
                     <br />
                     堅守實在本質，落實大小細節，築起家的價值
                     <br />
@@ -254,7 +254,8 @@ export default function Home() {
                       <br />
                       宜園，以實在的構築
                       <br />
-                      讓人與人、與土地、與城市之間 美好關係加以延續
+                      讓人與人、與土地、與城市之間 <br />
+                      美好關係加以延續
                     </p>
                   </div>
                 </div>

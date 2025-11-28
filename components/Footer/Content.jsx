@@ -5,103 +5,40 @@ import { useEffect } from "react";
 
 import Link from "next/link";
 // import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
+
 export default function Content() {
   // ✅ 修正卡住滾動的 bug：每次進入頁面都清除 .page-transition
   useEffect(() => {
     document.body.classList.remove("page-transition");
     sessionStorage.removeItem("transitioning"); // 順便清除狀態
   }, []);
-  const placeholders = [
-    "理想的家，該具備哪些元素？",
-    "選擇房子時，你最在意什麼？",
-    "如何找到兼具品質與舒適的住宅？",
-    "買房是投資還是生活選擇？",
-    "未來的家，會是什麼模樣？",
-  ];
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
   return (
     <div
       id="dark-section"
-      className="pb-2   bg-[#222422] bg-left bg-no-repeat bg-cover py-8 2xl:px-[200px] lg:px-[150px] px-[40px] h-full  w-full flex flex-col justify-center"
+      className="pb-2 bg-[#222422] bg-left bg-no-repeat bg-cover py-8 2xl:px-[200px] lg:px-[150px] px-[40px] h-full w-full flex flex-col justify-center"
     >
       <Section2 />
       <div className=" md:w-1/2 max-w-[900px] flex justify-start"></div>
-      {/* <Marquee className="mb-12">
-        <div className="flex justify-center items-center">
-          <b className="text-[4.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-          <b className="text-[5.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-          <b className="text-[4.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-          <b className="text-[4.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-          <b className="text-[4.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-          <b className="text-[4.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-          <b className="text-[4.3vmin] mr-3 font-normal text-gray-50">
-            Yi-Yuan BUILDING DESIGN
-          </b>
-        </div>
-      </Marquee> */}
     </div>
   );
 }
 
 const Section2 = () => {
-  const placeholders = [
-    "理想的家，該具備哪些元素？",
-    "選擇房子時，你最在意什麼？",
-    "如何找到兼具品質與舒適的住宅？",
-    "買房是投資還是生活選擇？",
-    "未來的家，會是什麼模樣？",
-  ];
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <Nav />
 
-      <div className="copy flex  flex-col lg:flex-row  border-t-1 border-white py-4">
-        <div className="flex flex-col w-full lg:w-1/2  sm:items-start items-center justify-center sm:justify-start">
+      <div className="copy flex flex-col lg:flex-row border-t-1 border-white py-4">
+        <div className="flex flex-col w-full lg:w-1/2 sm:items-start items-center justify-center sm:justify-start">
           <div className="social-media-icon mb-1 flex"></div>
 
-          {/* <p className="text-[.9rem] text-gray-200 font-light">
-            Copyright © 2023︎ Ait Design Inc.
-          </p> */}
-          <p className="text-[.8rem]  text-gray-200 mt-4 font-light">
+          <p className="text-[.8rem] text-gray-200 mt-4 font-light text-center sm:text-left">
             Copyright © {new Date().getFullYear()} 宜園建設
           </p>
         </div>
-        <div className="flex w-full lg:w-1/2 py-0 sm:py-8 lg:py-0 justify-center sm:justify-start lg:justify-end   flex-col items-center sm:items-start lg:items-end">
-          {/* <PlaceholdersAndVanishInput
-            placeholders={placeholders}
-            onChange={handleChange}
-            onSubmit={onSubmit}
-          /> */}
-          ;
-          <p className="text-[.8rem] text-gray-200 font-light">
-            {" "}
+        <div className="flex w-full lg:w-1/2 py-0 sm:py-8 lg:py-0 justify-center sm:justify-start lg:justify-end flex-col items-center sm:items-start lg:items-end">
+          <p className="text-[.8rem] text-gray-200 font-light text-center sm:text-right">
             Design by 極客網頁設計
           </p>
         </div>
@@ -112,13 +49,14 @@ const Section2 = () => {
 
 const Nav = () => {
   return (
-    <div className=" shrink-0 gap-2 ">
+    <div className="shrink-0 gap-2">
       <div className="middle flex flex-col lg:flex-row pb-8 lg:items-center justify-center">
         {/* 左邊：公司資訊 */}
-        <div className="w-full lg:w-[50%] flex justify-center lg:justify-start ">
+        <div className="w-full lg:w-[50%] flex justify-center lg:justify-start">
           <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
-            <div className="flex py-4 sm:py-8 flex-col">
-              <div className="flex mt-0  flex-col">
+            {/* 修改處 1：加入 items-center (手機置中) sm:items-start (桌機靠左) */}
+            <div className="flex py-4 sm:py-8 flex-col items-center sm:items-start text-center sm:text-left">
+              <div className="flex mt-0 flex-col items-center sm:items-start">
                 <p className="text-[18px] text-gray-100 font-mode leading-[0.8] my-5">
                   宜園建設股份有限公司
                 </p>
@@ -130,7 +68,7 @@ const Nav = () => {
                   rel="noopener noreferrer"
                   aria-label="在 Google 地圖開啟：台中市北區賴興里文心路四段212號10樓-2"
                 >
-                  <span className="text-[.8rem] text-white mt-1">
+                  <span className="text-[.8rem] text-white mt-1 block">
                     地址：台中市北區文心路四段212號10樓之2
                   </span>
                 </Link>
@@ -141,7 +79,7 @@ const Nav = () => {
                   rel="noopener noreferrer"
                   aria-label="寫信給 Yi.yuan@msa.hinet.net"
                 >
-                  <span className="text-[.8rem] text-white mt-1 break-all">
+                  <span className="text-[.8rem] text-white mt-1 break-all block">
                     信箱：yi.yuan@msa.hinet.net
                   </span>
                 </Link>
@@ -152,15 +90,16 @@ const Nav = () => {
                   rel="noopener noreferrer"
                   aria-label="撥打電話 04-22978188"
                 >
-                  <span className="text-[.8rem] text-white mt-1">
+                  <span className="text-[.8rem] text-white mt-1 block">
                     電話：04-22978188
                   </span>
                 </Link>
               </div>
             </div>
 
-            <div className="flex pl-0 sm:pl-8 pb-5 sm:py-8 flex-col">
-              <div className="flex mt-0  flex-col">
+            {/* 修改處 2：加入 items-center (手機置中) sm:items-start (桌機靠左) */}
+            <div className="flex pl-0 sm:pl-8 pb-5 sm:py-8 flex-col items-center sm:items-start text-center sm:text-left">
+              <div className="flex mt-0 flex-col items-center sm:items-start">
                 <p className="text-[18px] hidden sm:block opacity-0 text-gray-100 font-mode leading-[0.8] my-2">
                   宜園建設股份有限公司
                 </p>
@@ -169,13 +108,17 @@ const Nav = () => {
                   target="_blank"
                   href="https://www.adholic.com.tw/yiqingyin/"
                 >
-                  <span className="text-[.8rem] text-white mt-1">一青隱</span>
+                  <span className="text-[.8rem] text-white mt-1 block">
+                    一青隱
+                  </span>
                 </Link>
                 <Link
                   target="_blank"
                   href="https://www.adholic.com.tw/yutayuanli/"
                 >
-                  <span className="text-[.8rem] text-white mt-1">宜園大院</span>
+                  <span className="text-[.8rem] text-white mt-1 block">
+                    宜園大院
+                  </span>
                 </Link>
               </div>
             </div>
@@ -191,6 +134,7 @@ const Nav = () => {
             allowFullScreen=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
+            className="max-w-full"
           ></iframe>
         </div>
       </div>

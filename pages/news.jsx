@@ -372,8 +372,8 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                               className="absolute inset-0 z-10"
                               aria-label={`閱讀更多：${item.title}`}
                             />
-                            <div className="sm:flex-row flex  flex-col">
-                              <div className=" w-full p-3 sm:w-[30%] overflow-hidden rounded-md flex-shrink-0 flex flex-col z-0">
+                            <div className="w-full flex flex-col sm:flex-row items-center">
+                              <div className="w-full p-3 sm:w-[30%] overflow-hidden rounded-md flex-shrink-0 flex flex-col z-0">
                                 <div className="relative w-full h-[180px] sm:h-[200px] md:h-[140px]">
                                   {item.img ? (
                                     <Image
@@ -391,7 +391,9 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                                   {item.alt || item.excerpt}
                                 </p>
                               </div>
-                              <div className="txt p-4 w-full sm:w-[60%] z-0">
+
+                              {/* 👇 修改這裡：原本是 sm:w-[60%] (30+60=90，會少10%)，建議改成 sm:w-[70%] 或 flex-1 把空間填滿 */}
+                              <div className="txt p-4 w-full sm:w-[70%] z-0">
                                 <h3 className="text-lg font-bold leading-snug">
                                   {item.title.split("，")[0]}
                                   {item.title.includes("，") ? "，" : ""}
