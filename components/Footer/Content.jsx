@@ -57,43 +57,44 @@ const Nav = () => {
             {/* 修改處 1：加入 items-center (手機置中) sm:items-start (桌機靠左) */}
             <div className="flex py-4 sm:py-8 flex-col items-center sm:items-start text-center sm:text-left">
               <div className="flex mt-0 flex-col items-center sm:items-start">
-                <p className="text-[18px] text-gray-100 font-mode leading-[0.8] my-5">
-                  宜園建設股份有限公司
-                </p>
-                <b className="text-gray-400 text-[.8rem]">Contact</b>
-
-                <Link
-                  href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8C%97%E5%8D%80%E8%B3%B4%E8%88%88%E9%87%8C%E6%96%87%E5%BF%83%E8%B7%AF%E5%9B%9B%E6%AE%B5212%E8%99%9F10%E6%A8%93-2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="在 Google 地圖開啟：台中市北區賴興里文心路四段212號10樓-2"
-                >
-                  <span className="text-[.8rem] text-white mt-1 block">
-                    地址：台中市北區文心路四段212號10樓之2
-                  </span>
-                </Link>
-
-                <Link
-                  href="mailto:Yi.yuan@msa.hinet.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="寫信給 Yi.yuan@msa.hinet.net"
-                >
-                  <span className="text-[.8rem] text-white mt-1 break-all block">
-                    信箱：yi.yuan@msa.hinet.net
-                  </span>
-                </Link>
-
-                <Link
-                  href="tel:+886422978188"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="撥打電話 04-22978188"
-                >
-                  <span className="text-[.8rem] text-white mt-1 block">
-                    電話：04-22978188
-                  </span>
-                </Link>
+                <div className="flex flex-col">
+                  <p className="text-[18px] text-gray-100 font-mode leading-[0.8] my-5">
+                    宜園建設股份有限公司
+                  </p>
+                  <b className="text-gray-400 text-[.8rem]">Contact</b>
+                  <div className="flex flex-col items-start">
+                    <Link
+                      href="tel:+886422978188"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="撥打電話 04-22978188"
+                    >
+                      <span className="text-[.8rem] text-white mt-1 block">
+                        電話：04-22978188
+                      </span>
+                    </Link>
+                    <Link
+                      href="mailto:Yi.yuan@msa.hinet.net"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="寫信給 Yi.yuan@msa.hinet.net"
+                    >
+                      <span className="text-[.8rem] text-white mt-1 break-all block">
+                        信箱：yi.yuan@msa.hinet.net
+                      </span>
+                    </Link>
+                    <Link
+                      href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8C%97%E5%8D%80%E8%B3%B4%E8%88%88%E9%87%8C%E6%96%87%E5%BF%83%E8%B7%AF%E5%9B%9B%E6%AE%B5212%E8%99%9F10%E6%A8%93-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="在 Google 地圖開啟：台中市北區賴興里文心路四段212號10樓-2"
+                    >
+                      <span className="text-[.8rem] text-white mt-1 block">
+                        地址：台中市北區文心路四段212號10樓之2
+                      </span>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
 

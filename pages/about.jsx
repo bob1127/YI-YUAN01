@@ -296,7 +296,7 @@ export default function Home() {
 
           {/* --- Section 3 --- */}
           <section className="py-8 lg:py-12 bg-[#6D7B80] sm:py-16">
-            <div className="flex max-w-[1920px] lg:flex-row flex-col-reverse mb-5 mt-10 lg:mt-[10vh] w-[98%] mx-auto items-center justify-center">
+            <div className="flex max-w-[1920px] lg:flex-row flex-col-reverse mb-5 mt-0 lg:mt-[10vh] w-[98%] mx-auto items-center justify-center">
               {/* ← 加上 justify-center */}
               <div className="img w-full lg:px-16 xl:px-28 lg:w-1/2 flex items-center justify-center">
                 <div className="animate-image-wrapper relative w-full aspect-[4/3] overflow-hidden grid place-items-center">
