@@ -11,18 +11,37 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
+// ✅ 修正與增強：處理更多 HTML 實體符號，解決亂碼問題
 function decodeEntities(str = "") {
+  if (!str) return "";
   return str
     .replace(/&amp;/g, "&")
     .replace(/&#038;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'");
+    .replace(/&#039;/g, "'")
+    .replace(/&#8217;/g, "'") // 右單引號
+    .replace(/&#8216;/g, "'") // 左單引號
+    .replace(/&#8220;/g, '"') // 左雙引號
+    .replace(/&#8221;/g, '"') // 右雙引號
+    .replace(/&hellip;/g, "...") // 刪節號
+    .replace(/&#8230;/g, "...") // 刪節號編碼
+    .replace(/&nbsp;/g, " ") // 不換行空白
+    .replace(/&#160;/g, " "); // 空白編碼
 }
+
+// ✅ 修正與增強：先移除標籤，再移除 WordPress 常見的 [...], 再解碼
 function stripHtml(html = "") {
-  return decodeEntities(html.replace(/<[^>]+>/g, "").trim());
+  if (!html) return "";
+  // 1. 移除 HTML 標籤
+  let text = html.replace(/<[^>]+>/g, "");
+  // 2. 移除 WordPress 自動產生的 excerpt 後綴 (如 [&hellip;] 或 [...])
+  text = text.replace(/\[&hellip;\]/g, "").replace(/\[\.\.\.\]/g, "");
+  // 3. 解碼實體符號並去除頭尾空白
+  return decodeEntities(text).trim();
 }
+
 function toRocMonth(iso) {
   const d = new Date(iso);
   const yy = d.getFullYear() - 1911;
@@ -125,7 +144,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
 
   return (
     <Layout>
-      {/* Hero 省略，與你原本一致 */}
+      {/* Hero */}
       <section className="section-hero-title aspect-[16/16] sm:aspect-[16/12] md:aspect-[16/6.5] overflow-hidden mt-14 w-full relative">
         <div className="main-title absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2">
           <h1 className=" text-3xl text-center font-light sm:text-4xl 2xl:text-6xl text-white">
@@ -195,7 +214,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
 
       <section className="section-content py-10 lg:py-20">
         <div className="flex flex-col lg:flex-row max-w-[1920px] mx-auto">
-          {/* 左欄：工程進度 —— 文字全部使用圖片 alt（或 figcaption） */}
+          {/* 左欄：工程進度 */}
           <div className="left w-full lg:w-1/2">
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
               <h2>工程進度｜</h2>
@@ -330,7 +349,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
             ))}
           </div>
 
-          {/* 右欄（原樣） */}
+          {/* 右欄 */}
           <div className="right w-full lg:w-1/2">
             <div className="flex flex-col px-4 md:px-8 xl:px-16">
               <h2>新聞中心｜</h2>
@@ -392,7 +411,6 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                                 </p>
                               </div>
 
-                              {/* 👇 修改這裡：原本是 sm:w-[60%] (30+60=90，會少10%)，建議改成 sm:w-[70%] 或 flex-1 把空間填滿 */}
                               <div className="txt p-4 w-full sm:w-[70%] z-0">
                                 <h3 className="text-lg font-bold leading-snug">
                                   {item.title.split("，")[0]}
@@ -400,6 +418,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                                   <br />
                                   {item.title.split("，")[1] ?? ""}
                                 </h3>
+                                {/* ✅ 這裡顯示處理過的乾淨文字 */}
                                 <p className="text-[14px] font-normal line-clamp-3 mt-2">
                                   {item.excerpt}
                                 </p>
@@ -422,7 +441,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                   </AnimatePresence>
                 </div>
 
-                {/* 分頁器（原樣） */}
+                {/* 分頁器 */}
                 <div className="mt-4 flex items-center justify-center gap-2 select-none">
                   <motion.button
                     type="button"
@@ -530,10 +549,9 @@ export async function getStaticProps() {
   const progressUrl = `${base}/wp-json/wp/v2/progress?acf_format=standard&per_page=10&orderby=date&order=desc`;
   const postsUrl = `${base}/wp-json/wp/v2/posts?per_page=30&orderby=date&order=desc&_embed`;
 
-  // ✅ 重寫：針對 Gutenberg <figure><img ...><figcaption>…</figcaption></figure>
+  // ✅ 修正：提取圖片的邏輯
   const extractImagesFromHTML = (html = "", fallbackTitle = "工程照片") => {
     const out = [];
-    // 先找 figure 區塊（可跨行）
     const figureRe = /<figure\b[^>]*>([\s\S]*?)<\/figure>/gi;
     let fm;
     while ((fm = figureRe.exec(html)) !== null) {
@@ -544,7 +562,6 @@ export async function getStaticProps() {
       if (!im) continue;
       const src = im[1];
       let alt = im[2] || "";
-      // 若 alt 空，抓 figcaption 文字
       if (!alt) {
         const capRe = /<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/i;
         const cap = capRe.exec(block);
@@ -553,7 +570,6 @@ export async function getStaticProps() {
       out.push({ src, alt: alt || fallbackTitle, width: 1600, height: 1066 });
       if (out.length >= 6) break;
     }
-    // 沒 figure 時，再用單純 <img> 萃取
     if (!out.length) {
       const imgRe =
         /<img\b[^>]*src=["']([^"']+)["'][^>]*?(?:alt=["']([^"']*)["'])?[^>]*>/gi;
@@ -579,7 +595,7 @@ export async function getStaticProps() {
     const progRows = progRes.ok ? await progRes.json() : [];
     const postRows = postRes.ok ? await postRes.json() : [];
 
-    // progress → galleries（每張圖一定帶 alt：img.alt 或 figcaption）
+    // progress → galleries
     galleriesFromCMS = progRows
       .map((p, idx) => {
         const title = decodeEntities(p?.title?.rendered || "工程進度");
@@ -597,7 +613,7 @@ export async function getStaticProps() {
       })
       .filter(Boolean);
 
-    // posts → 右欄資料（原樣）
+    // posts → 右欄資料
     posts = postRows.map((post) => {
       const media = post?._embedded?.["wp:featuredmedia"]?.[0];
       const img = media?.source_url || "";
@@ -609,6 +625,7 @@ export async function getStaticProps() {
         id: post.id,
         slug: post.slug,
         title: decodeEntities(post.title?.rendered || ""),
+        // ✅ 這裡會使用增強後的 stripHtml，解決亂碼和 [...], &hellip; 等問題
         excerpt: stripHtml(post.excerpt?.rendered || ""),
         date: toRocMonth(post.date),
         img,
