@@ -87,26 +87,30 @@ export default function Home() {
             <div className="flex flex-col items-start">
               <h2 className="text-[30px] xl:text-[50px]">實在的構築</h2>
               <p className="lg:text-[18px] text-[16px]">
-                宜居的建築，承載著宜居的根
-                <br />
-                不一定最宏大，卻能帶來安心
+                宜居的建築，承載著宜居的根；不一定最宏大，卻能帶來安心
                 <br />
                 傾聽，土地的聲音；細說，生命的故事
               </p>
               <br />
+              <h3 className="text-[24px] xl:text-[36px]">
+                宜園建設 獲2025誠信品牌優良建商肯定
+              </h3>
               <p className="lg:text-[18px] text-[16px]">
-                A livable building carries the roots of livability
-                <br />— not necessarily the grandest, yet it brings peace of
-                mind
+                宜園建設秉持「實在的構築」，持續扎根中台灣，
                 <br />
+                以「宜」為初心，展現二代建築職人的精神，
                 <br />
-                Listening to the voice of the land, telling the stories of life
+                從建築規劃到生活空間，始終追求合宜的設計與適切的品質。
+                <br />
+                長期落實的企業治理與穩健誠信，
+                <br />
+                獲得「2025年台灣誠信品牌-優良建商」肯定。
               </p>
             </div>
           </div>
           <div className="right w-full md:w-1/2 flex justify-center items-center">
             <Image
-              src="/images/img093.png"
+              src="/images/獎牌.jpg"
               alt=""
               width={800}
               height={1000}
