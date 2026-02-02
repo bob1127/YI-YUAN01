@@ -1,7 +1,6 @@
 "use client";
 
 import Layout from "./Layout";
-import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
 
@@ -21,9 +20,7 @@ export default function About() {
 
   return (
     <Layout>
-      {/* 修改處：移除 grid，加入 flex 用於垂直水平置中，設定 min-h 確保高度足夠置中 */}
       <section className="py-[90px] px-4 md:px-12 lg:px-20 w-full min-h-[80vh] flex flex-col justify-center items-center">
-        {/* 修改處：設定最大寬度 max-w-2xl 並透過 mx-auto 水平置中 */}
         <div className="w-full max-w-2xl mx-auto bg-white">
           <div className="mb-8 text-center">
             <span className="text-sm tracking-widest text-gray-600 uppercase">
@@ -38,13 +35,14 @@ export default function About() {
               e.preventDefault();
               setSubmitting(true);
               setStatus("");
+              setStatusType("");
 
               const form = e.currentTarget;
               const fd = new FormData(form);
 
-              // 後端需要的欄位命名
+              // 準備送往後端的資料
               const payload = {
-                name: (fd.get("username") || "").toString().trim(),
+                name: (fd.get("username") || "").toString().trim(), // 對應後端的 FNAME
                 email: (fd.get("email") || "").toString().trim(),
                 phone: (fd.get("phone") || "").toString().trim(),
                 project: (fd.get("project") || "").toString(),
@@ -61,12 +59,13 @@ export default function About() {
                 const data = await res.json().catch(() => ({}));
 
                 if (!res.ok) {
-                  throw new Error(data?.error || data?.detail || "提交失敗");
+                  throw new Error(data?.error || data?.detail || "提交失敗，請稍後再試");
                 }
 
+                // 成功
                 setStatus("您的需求已送出，請靜候人員聯絡您");
-                setStatusType("success"); // 建議加上這個狀態管理
-                form.reset();
+                setStatusType("success");
+                form.reset(); // 清空表單
               } catch (err) {
                 const errorMessage =
                   err instanceof Error ? err.message : "送出失敗，請稍後再試";
@@ -119,12 +118,13 @@ export default function About() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-800"
               >
-                Email
+                Email <span className="text-red-500">*</span>
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
+                required
                 autoComplete="email"
                 placeholder="example@mail.com"
                 className="mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base leading-6 placeholder:text-gray-400 outline-none focus:border-black transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
@@ -168,8 +168,10 @@ export default function About() {
                       </div>
                     </div>
 
-                    {/* 右上角圓點 */}
-                    <div className="absolute top-2 right-2 w-4 h-4 rounded-full border-2 border-white bg-black opacity-0 peer-checked:opacity-100 transition" />
+                    {/* 右上角打勾圓點 */}
+                    <div className="absolute top-2 right-2 w-5 h-5 bg-black rounded-full text-white flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity">
+                      ✓
+                    </div>
                   </label>
                 ))}
               </div>
@@ -222,7 +224,7 @@ export default function About() {
               {status && (
                 <p
                   className={`mt-2 text-center text-sm font-medium ${
-                    statusType === "success" || status.includes("已送出")
+                    statusType === "success"
                       ? "text-green-600"
                       : "text-red-600"
                   }`}
