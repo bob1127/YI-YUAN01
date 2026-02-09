@@ -43,6 +43,7 @@ function stripHtml(html = "") {
 }
 
 function toRocMonth(iso) {
+  if (!iso) return "";
   const d = new Date(iso);
   const yy = d.getFullYear() - 1911;
   return `${yy}.${String(d.getMonth() + 1).padStart(2, "0")}`;
@@ -359,6 +360,7 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
               <div className="flex flex-col new-items">
                 <div className="title pt-10 mb-2 border-b flex justify-between w-full">
                   <h3 className="text-[22px]">最新消息</h3>
+                  {/* 注意：這裏顯示的是第一篇文章的日期 */}
                   <span>更新日期：{posts[0]?.date ?? ""}</span>
                 </div>
 
@@ -418,7 +420,6 @@ export default function NewsPage({ galleriesFromCMS, posts }) {
                                   <br />
                                   {item.title.split("，")[1] ?? ""}
                                 </h3>
-                                {/* ✅ 這裡顯示處理過的乾淨文字 */}
                                 <p className="text-[14px] font-normal line-clamp-3 mt-2">
                                   {item.excerpt}
                                 </p>
@@ -604,9 +605,15 @@ export async function getStaticProps() {
         let items = extractImagesFromHTML(contentHtml, title);
         if (!items.length) return null;
 
+        // ✅ 修改重點：使用 modified 日期
         let date = "";
-        if (p?.acf?.update_month) date = p.acf.update_month;
-        else if (p?.date) date = toRocMonth(p.date);
+        if (p?.acf?.update_month) {
+          date = p.acf.update_month;
+        } else if (p?.modified) {
+          date = toRocMonth(p.modified); // 抓取最後更新時間
+        } else {
+          date = toRocMonth(p.date); // 若無更新則抓取發布時間
+        }
 
         const layout = idx % 2 === 0 ? "L2R1" : "R1L2";
         return { sectionTitle: title, date, layout, items: items.slice(0, 3) };
@@ -627,7 +634,8 @@ export async function getStaticProps() {
         title: decodeEntities(post.title?.rendered || ""),
         // ✅ 這裡會使用增強後的 stripHtml，解決亂碼和 [...], &hellip; 等問題
         excerpt: stripHtml(post.excerpt?.rendered || ""),
-        date: toRocMonth(post.date),
+        // ✅ 修改重點：使用 modified 日期
+        date: toRocMonth(post.modified || post.date),
         img,
         alt,
       };
