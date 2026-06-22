@@ -1,12 +1,121 @@
 "use client";
-import { useRef } from "react";
 import Layout from "./Layout";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
 import Head from "next/head";
 import { BsSearch } from "react-icons/bs";
 import { motion } from "framer-motion";
+
+const projects = [
+  {
+    href: "/project/project-yiyuan-green",
+    image: "/images/project/宜園之青/官網圖片-建築經典.jpg",
+    alt: "宜園之青",
+    title: "宜園之青",
+    subtitle: "繁城新境·悠悠之青",
+    badge: "熱銷中",
+    badgeClass: "bg-[#d33]",
+  },
+  {
+    href: "/project/project-yiyuan",
+    image: "/images/project/S__3497991_0.jpg",
+    alt: "宜園大院",
+    title: "宜園大院",
+    subtitle: "13期·人車分道·極奢墅",
+    badge: "熱銷中",
+    badgeClass: "bg-[#d33]",
+  },
+  {
+    href: "/project/project-yiching",
+    image: "/images/project/S__31399941.jpg",
+    alt: "一青隱",
+    title: "一青隱",
+    subtitle: "一境·青海·閒隱",
+    badge: "熱銷中",
+    badgeClass: "bg-[#d33]",
+  },
+  {
+    href: "/project/project-chengjing06",
+    image: "/images/project/宜園誠境6/1.webp",
+    alt: "誠境6",
+    title: "誠境6",
+    subtitle: "景觀別墅·庭院·大露台",
+    badge: "2020",
+    badgeClass: "bg-[#485936]/80",
+  },
+  {
+    href: "/project/project-chengjing05",
+    image: "/images/project/宜園誠境5/1.webp",
+    alt: "誠境5",
+    title: "誠境5",
+    subtitle: "匠心巨作·典藏誠境五期.",
+    badge: "2018",
+    badgeClass: "bg-[#485936]/80",
+  },
+  {
+    href: "/project/project-chengjing02",
+    image: "/images/project/宜園誠境2/1.webp",
+    alt: "誠境2",
+    title: "誠境2",
+    subtitle: "匠心續作，典藏誠境二期",
+    badge: "2016",
+    badgeClass: "bg-[#485936]/80",
+  },
+  {
+    href: "/project/project-YiYuanChengjing",
+    image: "/images/project/宜園誠境/1.webp",
+    alt: "宜園誠境",
+    title: "宜園誠境",
+    subtitle: "誠境首章｜境啟未來",
+    badge: "2014",
+    badgeClass: "bg-[#485936]/80",
+  },
+];
+
+function ProjectCard({ href, image, alt, title, subtitle, badge, badgeClass }) {
+  return (
+    <Link href={href} className="group block min-w-0 h-full">
+      <div className="project-item flex flex-col h-full overflow-hidden">
+        <div className="project-card-media relative w-full aspect-[4/3] overflow-hidden shrink-0">
+          <div className="absolute inset-0 bg-[#5b5c5d] opacity-0 group-hover:opacity-25 z-20 transition duration-300" />
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-30 pointer-events-none">
+            <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
+            <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
+              More
+            </span>
+          </div>
+
+          <Image
+            src={image}
+            alt={alt}
+            fill
+            sizes="(max-width: 640px) 100vw, 33vw"
+            className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
+            placeholder="empty"
+            loading="lazy"
+          />
+
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
+            <div
+              className={`w-32 h-16 ${badgeClass} rounded-t-full flex items-center justify-center shadow-lg`}
+            >
+              <span className="text-white font-semibold tracking-wide">
+                {badge}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-center items-center p-8 mt-2">
+          <h2 className="text-3xl mb-4 font-bold text-[#20382c]">{title}</h2>
+          <p className="text-[#337162]">{subtitle}</p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 const project = () => {
   const handleScroll = () => {
     const prefersReduced =
@@ -120,269 +229,11 @@ const project = () => {
         `}</style>
       </section>
 
-      <div className="title py-1"></div>
-      <section className="grid  grid-cols-1 sm:grid-cols-3 w-full ">
-        <Link href="/project/project-yiyuan" className="group block">
-          <div className="project-item  flex relative group overflow-hidden flex-col">
-            <div className="img aspect-[4/3] relative overflow-hidden">
-              {/* 灰色遮罩 */}
-              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-              {/* icon + More 文字 */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                  More
-                </span>
-              </div>
-
-              {/* 圖片本體 */}
-              <Image
-                src="/images/project/S__3497991_0.jpg"
-                alt="宜園大院"
-                fill
-                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-                placeholder="empty"
-                loading="lazy"
-              />
-
-              {/* 半圓標籤：預設隱藏，hover 出現 */}
-              {/* 半圓標籤：預設固定顯示 */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
-                <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-semibold tracking-wide">
-                    熱銷中
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-3xl mb-4 font-bold text-[#20382c]">
-                宜園大院
-              </h2>
-              <p className="text-[#337162]">13期·人車分道·極奢墅</p>
-            </div>
-          </div>
-        </Link>
-        <Link href="/project/project-yiching" className="group block">
-          <div className="project-item  flex relative group overflow-hidden flex-col">
-            <div className="img aspect-[4/3] relative overflow-hidden">
-              {/* 灰色遮罩 */}
-              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-              {/* icon + More 文字 */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-                {/* 放大鏡 icon */}
-                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                {/* More 文字 */}
-                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                  More
-                </span>
-              </div>
-
-              {/* 圖片本體 */}
-              <Image
-                src="/images/project/S__31399941.jpg"
-                alt="宜園大院"
-                fill
-                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-                placeholder="empty"
-                loading="lazy"
-              />
-              {/* 半圓標籤：預設固定顯示 */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
-                <div className="w-32 h-16 bg-[#d33] rounded-t-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-semibold tracking-wide">
-                    熱銷中
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-3xl mb-4 font-bold text-[#20382c]">一青隱</h2>
-              <p className="text-[#337162]">一境·青海·閒隱</p>
-            </div>
-          </div>
-        </Link>
-        <Link href="/project/project-chengjing06" className="group block">
-          <div className="project-item  flex relative group overflow-hidden flex-col">
-            <div className="img aspect-[4/3] relative overflow-hidden">
-              {/* 灰色遮罩 */}
-              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-              {/* icon + More 文字 */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-                {/* 放大鏡 icon */}
-                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                {/* More 文字 */}
-                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                  More
-                </span>
-              </div>
-
-              {/* 圖片本體 */}
-              <Image
-                src="/images/project/宜園誠境6/1.webp"
-                alt="宜園大院"
-                fill
-                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-                placeholder="empty"
-                loading="lazy"
-              />
-              {/* 半圓標籤：預設固定顯示 */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
-                <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-semibold tracking-wide">
-                    2020
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境6</h2>
-
-              <p className="text-[#337162]">景觀別墅·庭院·大露台</p>
-            </div>
-          </div>
-        </Link>
-      </section>
-      <section className="grid  grid-cols-1 sm:grid-cols-3 w-full ">
-        <Link href="/project/project-chengjing05" className="group block">
-          <div className="project-item  flex relative group overflow-hidden flex-col">
-            <div className="img aspect-[4/3] relative overflow-hidden">
-              {/* 灰色遮罩 */}
-              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-              {/* icon + More 文字 */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-                {/* 放大鏡 icon */}
-                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                {/* More 文字 */}
-                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                  More
-                </span>
-              </div>
-
-              {/* 圖片本體 */}
-              <Image
-                src="/images/project/宜園誠境5/1.webp"
-                alt="宜園大院"
-                fill
-                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-                placeholder="empty"
-                loading="lazy"
-              />
-              {/* 半圓標籤：預設固定顯示 */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
-                <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-semibold tracking-wide">
-                    2018
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境5</h2>
-
-              <p className="text-[#337162]">匠心巨作·典藏誠境五期.</p>
-            </div>
-          </div>
-        </Link>
-        <Link href="/project/project-chengjing02" className="group block">
-          <div className="project-item  flex relative group overflow-hidden flex-col">
-            <div className="img aspect-[4/3] relative overflow-hidden">
-              {/* 灰色遮罩 */}
-              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-              {/* icon + More 文字 */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-                {/* 放大鏡 icon */}
-                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                {/* More 文字 */}
-                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                  More
-                </span>
-              </div>
-
-              {/* 圖片本體 */}
-              <Image
-                src="/images/project/宜園誠境2/1.webp"
-                alt="宜園大院"
-                fill
-                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-                placeholder="empty"
-                loading="lazy"
-              />
-              {/* 半圓標籤：預設固定顯示 */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
-                <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-semibold tracking-wide">
-                    2016
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-3xl mb-4 font-bold text-[#20382c]">誠境2</h2>
-
-              <p className="text-[#337162]">匠心續作，典藏誠境二期</p>
-            </div>
-          </div>
-        </Link>
-        <Link href="/project/project-YiYuanChengjing" className="group block">
-          <div className="project-item  flex relative group overflow-hidden flex-col">
-            <div className="img aspect-[4/3] relative overflow-hidden">
-              {/* 灰色遮罩 */}
-              <div className="mask bg-[#5b5c5d] w-full opacity-0 group-hover:opacity-25 absolute top-0 left-0 z-20 h-full transition duration-300"></div>
-
-              {/* icon + More 文字 */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-                {/* 放大鏡 icon */}
-                <BsSearch className="text-white text-4xl opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out" />
-                {/* More 文字 */}
-                <span className="text-white text-sm mt-2 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-out">
-                  More
-                </span>
-              </div>
-
-              {/* 圖片本體 */}
-              <Image
-                src="/images/project/宜園誠境/1.webp"
-                alt="宜園大院"
-                fill
-                className="object-cover transform scale-100 transition-transform duration-1000 ease-in-out group-hover:scale-105"
-                placeholder="empty"
-                loading="lazy"
-              />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30">
-                <div className="w-32 h-16 bg-[#485936]/80 rounded-t-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-semibold tracking-wide">
-                    2014
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* 文字區塊 */}
-            <div className="txt flex flex-col justify-center items-center p-8 mt-2">
-              <h2 className="text-3xl mb-4 font-bold text-[#20382c]">
-                宜園誠境
-              </h2>
-
-              <p className="text-[#337162]">誠境首章｜境啟未來</p>
-            </div>
-          </div>
-        </Link>
+      <div id="next-section" className="title py-1" />
+      <section className="grid grid-cols-1 sm:grid-cols-3 w-full items-start">
+        {projects.map((item) => (
+          <ProjectCard key={item.href} {...item} />
+        ))}
       </section>
     </Layout>
   );

@@ -18,15 +18,13 @@ export default () => {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
-      
-
         <SwiperSlide className="w-full bg-white pb-[40px]">
           <Link href="https://ari.tw/x5qqsq" target="_blank">
             {" "}
             <Card className="py-4 bg-white p-0 m-0 shadow-none">
               <CardBody className="flex pb-[30px] flex-col relative">
                 <img
-                  src="/images/hot-sale/新案_Ａ.jpg"
+                  src="/images/hot-sale/S__117571593.jpg"
                   alt="Card background"
                   loading="lazy"
                   decoding="async"
@@ -45,7 +43,26 @@ export default () => {
             <Card className="py-4 bg-white p-0 m-0 shadow-none">
               <CardBody className="flex pb-[30px] flex-col relative">
                 <img
-                  src="/images/hot-sale/新案_Ｂ.jpg"
+                  src="/images/hot-sale/S__117571592.jpg"
+                  alt="Card background"
+                  loading="lazy"
+                  decoding="async"
+                  width="1500"
+                  height="800"
+                  className="max-w-[1000px] w-[90%] mx-auto object-cover"
+                />
+              </CardBody>
+            </Card>
+          </Link>
+        </SwiperSlide>
+
+        <SwiperSlide className="w-full bg-white pb-[40px]">
+          <Link href="https://lihi.cc/D1Cqi" target="_blank">
+            {" "}
+            <Card className="py-4 bg-white p-0 m-0 shadow-none">
+              <CardBody className="flex pb-[30px] flex-col relative">
+                <img
+                  src="/images/hot-sale/官網圖片-新案鑑賞.jpg"
                   alt="Card background"
                   loading="lazy"
                   decoding="async"
